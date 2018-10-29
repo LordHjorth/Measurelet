@@ -55,39 +55,48 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:background="@drawable/ripple"
-            android:drawableLeft="@drawable/ic_baseline_opacity_24px"
-            android:text="Sodavand\n500ml" />
+            android:drawableLeft="@drawable/ic_soda"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Soda-\nvand\n500ml"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/vand"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:background="@drawable/ripple"
-            android:drawableLeft="@drawable/ic_baseline_opacity_24px"
-            android:text="Vand\n175ml" />
+            android:drawableLeft="@drawable/ic_glass_of_water"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Vand\n175ml"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/juice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:background="@drawable/ripple"
-            android:drawableLeft="@drawable/ic_baseline_opacity_24px"
-            android:text="Juice\n200ml" />
+            android:drawableLeft="@drawable/ic_orange_juice"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Juice\n200ml"
+            android:textAllCaps="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -107,39 +116,48 @@
             android:id="@+id/kaffe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:background="@drawable/ripple"
-            android:drawableLeft="@drawable/ic_baseline_opacity_24px"
-            android:text="Kaffe\n125ml" />
+            android:drawableLeft="@drawable/ic_coffee_cup"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textAllCaps="false"
+            tools:text="@string/kaffeml" />
 
         <Button
             android:id="@+id/saftevand"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:background="@drawable/ripple"
-            android:drawableLeft="@drawable/ic_baseline_opacity_24px"
-            android:text="Saftevand\n1000ml" />
+            android:drawableLeft="@drawable/ic_pitcher"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Saft\n1000ml"
+            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/andet"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:background="@drawable/ripple"
             android:drawableLeft="@drawable/ic_more_horiz_black_24dp"
-            android:text="Andet" />
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Andet"
+            android:textAllCaps="false" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
