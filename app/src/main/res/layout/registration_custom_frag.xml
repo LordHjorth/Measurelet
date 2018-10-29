@@ -20,16 +20,10 @@
         app:layout_constraintStart_toStartOf="@+id/guideleft"
         app:layout_constraintTop_toTopOf="@+id/guide45">
 
-        <ScrollView
+        <Spinner
             android:id="@+id/andet"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:visibility="invisible"
-            tools:layout_editor_absoluteX="135dp"
-            tools:layout_editor_absoluteY="434dp">
-
-        </ScrollView>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <android.support.constraint.Guideline
@@ -124,15 +118,10 @@
         app:layout_constraintStart_toStartOf="@+id/guideleft"
         app:layout_constraintTop_toTopOf="@+id/guideline35">
 
-        <ScrollView
+        <Spinner
             android:id="@+id/scrollvalg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            tools:layout_editor_absoluteX="135dp"
-            tools:layout_editor_absoluteY="434dp">
-
-        </ScrollView>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout
