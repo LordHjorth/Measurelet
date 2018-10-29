@@ -1,7 +1,9 @@
-package com.example.hjorth.measurelet;
+package com.measurelet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.hjorth.measurelet.R;
 
 public class LoginScreen_act extends AppCompatActivity {
 

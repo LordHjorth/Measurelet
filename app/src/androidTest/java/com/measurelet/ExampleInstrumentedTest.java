@@ -1,4 +1,4 @@
-package com.example.hjorth.measurelet;
+package com.measurelet;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package com.example.hjorth.measurelet;
+package com.measurelet;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

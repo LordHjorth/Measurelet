@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile_frag">
+    tools:context="com.measurelet.Profile_frag">
 
 </android.support.constraint.ConstraintLayout>

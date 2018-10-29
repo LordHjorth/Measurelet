@@ -1,4 +1,4 @@
-package com.example.hjorth.measurelet;
+package com.measurelet;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Settings_frag extends Fragment {
+public class Favourite_edit_frag extends Fragment {
 
     @Nullable
     @Override

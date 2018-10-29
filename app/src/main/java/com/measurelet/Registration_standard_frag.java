@@ -1,4 +1,4 @@
-package com.example.hjorth.measurelet;
+package com.measurelet;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Daily_view_frag extends Fragment {
+public class Registration_standard_frag extends Fragment {
 
     @Nullable
     @Override
