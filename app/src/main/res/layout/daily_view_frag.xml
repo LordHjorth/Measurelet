@@ -116,13 +116,16 @@
                 android:text=""
                 android:textColor="#000000" />
 
-            <TextView
 
+            <TextView
+                android:layout_width="103dp"
                 android:layout_weight="1"
-                android:background="#cac9c9"
+                android:background="#d3d3d3"
                 android:gravity="center"
                 android:padding="20dip"
+                android:text=""
                 android:textColor="#000000" />
+
 
         </TableRow>
 
@@ -160,16 +163,29 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
-        android:layout_height="187dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="131dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="96dp"
         android:src="@drawable/barchart"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintBottom_toTopOf="@+id/imageView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="47dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="60dp"
+        android:src="@drawable/ic_border_color_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
