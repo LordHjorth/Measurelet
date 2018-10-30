@@ -8,6 +8,7 @@
     tools:context="com.measurelet.Registration_custom_frag">
 
     <LinearLayout
+        android:id="@+id/setsynligt"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
@@ -20,10 +21,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideleft"
         app:layout_constraintTop_toTopOf="@+id/guide45">
 
-        <Spinner
-            android:id="@+id/andet"
+        <EditText
+            android:id="@+id/selftyped"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:autoSizeTextType="uniform"
+            android:focusedByDefault="true"
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            tools:layout_editor_absoluteX="167dp"
+            tools:layout_editor_absoluteY="403dp" />
     </LinearLayout>
 
     <android.support.constraint.Guideline
@@ -73,8 +81,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline35"
         app:layout_constraintEnd_toStartOf="@+id/guideright"
         app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guidetop"
-        tools:text="@string/drink" />
+        app:layout_constraintTop_toTopOf="@+id/guidetop" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guide55"
@@ -91,7 +98,7 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <TextView
-        android:id="@+id/amount"
+        android:id="@+id/amounttitle"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -106,7 +113,6 @@
         tools:text="@string/amount" />
 
     <LinearLayout
-        android:id="@+id/setsynligt"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
@@ -127,6 +133,8 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/roundedcorners"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guidelowermid"
@@ -135,13 +143,13 @@
         app:layout_constraintTop_toTopOf="@+id/guide55">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/amountofliquid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:autoSizeTextType="uniform"
+            android:digits="0123456789"
+            android:imeOptions="actionDone"
             android:inputType="number"
-            android:text=" Indtast her"
             tools:layout_editor_absoluteX="167dp"
             tools:layout_editor_absoluteY="403dp" />
     </LinearLayout>
@@ -154,7 +162,7 @@
         app:layout_constraintGuide_percent="0.45" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/plusbut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
