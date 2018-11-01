@@ -57,36 +57,39 @@
             app:layout_constraintStart_toStartOf="parent">
 
 
-            <EditText
+            <TextView
                 android:id="@+id/registrated_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:autoSizeTextType="uniform"
                 android:text="725" />
 
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:text="ml" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:text="/" />
 
-            <EditText
+            <TextView
                 android:id="@+id/registrated_goal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:autoSizeTextType="uniform"
                 android:text="2000" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
                 android:text="ml" />
 
         </LinearLayout>

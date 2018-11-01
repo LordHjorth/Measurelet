@@ -45,10 +45,15 @@ public class Registration_standard_frag extends Fragment implements View.OnClick
             Fragment custom = new Registration_custom_frag();
             FragmentManager fm = getFragmentManager();
             fm.beginTransaction().replace(R.id.mainfrag, custom, "cust").addToBackStack(null).commit();
+        } else {
+            returnmainmenu();
         }
 
 
-
-
     }
+
+    public void returnmainmenu() {
+        getFragmentManager().beginTransaction().replace(R.id.mainfrag, getFragmentManager().findFragmentByTag("main")).addToBackStack(null).commit();
+    }
+
 }

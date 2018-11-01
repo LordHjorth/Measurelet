@@ -18,7 +18,7 @@ import com.example.hjorth.measurelet.R;
 
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    private int ml;
+    private long ml;
     private String liqtyp;
     private EditText tastml;
     private EditText tastandet;
@@ -74,7 +74,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
             Toast.makeText(getActivity(), "Du har drukket: " + ml + "ml " + liqtyp, Toast.LENGTH_LONG).show();
-            System.out.println("Du har drukket: " + ml + "ml " + liqtyp);
+            getFragmentManager().beginTransaction().replace(R.id.mainfrag, getFragmentManager().findFragmentByTag("main")).addToBackStack(null).commit();
         }
 
     }
