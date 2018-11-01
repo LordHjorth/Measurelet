@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle" >
+
+            <corners
+                android:bottomLeftRadius="80dp"
+                android:bottomRightRadius="80dp"
+                android:topLeftRadius="80dp"
+                android:topRightRadius="80dp" />
+
+            <solid android:color="#43778bfa" />
+
+            <padding
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="0dp" />
+
+            <size
+                android:height="80dp"
+                android:width="80dp" />
+
+        </shape>
+    </item>
+
+    <item android:top="1dp" android:bottom="3dp">
+        <shape android:shape="rectangle" >
+
+            <corners
+                android:bottomLeftRadius="80dp"
+                android:bottomRightRadius="80dp"
+                android:topLeftRadius="80dp"
+                android:topRightRadius="80dp" />
+
+            <solid android:color="#00c853"/>
+
+            <padding
+                android:bottom="0dp"
+                android:left="0dp"
+                android:right="0dp"
+                android:top="0dp" />
+
+            <size
+                android:height="80dp"
+                android:width="80dp" />
+
+        </shape>    </item>
+    <item android:drawable="@drawable/ic_add" />
+</layer-list>

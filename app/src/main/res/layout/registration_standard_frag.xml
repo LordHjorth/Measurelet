@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--TODO Emil-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,4 +7,157 @@
     android:layout_height="match_parent"
     tools:context="com.measurelet.Registration_standard_frag">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/opdel0.50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/titleg0.2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <TextView
+        android:id="@+id/cliquidtit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/titleg0.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/indtag" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/opdel0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleg0.2">
+
+        <Button
+            android:id="@+id/sodavand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple"
+            android:drawableLeft="@drawable/ic_soda"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Soda-\nvand\n500ml"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/vand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple"
+            android:drawableLeft="@drawable/ic_glass_of_water"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Vand\n175ml"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/juice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple"
+            android:drawableLeft="@drawable/ic_orange_juice"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Juice\n200ml"
+            android:textAllCaps="false" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/opdel0.50"
+        app:layout_constraintTop_toTopOf="@+id/titleg0.2">
+
+        <Button
+            android:id="@+id/kaffe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple"
+            android:drawableLeft="@drawable/ic_coffee_cup"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/kaffeml"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/saftevand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple"
+            android:drawableLeft="@drawable/ic_pitcher"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Saft\n1000ml"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/andet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple"
+            android:drawableLeft="@drawable/ic_more_horiz_black_24dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Andet"
+            android:textAllCaps="false" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
