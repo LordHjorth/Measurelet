@@ -6,4 +6,6 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="Dato"></string>
+    <string name="Indtag">Her kan du se dit daglige væskeindtag</string>
 </resources>
