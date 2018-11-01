@@ -8,4 +8,6 @@
     <string name="action_settings">Settings</string>
     <string name="Dato"></string>
     <string name="Indtag">Her kan du se dit daglige væskeindtag</string>
+    <string name="Add_btn">Add</string>
+    <string name="quick_add_text">Hurtig tilføjelse</string>
 </resources>
