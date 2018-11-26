@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.measurelet.Database.Converters.DateConverter;
 import com.measurelet.Model.Bed;
+import com.measurelet.Model.IntakeFav;
 import com.measurelet.Model.Patient;
 import com.measurelet.Model.Weight;
 
@@ -19,6 +20,13 @@ public abstract class LocalDatabase extends RoomDatabase {
     private static LocalDatabase INSTANCE;
 
     public abstract PatientDao patientDao();
+
+    public abstract BedDao bedDao();
+    public abstract IntakeDao intakeDao();
+    public abstract IntakeFavDao intakeFavDao();
+    public abstract IntakeStandardDao intakeStandardDao();
+    public abstract WeightDao weightDao();
+
 
     public static LocalDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
