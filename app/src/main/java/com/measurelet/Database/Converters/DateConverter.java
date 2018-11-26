@@ -1,9 +1,9 @@
 package com.measurelet.Database.Converters;
 
+import android.arch.persistence.room.TypeConverter;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import androidx.room.TypeConverter;
 
 public class DateConverter {
 

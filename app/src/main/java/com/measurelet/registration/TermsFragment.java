@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -27,7 +31,21 @@ public class TermsFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View fragment = inflater.inflate(R.layout.fragment_terms, container, false);
 
-        String html = "<h1>test</h1>";
+
+        InputStream iStream = getContext().getResources().openRawResource(R.raw.terms);
+        ByteArrayOutputStream byteStream = null;
+        try {
+            byte[] buffer = new byte[iStream.available()];
+            iStream.read(buffer);
+            byteStream = new ByteArrayOutputStream();
+            byteStream.write(buffer);
+            byteStream.close();
+            iStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String html = byteStream.toString();
 
         ((TextView) fragment.findViewById(R.id.terms_text)).setText(Html.fromHtml(html));
 

@@ -19,13 +19,12 @@
     <string name="drink">Hvad har du drukket?</string>
     <string name="amount">Mængde</string>
     <string name="kaffeml">Kaffe\n125ml</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="registrerOverskrift">Indtast din vægt nedenfor</string>
     <string name="antalkg">Indtast din vægt i kg.</string>
     <string name="kommetal">Skriv med kommatal. Fx 75,5</string>
     <string name="seneste">Seneste vægt indtastninger</string>
 
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
