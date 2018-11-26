@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.App;
+import com.measurelet.Model.Patient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +45,9 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         String name = ((EditText)fragment.findViewById(R.id.signup_name_txt)).getText().toString();
 
-        App.HasloggedIn = true;
+        Patient patient = new Patient(name);
+
+        App.database.patientDao().insert(patient);
 
         getActivity().finish();
 
