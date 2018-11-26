@@ -10,9 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.registration.IntroSlidePager;
+import com.measurelet.Model.Patient;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,15 +24,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.main_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (!App.HasloggedIn) {
+        if (App.getCurrentPatient() == null) {
             startActivity(new Intent(this, LoginScreen_act.class));
         }
 
         getSupportFragmentManager().beginTransaction().add(R.id.mainfrag, new Dashboard_frag(), "main").commit();
 
-
-
-
+        
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -41,6 +40,21 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Patient patient = App.getCurrentPatient();
+        if(patient != null && findViewById(R.id.nav_header_name) != null){
+            ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Patient patient = App.getCurrentPatient();
+        if(patient != null && findViewById(R.id.nav_header_name) != null){
+            ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
+        }
     }
 
     @Override

@@ -24,6 +24,7 @@
         <activity
             android:name="com.measurelet.LoginScreen_act"
             android:screenOrientation="portrait" />
+
         <activity android:name="com.measurelet.registrering_af_vaegt"></activity>
     </application>
 
