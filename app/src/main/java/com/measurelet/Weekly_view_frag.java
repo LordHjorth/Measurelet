@@ -53,14 +53,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         calendar.add(Calendar.DATE, 1);
         Date d5 = calendar.getTime();
         calendar.add(Calendar.DATE, 1);
-        Date d6 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d7 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d8 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d9 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+
 
         VæskeRegistrering væske = new VæskeRegistrering();
         væske.setDate(d1);
@@ -169,7 +162,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.mainfrag, new Daily_view_frag(), "daily").addToBackStack(null).commit();
+       // fm.beginTransaction().replace(R.id.mainfrag, new Daily_view_frag(), "daily").addToBackStack(null).commit();
 
 
     }

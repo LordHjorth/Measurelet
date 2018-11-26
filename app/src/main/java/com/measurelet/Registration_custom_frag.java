@@ -16,6 +16,10 @@ import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private long ml;
@@ -64,7 +68,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
                 return;
             }
             ml = Integer.parseInt(mil);
-            //Toast.makeText(getActivity(),"Tilføjet",Toast.LENGTH_LONG).show();
+
 
             if (andet) {
                 liqtyp = tastandet.getText().toString();
@@ -73,8 +77,8 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
             tastandet.setVisibility(View.INVISIBLE);
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
-            Toast.makeText(getActivity(), "Du har drukket: " + ml + "ml " + liqtyp, Toast.LENGTH_LONG).show();
-            getFragmentManager().beginTransaction().replace(R.id.mainfrag, getFragmentManager().findFragmentByTag("main")).addToBackStack(null).commit();
+            ((MainActivity)getActivity()).getAddAnimation();
+            NavHostFragment.findNavController(this).navigate(R.id.action_registration_custom_frag_to_dashboard_frag);
         }
 
     }

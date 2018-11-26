@@ -5,23 +5,23 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_registrering"
+            android:id="@+id/dashboard_frag"
             android:icon="@drawable/ic_baseline_opacity_24px"
             android:title="@string/registrer" />
         <item
-            android:id="@+id/nav_ugentligtoverblik"
+            android:id="@+id/weekly_view_frag"
             android:icon="@drawable/ic_menu_send"
             android:title="Ugentligt overblik" />
         <item
-            android:id="@+id/nav_dagligoverblik"
+            android:id="@+id/daily_view_frag"
             android:icon="@drawable/ic_menu_send"
             android:title="Dagligt overblik" />
         <item
-            android:id="@+id/nav_profil"
+            android:id="@+id/profile_frag"
             android:icon="@drawable/profil"
             android:title="Profil" />
         <item
-            android:id="@+id/nav_indstillinger"
+            android:id="@+id/settings_frag"
             android:icon="@drawable/ic_menu_manage"
             android:title="Indstillinger" />
     </group>

@@ -2,13 +2,14 @@ package com.measurelet;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hjorth.measurelet.R;
+
+import androidx.navigation.fragment.NavHostFragment;
 
 public class Registration_standard_frag extends Fragment implements View.OnClickListener {
     private Button soda;
@@ -36,24 +37,27 @@ public class Registration_standard_frag extends Fragment implements View.OnClick
         other.setOnClickListener(this);
 
 
+
         return standardfrag;
     }
 
     @Override
     public void onClick(View view) {
         if (view == other) {
-            Fragment custom = new Registration_custom_frag();
-            FragmentManager fm = getFragmentManager();
-            fm.beginTransaction().replace(R.id.mainfrag, custom, "cust").addToBackStack(null).commit();
+            NavHostFragment.findNavController(this).navigate(R.id.action_registration_standard_frag_to_registration_custom_frag);
+
         } else {
-            returnmainmenu();
+            ((MainActivity)getActivity()).getAddAnimation();
+
+            NavHostFragment.findNavController(this).navigate(R.id.action_registration_standard_frag_to_dashboard_frag);
+
+
+
         }
 
 
     }
 
-    public void returnmainmenu() {
-        getFragmentManager().beginTransaction().replace(R.id.mainfrag, getFragmentManager().findFragmentByTag("main")).addToBackStack(null).commit();
-    }
+
 
 }
