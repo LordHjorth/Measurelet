@@ -56,7 +56,12 @@
         tools:layout="@layout/registration_custom_frag" >
         <action
             android:id="@+id/action_registration_custom_frag_to_dashboard_frag"
-            app:destination="@id/dashboard_frag" />
+            app:destination="@id/dashboard_frag"
+            app:popUpTo="@+id/dashboard_frag" />
+        <argument
+            android:name="liq"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/profile_frag"
