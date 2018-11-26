@@ -12,13 +12,16 @@ import com.measurelet.registration.IntroSlidePager;
 
 public class LoginScreen_act extends AppCompatActivity {
 
+
+    private IntroSlidePager intro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen_act);
 
-        IntroSlidePager intro = new IntroSlidePager();
+        intro = new IntroSlidePager();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, intro).commit();
 
@@ -27,4 +30,16 @@ public class LoginScreen_act extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.login_fragment_frame);
+        
+        if(f == intro){
+            finishAffinity();
+        } else {
+            super.onBackPressed();
+        }
+
+    }
 }
