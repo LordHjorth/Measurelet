@@ -12,11 +12,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.registration.IntroSlidePager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    public static boolean Hasloggedin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.main_activity);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (!Hasloggedin) {
-            Hasloggedin = true;
+        if (!App.HasloggedIn) {
             startActivity(new Intent(this, LoginScreen_act.class));
         }
 
