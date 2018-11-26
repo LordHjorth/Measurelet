@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -13,6 +14,7 @@ import androidx.room.PrimaryKey;
 public class Patient {
 
     @PrimaryKey
+    @NonNull
     public String id;
 
     @ColumnInfo(name = "PatientName")
@@ -26,5 +28,8 @@ public class Patient {
         this.id = UUID.randomUUID().toString();
         this.patientName = patientName;
         this.regDate = new Date();
+    }
+
+    public Patient(){
     }
 }

@@ -27,7 +27,7 @@ public interface BedDao {
     @Query("SELECT *  FROM Bed WHERE patientID = :patientID")
     Bed getPatientBed(UUID patientID);
 
-    @Query("SELECT *  FROM Bed WHERE patientID = :patientID AND regDatetime = :regDate")
+    @Query("SELECT *  FROM Bed WHERE patientID = :patientID AND regDate = :regDate")
     Bed getPatientBedByTime(UUID patientID, Date regDate);
 
     @Query("SELECT * FROM Bed")

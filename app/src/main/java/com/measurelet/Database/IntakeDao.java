@@ -27,7 +27,7 @@ public interface IntakeDao {
     @Query("SELECT *  FROM Intake WHERE patientID = :patientID")
     Intake getPatientIntake(UUID patientID);
 
-    @Query("SELECT *  FROM Intake WHERE patientID = :patientID AND regDatetime = :regDate")
+    @Query("SELECT *  FROM Intake WHERE patientID = :patientID AND regDate = :regDate")
     Intake getPatientIntakeByTime(UUID patientID, Date regDate);
 
     @Query("SELECT * FROM Intake")

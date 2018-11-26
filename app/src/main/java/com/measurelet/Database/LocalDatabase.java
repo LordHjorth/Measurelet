@@ -2,6 +2,7 @@ package com.measurelet.Database;
 
 import android.content.Context;
 
+import com.measurelet.Database.Converters.DateConverter;
 import com.measurelet.Model.Bed;
 import com.measurelet.Model.Patient;
 import com.measurelet.Model.Weight;
@@ -9,8 +10,10 @@ import com.measurelet.Model.Weight;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-@Database(entities = {Patient.class, Weight.class, Bed.class}, version = 1)
+@Database(entities = {Patient.class, Weight.class, Bed.class}, version = 1, exportSchema = false)
+@TypeConverters(DateConverter.class)
 public abstract class LocalDatabase extends RoomDatabase {
 
     private static LocalDatabase INSTANCE;
