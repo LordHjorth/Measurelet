@@ -21,8 +21,8 @@
     <string name="kaffeml">Kaffe\n125ml</string>
     <string name="registrerOverskrift">Indtast din vægt nedenfor</string>
     <string name="antalkg">Indtast din vægt i kg.</string>
-    <string name="kommetal">Skriv med kommetal. Fx 75,5</string>
-
+    <string name="kommetal">Skriv med kommatal. Fx 75,5</string>
+    <string name="seneste">Seneste vægt indtastninger</string>
 
 
 </resources>
