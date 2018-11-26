@@ -41,7 +41,7 @@ public class TermsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         SignupFragment signup = new SignupFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, signup).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, signup).addToBackStack(null).commit();
 
     }
 }

@@ -56,7 +56,7 @@ public class IntroPageFragment extends Fragment {
         btn.setOnClickListener((view) -> {
             // Skift til T&C Screen
             TermsFragment terms = new TermsFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, terms).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, terms).addToBackStack(null).commit();
 
         });
 

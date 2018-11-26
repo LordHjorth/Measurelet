@@ -46,7 +46,7 @@ public class IntroSlidePager extends Fragment {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) fragment.findViewById(R.id.pager);
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
-        mPagerAdapter = new ScreenSlidePagerAdapter(getFragmentManager());
+        mPagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
         // Tilføj dots
