@@ -15,7 +15,6 @@ import com.example.hjorth.measurelet.R;
  */
 public class IntroPageFragment extends Fragment {
 
-
     public IntroPageFragment() {
         // Required empty public constructor
     }
