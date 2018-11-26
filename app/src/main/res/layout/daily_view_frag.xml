@@ -4,188 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.measurelet.Daily_view_frag">
+    tools:context="com.measurelet.Weekly_view_frag"
+    tools:layout_editor_absoluteY="81dp">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/tableLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="51dp"
-        android:background="#ffffff"
-        android:shrinkColumns="*"
-        android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.859">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Dagligt Oversigt"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph"
+            android:layout_width="match_parent"
+            android:layout_height="239dp"
+            android:layout_marginBottom="17dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-        </TableRow>
-
-
-        <TableRow
-            android:id="@+id/values"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/liquid"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:background="#dcdcdc"
-                android:gravity="center"
-                android:padding="20dip"
-                android:text="Væske"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/size"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#dcdcdc"
-                android:gravity="center"
-                android:padding="20dip"
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
                 android:text="Antal ml"
-                android:textColor="#000000" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView14"
+                app:layout_constraintStart_toEndOf="@+id/textView11"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/time"
-                android:layout_weight="1"
-                android:background="#d3d3d3"
-                android:gravity="center"
-                android:padding="20dip"
+                android:id="@+id/textView14"
+                android:layout_width="0dp"
+                android:layout_height="41dp"
+                android:layout_marginEnd="71dp"
+                android:text="Væske"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="0dp"
+                android:layout_height="37dp"
+                android:layout_marginEnd="3dp"
                 android:text="Tid"
-                android:textColor="#000000" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/change"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:background="#cac9c9"
-                android:gravity="center"
-                android:padding="20dip"
-                android:text="Ændre"
-                android:textColor="#000000" />
+        <ListView
+            android:id="@+id/listDaily"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        </TableRow>
-
-
-        <TableRow
-            android:id="@+id/insertedValues"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="29dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#dcdcdc"
-                android:gravity="center"
-                android:padding="20dip"
-                android:text=""
-                android:textColor="#000000" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:background="#dcdcdc"
-                android:gravity="center"
-                android:padding="20dip"
-                android:text=""
-                android:textColor="#000000" />
-
-            <TextView
-                android:layout_width="103dp"
-                android:layout_weight="1"
-                android:background="#d3d3d3"
-                android:gravity="center"
-                android:padding="20dip"
-                android:text=""
-                android:textColor="#000000" />
+        </ListView>
 
 
-            <TextView
-                android:layout_width="103dp"
-                android:layout_weight="1"
-                android:background="#d3d3d3"
-                android:gravity="center"
-                android:padding="20dip"
-                android:text=""
-                android:textColor="#000000" />
-
-
-        </TableRow>
-
-
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="89dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="116dp"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginBottom="293dp"
-        android:text="@string/Indtag"
-        android:textColor="@android:color/background_dark"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="131dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="96dp"
-        android:src="@drawable/barchart"
-        app:layout_constraintBottom_toTopOf="@+id/imageView7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="47dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="60dp"
-        android:src="@drawable/ic_border_color_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.932"
-        app:layout_constraintStart_toStartOf="parent" />
-
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
