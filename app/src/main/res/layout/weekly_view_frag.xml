@@ -25,6 +25,7 @@
             android:textAlignment="center"
             android:textSize="30sp" />
 
+
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph"
             android:layout_width="match_parent"
