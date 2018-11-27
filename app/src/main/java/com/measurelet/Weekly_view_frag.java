@@ -100,7 +100,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         DataPoint[] pointsArray = new DataPoint[væskeList.size()];
 
         for (int i = 0; i < væskeList.size(); i++) {
-            pointsArray[i] = new DataPoint(væskeList.get(i).getDate(), væskeList.get(i).getMængde());
+            pointsArray[i] = new DataPoint(i, væskeList.get(i).getMængde());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pointsArray);

@@ -3,15 +3,12 @@ package com.measurelet;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -22,7 +19,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 
-public class MainActivity extends AppCompatActivity{ //implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
+
     private NavController navC;
     private  DrawerLayout drawer;
     @Override
@@ -33,10 +31,11 @@ public class MainActivity extends AppCompatActivity{ //implements NavigationView
             startActivity(new Intent(this, LoginScreen_act.class));
         }
 
-        navC= Navigation.findNavController(findViewById(R.id.nav_host));
+        setNavC(Navigation.findNavController(findViewById(R.id.nav_host))); //navC= ;
         Toolbar toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
 
 
@@ -44,40 +43,21 @@ public class MainActivity extends AppCompatActivity{ //implements NavigationView
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
-        NavigationUI.setupWithNavController(navigationView,navC);
-
-
+        NavigationUI.setupWithNavController(navigationView, navC);
     }
 
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-
             navC.navigateUp();
+
+
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.settings_frag) {
-            navC.navigate(R.id.settings_frag);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void getAddAnimation(){
@@ -110,5 +90,12 @@ public class MainActivity extends AppCompatActivity{ //implements NavigationView
 
     }
 
+    public NavController getNavC() {
+        return navC;
+    }
+
+    public void setNavC(NavController navC) {
+        this.navC = navC;
+    }
 
 }

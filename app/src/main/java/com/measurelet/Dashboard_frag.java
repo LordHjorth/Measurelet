@@ -49,6 +49,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
 
 
+
         return dashboard;
 
 
@@ -56,31 +57,33 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        System.out.println(((MainActivity) getActivity()).getNavC());
+        System.out.println(NavHostFragment.findNavController(this));
+
+
         if (view == add_btn) {
-
-            NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
         }
-        if(view==mllayout){
-                NavHostFragment.findNavController(this).navigate(R.id.action_dashboard_frag_to_daily_view_frag);
-        }
-
-        if(view==ffour){
-                ml=ml+1000;
-            overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
-        }
-        if(view==ftree){
-                ml=ml+125;
-            overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
-        }
-        if(view==ftwo){
-                ml=ml+175;
-            overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
-        }
-        if(view==fone){
-                ml=ml+500;
-            overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
+        if (view == mllayout) {
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_daily_view_frag);
         }
 
+        if (view == ffour) {
+            ml = ml + 1000;
+            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+        }
+        if (view == ftree) {
+            ml = ml + 125;
+            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+        }
+        if (view == ftwo) {
+            ml = ml + 175;
+            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+        }
+        if (view == fone) {
+            ml = ml + 500;
+            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
         }
 
+        }
 }

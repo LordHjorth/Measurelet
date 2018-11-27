@@ -9,8 +9,6 @@ import android.widget.Button;
 
 import com.example.hjorth.measurelet.R;
 
-import androidx.navigation.fragment.NavHostFragment;
-
 public class Registration_standard_frag extends Fragment implements View.OnClickListener {
     private Button soda;
     private Button juice;
@@ -44,12 +42,11 @@ public class Registration_standard_frag extends Fragment implements View.OnClick
     @Override
     public void onClick(View view) {
         if (view == other) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_registration_standard_frag_to_registration_custom_frag);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_registration_standard_frag_to_registration_custom_frag);
 
         } else {
             ((MainActivity)getActivity()).getAddAnimation();
-
-            NavHostFragment.findNavController(this).navigate(R.id.action_registration_standard_frag_to_dashboard_frag);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_registration_standard_frag_to_dashboard_frag);
 
 
 

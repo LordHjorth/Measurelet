@@ -15,8 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -78,7 +76,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
 
             ((MainActivity)getActivity()).getAddAnimation();
 
-            NavHostFragment.findNavController(this).navigate(R.id.action_registration_custom_frag_to_dashboard_frag,bundle);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_registration_custom_frag_to_dashboard_frag, bundle);
         }
 
     }
