@@ -123,4 +123,9 @@
         android:name="liq"
         android:defaultValue="0"
         app:argType="integer" />
+    <fragment
+        android:id="@+id/reg_weight_frag"
+        android:name="com.measurelet.Reg_weight_frag"
+        android:label="reg_weight_frag"
+        tools:layout="@layout/reg_weight_frag" /><action android:id="@+id/action_global_reg_weight_frag" app:destination="@id/reg_weight_frag" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popUpTo="@id/dashboard_frag" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 </navigation>

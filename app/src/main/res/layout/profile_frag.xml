@@ -161,13 +161,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/ripple"
         android:padding="10dp"
-        android:background="@color/colorPrimary"
         android:text="Gem ændringer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8"
+        />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"

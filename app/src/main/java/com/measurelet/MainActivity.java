@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         lw=findViewById(R.id.lot_view);
         lw.setAnimation("checkm.zip");
+        lw.setSpeed(0.7f);
+
         lw.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

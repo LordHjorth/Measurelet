@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -16,6 +17,10 @@
             android:id="@+id/daily_view_frag"
             android:icon="@drawable/ic_menu_send"
             android:title="Dagligt overblik" />
+        <item
+            android:id="@+id/reg_weight_frag"
+            android:icon="@drawable/profil"
+            android:title="Registrering af vægt" />
         <item
             android:id="@+id/profile_frag"
             android:icon="@drawable/profil"

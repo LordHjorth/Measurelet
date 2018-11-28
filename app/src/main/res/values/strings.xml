@@ -15,7 +15,7 @@
     <string name="profil">Profil</string>
     <string name="indstillinger">Indstillinger</string>
     <string name="registrer">Væskeregistrering</string>
-    <string name="indtag"><u>Vælg den indtaget væske</u></string>
+    <string name="choose"><u>Vælg væske</u></string>
     <string name="drink">Hvad har du drukket?</string>
     <string name="amount">Mængde</string>
     <string name="kaffeml">Kaffe\n125ml</string>
@@ -23,9 +23,4 @@
     <string name="antalkg">Indtast din vægt i kg.</string>
     <string name="kommetal">Skriv med kommatal. Fx 75,5</string>
     <string name="seneste">Seneste vægt indtastninger</string>
-
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
