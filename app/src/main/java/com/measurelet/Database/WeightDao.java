@@ -25,11 +25,14 @@ public interface WeightDao {
     @Delete
     void Delete(Weight weight);
 
-    @Query("SELECT *  FROM Weight WHERE patientID = :patientID")
-    Weight getPatientWeight(UUID patientID);
+    @Query("SELECT *  FROM Weight WHERE patientID = :patientID ORDER BY regDate")
+    List<Weight> getPatientWeights(UUID patientID);
 
     @Query("SELECT *  FROM Weight WHERE patientID = :patientID AND regDate = :regDate")
     Weight getPatientWeightByTime(UUID patientID, Date regDate);
+
+    @Query("SELECT *  FROM Weight WHERE patientID = :patientID ORDER BY regDate DESC LIMIT 1")
+    Weight getPatientLatestWeight(UUID patientID);
 
     @Query("SELECT * FROM Weight")
     List<Weight> getAllWeight();

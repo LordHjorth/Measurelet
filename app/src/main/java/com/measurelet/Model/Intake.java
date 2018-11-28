@@ -13,16 +13,17 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(foreignKeys = @ForeignKey(entity = Patient.class, parentColumns = "id", childColumns = "patientID"))
+@Entity(foreignKeys = @ForeignKey(entity = Patient.class, parentColumns = "id", childColumns = "patientID"),
+        indices = {@Index("patientID")})
 public class Intake {
 
     @PrimaryKey
     @NonNull
-    public String id;
+    public UUID id = UUID.randomUUID();
 
     @ColumnInfo(name = "patientID")
     @NonNull
-    public String patientID;
+    public UUID patientID = UUID.randomUUID();
 
     @ColumnInfo(name = "Amount")
     public int amount;
@@ -34,8 +35,8 @@ public class Intake {
     public Date regDate;
 
     @Ignore
-    public Intake(String patientID, Enums.IntakeType type, int amount){
-        this.id = UUID.randomUUID().toString();
+    public Intake(@NonNull UUID patientID, Enums.IntakeType type, int amount){
+        this.id = UUID.randomUUID();
         this.patientID = patientID;
         this.type = type;
         this.regDate = new Date();
@@ -47,5 +48,7 @@ public class Intake {
             this.amount = amount;
         }
     }
+
+    public Intake(){ }
 
 }

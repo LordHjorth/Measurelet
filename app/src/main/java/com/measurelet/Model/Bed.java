@@ -19,11 +19,11 @@ public class Bed {
 
     @PrimaryKey
     @NonNull
-    public String id;
+    public UUID id = UUID.randomUUID();
 
     @ColumnInfo(name = "patientID")
     @NonNull
-    public String patientID;
+    public UUID patientID = UUID.randomUUID();
 
     @ColumnInfo(name = "BedNum")
     public int bedNum;
@@ -32,8 +32,8 @@ public class Bed {
     public Date regDate;
 
     @Ignore
-    public Bed(String patientID, int bedNum){
-        this.id = UUID.randomUUID().toString();
+    public Bed(@NonNull UUID patientID, int bedNum){
+        this.id = UUID.randomUUID();
         this.patientID = patientID;
         this.bedNum = bedNum;
         this.regDate = new Date();

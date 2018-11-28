@@ -17,11 +17,11 @@ public class Weight {
 
     @PrimaryKey
     @NonNull
-    public String id;
+    public UUID id = UUID.randomUUID();
 
     @ColumnInfo(name = "patientID")
     @NonNull
-    public String patientID;
+    public UUID patientID = UUID.randomUUID();
 
     @ColumnInfo(name = "regDate")
     public Date regDate;
@@ -30,8 +30,8 @@ public class Weight {
     public double weight;
 
     @Ignore
-    public Weight(String patientID, double weight ){
-        this.id = UUID.randomUUID().toString();
+    public Weight(@NonNull UUID patientID, double weight ){
+        this.id = UUID.randomUUID();
         this.patientID = patientID;
         this.weight = weight;
         this.regDate = new Date();

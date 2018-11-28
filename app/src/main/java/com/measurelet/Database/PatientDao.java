@@ -27,7 +27,7 @@ public interface PatientDao {
     void Delete(Patient patient);
 
     @Query("SELECT *  FROM Patient WHERE id = :ID")
-    Patient getPatient(String ID);
+    Patient getPatient(UUID ID);
 
 
     @Query("SELECT * FROM Patient")

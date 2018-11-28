@@ -1,7 +1,6 @@
 package com.measurelet.Database;
 
 import com.measurelet.Model.Bed;
-import com.measurelet.Model.Intake;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +23,7 @@ public interface BedDao {
     @Delete
     void Delete(Bed bed);
 
-    @Query("SELECT *  FROM Bed WHERE patientID = :patientID")
+    @Query("SELECT *  FROM Bed WHERE patientID = :patientID ORDER BY regDate DESC LIMIT 1")
     Bed getPatientBed(UUID patientID);
 
     @Query("SELECT *  FROM Bed WHERE patientID = :patientID AND regDate = :regDate")

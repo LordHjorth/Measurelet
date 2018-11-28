@@ -1,6 +1,5 @@
 package com.measurelet.Database;
 
-import com.measurelet.Model.Bed;
 import com.measurelet.Model.Intake;
 
 import java.util.Date;
@@ -24,8 +23,8 @@ public interface IntakeDao {
     @Delete
     void Delete(Intake intake);
 
-    @Query("SELECT *  FROM Intake WHERE patientID = :patientID")
-    Intake getPatientIntake(UUID patientID);
+    @Query("SELECT *  FROM Intake WHERE patientID = :patientID ORDER BY regDate")
+    List<Intake> getPatientIntake(UUID patientID);
 
     @Query("SELECT *  FROM Intake WHERE patientID = :patientID AND regDate = :regDate")
     Intake getPatientIntakeByTime(UUID patientID, Date regDate);

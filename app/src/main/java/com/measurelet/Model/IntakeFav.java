@@ -1,28 +1,30 @@
 package com.measurelet.Model;
 
 import com.measurelet.Enums;
+import com.measurelet.Factories.IntakeFactory;
 
 import java.util.Date;
 import java.util.UUID;
 
-import androidx.annotation.NonNull;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-@Entity(foreignKeys = @ForeignKey(entity = Patient.class, parentColumns = "id", childColumns = "patientID"))
+@Entity(foreignKeys = @ForeignKey(entity = Patient.class, parentColumns = "id", childColumns = "patientID"),
+        indices = {@Index("patientID")})
 public class IntakeFav {
 
-    @PrimaryKey(autoGenerate = true)
     @NonNull
-    public String id;
+    @PrimaryKey
+    public UUID id = UUID.randomUUID();
 
     @ColumnInfo(name = "patientID")
     @NonNull
-    public String patientID;
+    public UUID patientID = UUID.randomUUID();
 
     @ColumnInfo(name = "Amount")
     public int amount;
@@ -34,8 +36,8 @@ public class IntakeFav {
     public Date regDate;
 
     @Ignore
-    public IntakeFav(String patientID, Enums.IntakeType type, int amount){
-        this.id = UUID.randomUUID().toString();
+    public IntakeFav(@NonNull UUID patientID, Enums.IntakeType type, int amount){
+        this.id = UUID.randomUUID();
         this.patientID = patientID;
         this.type = type;
         this.regDate = new Date();
@@ -47,4 +49,6 @@ public class IntakeFav {
             this.amount = amount;
         }
     }
+
+    public IntakeFav(){ }
 }

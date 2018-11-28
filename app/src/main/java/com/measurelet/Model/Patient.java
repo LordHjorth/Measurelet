@@ -15,9 +15,9 @@ public class Patient {
 
     @PrimaryKey
     @NonNull
-    public String id;
+    public UUID id = UUID.randomUUID();
 
-    @ColumnInfo(name = "PatientName")
+    @ColumnInfo(name = "Name")
     public String name;
 
     @ColumnInfo(name = "RegDate")
@@ -25,7 +25,7 @@ public class Patient {
 
     @Ignore
     public Patient(String name){
-        this.id = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID();
         this.name = name;
         this.regDate = new Date();
     }
