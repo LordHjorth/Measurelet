@@ -15,7 +15,7 @@
     <string name="profil">Profil</string>
     <string name="indstillinger">Indstillinger</string>
     <string name="registrer">Væskeregistrering</string>
-    <string name="indtag"><u>Vælg den indtaget væske</u></string>
+    <string name="choose"><u>Vælg væske</u></string>
     <string name="drink">Hvad har du drukket?</string>
     <string name="amount">Mængde</string>
     <string name="kaffeml">Kaffe\n125ml</string>

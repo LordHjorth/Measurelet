@@ -24,7 +24,7 @@ public class LoginScreen_act extends AppCompatActivity {
         intro = new IntroSlidePager();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, intro).commit();
-
+        App.HasloggedIn=true;
 
 
     }

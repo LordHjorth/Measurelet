@@ -18,12 +18,13 @@ import com.example.hjorth.measurelet.R;
 
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    private long ml;
+    private int ml;
     private String liqtyp;
     private EditText tastml;
     private EditText tastandet;
     private ImageButton add;
     private boolean andet = false;
+    Bundle bundle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View customfrag = inflater.inflate(R.layout.registration_custom_frag, container, false);
@@ -37,7 +38,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
         customfrag.findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
         add = customfrag.findViewById(R.id.plusbut);
         add.setOnClickListener(this);
-
+        bundle = new Bundle();
 
         Spinner spin = customfrag.findViewById(R.id.scrollvalg);
         String[] items = new String[]{"Sodavand", "Vand", "Kaffe", "Saftevand", "Andet"};
@@ -64,17 +65,18 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
                 return;
             }
             ml = Integer.parseInt(mil);
-            //Toast.makeText(getActivity(),"Tilføjet",Toast.LENGTH_LONG).show();
+            bundle.putInt("liq",ml);
 
-            if (andet) {
+          /*  if (andet) {
                 liqtyp = tastandet.getText().toString();
             }
-
+*/
             tastandet.setVisibility(View.INVISIBLE);
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
-            Toast.makeText(getActivity(), "Du har drukket: " + ml + "ml " + liqtyp, Toast.LENGTH_LONG).show();
-            getFragmentManager().beginTransaction().replace(R.id.mainfrag, getFragmentManager().findFragmentByTag("main")).addToBackStack(null).commit();
+            ((MainActivity)getActivity()).getAddAnimation();
+
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_registration_custom_frag_to_dashboard_frag, bundle);
         }
 
     }

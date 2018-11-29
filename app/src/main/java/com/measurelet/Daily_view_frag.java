@@ -45,6 +45,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
 
     private void createGraph(View v){
+
         GraphView graph = v.findViewById(R.id.graph);
 
 
@@ -56,7 +57,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
 
         for (int i = 0; i < list.size(); i++) {
-            pointsArray[i]=new DataPoint(list.get(i).getDate(), list.get(i).getMængde());
+            pointsArray[i] = new DataPoint(i, list.get(i).getMængde());
         }
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pointsArray);

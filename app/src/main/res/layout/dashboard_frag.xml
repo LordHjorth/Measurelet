@@ -12,12 +12,11 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Væskeregistring"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="40sp"
+        android:layout_marginEnd="11dp"
         android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:text="Registrering"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,13 +24,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/mllayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,15 +40,18 @@
         <TextView
             android:id="@+id/today_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:autoSizeTextType="uniform"
             android:text="I dag"
             android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -59,38 +61,12 @@
 
             <TextView
                 android:id="@+id/registrated_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:text="725" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:text="ml" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:text="/" />
-
-            <TextView
-                android:id="@+id/registrated_goal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:text="2000" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autoSizeTextType="uniform"
-                android:text="ml" />
+                android:padding="20dp"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </LinearLayout>
@@ -109,67 +85,81 @@
         <TextView
             android:id="@+id/quick_add_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:autoSizeTextType="uniform"
             android:text="@string/quick_add_text"
-            android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textAlignment="center" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center_vertical"
+            android:layout_weight="2"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <Button
                 android:id="@+id/fav1_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:background="@color/background_darker"
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/ripple"
                 android:drawableTop="@drawable/bottle"
+                android:padding="7dp"
                 android:text="Cola\n500 ml"
-                android:layout_weight="1"/>
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/fav2_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:background="@color/background_darker"
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/ripple"
                 android:drawableTop="@drawable/glass"
-                android:text="Vand\nGlass"
-                android:layout_weight="1"/>
+                android:padding="7dp"
+                android:text="Vand\n175ml"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/fav3_img"
                 style="@style/Widget.AppCompat.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:background="@color/background_darker"
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/ripple"
                 android:drawableTop="@drawable/cup"
+                android:padding="7dp"
                 android:text="Kaffe\n125 ml"
-                android:layout_weight="1"/>
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/fav4_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="2dp"
-                android:background="@color/background_darker"
+                android:layout_weight="1"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/ripple"
                 android:drawableTop="@drawable/pitcher"
+                android:padding="7dp"
                 android:text="Vand\n1000 ml"
-                android:layout_weight="1"/>
+                android:textAllCaps="false" />
 
             <ImageButton
                 android:id="@+id/edit_fav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="2dp"
+                android:layout_weight="1.1"
                 android:background="@color/background_color"
                 android:src="@drawable/edit_btn" />
         </LinearLayout>
@@ -178,7 +168,7 @@
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="128dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -191,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/background_color"
-            android:src="@drawable/add_btn" />
+            android:src="@drawable/rippleplusb" />
 
         <TextView
             android:id="@+id/add_text"
@@ -220,7 +210,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.62" />
 
 
 </android.support.constraint.ConstraintLayout>

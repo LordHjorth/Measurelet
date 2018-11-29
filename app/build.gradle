@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -34,10 +35,13 @@ dependencies {
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.airbnb.android:lottie:2.7.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation "android.arch.persistence.room:runtime:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0-alpha07'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0-alpha07'
 }

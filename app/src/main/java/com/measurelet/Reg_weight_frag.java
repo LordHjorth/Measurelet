@@ -1,30 +1,25 @@
 package com.measurelet;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import com.example.hjorth.measurelet.R;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 
 
-public class Registrering_af_vaegt extends AppCompatActivity implements View.OnClickListener {
+
+public class Reg_weight_frag extends Fragment implements View.OnClickListener {
 
     private EditText indtastningAfVaegt;
     private Button registrerVaegt;
@@ -34,18 +29,15 @@ public class Registrering_af_vaegt extends AppCompatActivity implements View.OnC
     private SimpleDateFormat fm;
     private Calendar cal;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrering_af_vaegt);
-        getSupportActionBar().hide();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View regweight = inflater.inflate(R.layout.reg_weight_frag, container, false);
         fm= new SimpleDateFormat("dd-MM-yyyy");
         cal= Calendar.getInstance();
-        lsView = findViewById(R.id.listviewVaegt);
-        indtastningAfVaegt= findViewById(R.id.indtastVaegt);
+        lsView = regweight.findViewById(R.id.listviewVaegt);
+        indtastningAfVaegt= regweight.findViewById(R.id.indtastVaegt);
 
-        registrerVaegt = findViewById(R.id.registrer);
+        registrerVaegt = regweight.findViewById(R.id.registrer);
         registrerVaegt.setOnClickListener(this);
         for(int i=0;i<10;i++){
           vaegtListe.add(fm.format(cal.getTime())+" "+(60
@@ -55,7 +47,7 @@ public class Registrering_af_vaegt extends AppCompatActivity implements View.OnC
         }
 
                 visVaegt();
-
+        return regweight;
     }
 
 
@@ -69,7 +61,7 @@ public class Registrering_af_vaegt extends AppCompatActivity implements View.OnC
         vaegtListe.add(fm.format(cal.getTime())+" "+vægt+"kg");
 
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, vaegtListe);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, vaegtListe);
 
 
 
