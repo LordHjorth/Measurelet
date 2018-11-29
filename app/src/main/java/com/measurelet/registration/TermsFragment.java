@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.MainActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class TermsFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View fragment = inflater.inflate(R.layout.fragment_terms, container, false);
-
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
 
         InputStream iStream = getContext().getResources().openRawResource(R.raw.terms);
         ByteArrayOutputStream byteStream = null;
@@ -58,8 +59,7 @@ public class TermsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        SignupFragment signup = new SignupFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, signup).addToBackStack(null).commit();
+        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_signupFragment);
 
     }
 }

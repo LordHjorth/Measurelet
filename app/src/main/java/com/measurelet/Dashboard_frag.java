@@ -48,7 +48,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         overall=dashboard.findViewById(R.id.registrated_amount);
         overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
 
-
+        ((MainActivity) getActivity()).getSupportActionBar().show();
 
         return dashboard;
 
@@ -57,9 +57,6 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        System.out.println(((MainActivity) getActivity()).getNavC());
-        System.out.println(NavHostFragment.findNavController(this));
-
 
         if (view == add_btn) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
@@ -67,23 +64,24 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         if (view == mllayout) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_daily_view_frag);
         }
-
-        if (view == ffour) {
-            ml = ml + 1000;
-            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+        if (view!=add_btn&&view != mllayout) {
+            if (view == ffour) {
+                ml = ml + 1000;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+            }
+            if (view == ftree) {
+                ml = ml + 125;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+            }
+            if (view == ftwo) {
+                ml = ml + 175;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+            }
+            if (view == fone) {
+                ml = ml + 500;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+            }
+            ((MainActivity) getActivity()).getAddAnimation();
         }
-        if (view == ftree) {
-            ml = ml + 125;
-            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-        }
-        if (view == ftwo) {
-            ml = ml + 175;
-            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-        }
-        if (view == fone) {
-            ml = ml + 500;
-            overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-        }
-
         }
 }

@@ -15,8 +15,7 @@ import com.example.hjorth.measurelet.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-
+import java.util.Collections;
 
 
 public class Reg_weight_frag extends Fragment implements View.OnClickListener {
@@ -40,7 +39,7 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
         registrerVaegt = regweight.findViewById(R.id.registrer);
         registrerVaegt.setOnClickListener(this);
         for(int i=0;i<10;i++){
-          vaegtListe.add(fm.format(cal.getTime())+" "+(60
+          vaegtListe.add(fm.format(cal.getTime())+":                      "+(60
                   +i)+"kg");
         cal.add(Calendar.DATE,-1);
 
@@ -58,9 +57,8 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
             vægt="56";
         }
 
-        vaegtListe.add(fm.format(cal.getTime())+" "+vægt+"kg");
-
-
+        vaegtListe.add(fm.format(cal.getTime())+":                      "+vægt+"kg");
+        Collections.reverse(vaegtListe);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, vaegtListe);
 
 
@@ -72,6 +70,6 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        visVaegt();
+        ((MainActivity)getActivity()).getAddAnimation(); visVaegt();
     }
 }

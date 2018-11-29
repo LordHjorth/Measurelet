@@ -210,8 +210,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        FragmentManager fm = getFragmentManager();
-       // fm.beginTransaction().replace(R.id.mainfrag, new Daily_view_frag(), "daily").addToBackStack(null).commit();
+        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_week_to_daily_view_frag);
 
 
     }

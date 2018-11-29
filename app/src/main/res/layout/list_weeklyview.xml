@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Dato"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/mængde"
@@ -24,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Antal ml"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
 
     </LinearLayout>

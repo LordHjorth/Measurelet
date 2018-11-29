@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.App;
+import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
 
 /**
@@ -33,7 +34,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         fragment = inflater.inflate(R.layout.fragment_signup, container, false);
 
         ((Button)fragment.findViewById(R.id.signup_btn)).setOnClickListener(this);
-
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
         return fragment;
     }
 
@@ -49,7 +50,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         App.database.patientDao().insert(patient);
 
-        getActivity().finish();
+        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 
     }
 }

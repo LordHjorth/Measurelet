@@ -4,19 +4,21 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.hjorth.measurelet.R;
 import com.measurelet.Model.Patient;
+import com.measurelet.registration.IntroSlidePager;
+
+import java.util.List;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -27,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
 
     private NavController navC;
     private  DrawerLayout drawer;
+    private   View nvH;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        if (App.getCurrentPatient() == null) {
-            startActivity(new Intent(this, LoginScreen_act.class));
-        }
+
 
         setNavC(Navigation.findNavController(findViewById(R.id.nav_host))); //navC= ;
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -43,11 +45,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
 
 
+        nvH=findViewById(R.id.nav_host);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
+        if(App.getCurrentPatient() == null) {
+            navC.navigate(R.id.action_global_introSlidePager);
+        }
 
         Patient patient = App.getCurrentPatient();
         if(patient != null && findViewById(R.id.nav_header_name) != null){
@@ -70,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        List<Fragment> a = f.getChildFragmentManager().getFragments();
+        if(a.get(a.size()-1).getClass().equals(IntroSlidePager.class)){
+            finishAffinity();
+            return;
+        }
+
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -85,16 +99,16 @@ public class MainActivity extends AppCompatActivity {
 
         lw=findViewById(R.id.lot_view);
         lw.setAnimation("checkm.zip");
-        lw.setSpeed(0.7f);
+        lw.setSpeed(0.8f);
 
         lw.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animator animation) {nvH.setVisibility(View.INVISIBLE);
                 lw.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {
+            public void onAnimationEnd(Animator animation) { nvH.setVisibility(View.VISIBLE);
                 lw.setVisibility(View.INVISIBLE);
             }
 

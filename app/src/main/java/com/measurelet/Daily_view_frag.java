@@ -65,14 +65,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private IAxisValueFormatter getformatter() {
 
 
-        IAxisValueFormatter formatter = new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-
-                return dates.toArray(new String[dates.size()])[(int) value];
-            }
-
-        };
+        IAxisValueFormatter formatter = (value, axis) -> dates.toArray(new String[dates.size()])[(int) value];
         return formatter;
     }
 

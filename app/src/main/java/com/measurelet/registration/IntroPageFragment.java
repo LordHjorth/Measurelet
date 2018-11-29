@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,7 +25,7 @@ public class IntroPageFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         int page = getArguments().getInt("page", 1);
-
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
         System.out.println(page);
 
         View fragment;
@@ -53,9 +54,7 @@ public class IntroPageFragment extends Fragment {
 
         Button btn = fragment.findViewById(R.id.sign_up_btn);
         btn.setOnClickListener((view) -> {
-            // Skift til T&C Screen
-            TermsFragment terms = new TermsFragment();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.login_fragment_frame, terms).addToBackStack(null).commit();
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_termsFragment);
 
         });
 

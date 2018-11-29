@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.MainActivity;
 import com.measurelet.registration.transformers.ZoomOutPageTransformer;
 
 /**
@@ -41,7 +42,7 @@ public class IntroSlidePager extends Fragment {
 
         super.onCreate(savedInstanceState);
         View fragment = inflater.inflate(R.layout.fragment_intro_slide_pager, container, false);
-
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) fragment.findViewById(R.id.pager);
