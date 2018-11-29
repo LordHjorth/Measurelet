@@ -53,9 +53,7 @@ public class IntakeFactory {
         return total;
     }
 
-    public void InsertIntakeFav(IntakeFav intakeFav){
-
-
+    public void UpsertIntakeFav(IntakeFav insFav){
 
     }
 
@@ -63,7 +61,7 @@ public class IntakeFactory {
 
     }
 
-    public void InsertIntakeStandard(IntakeStandard intakeStandard){
+    public void UpsertIntakeStandard(IntakeStandard intakeStandard){
 
     }
 
