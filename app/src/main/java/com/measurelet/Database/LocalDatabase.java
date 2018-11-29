@@ -32,7 +32,7 @@ public abstract class LocalDatabase extends RoomDatabase {
 
     public static LocalDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), LocalDatabase.class, "db-galgeleg").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), LocalDatabase.class, "db-measurelet").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
             //Room.inMemoryDatabaseBuilder(context.getApplicationContext(),AppDatabase.class).allowMainThreadQueries().build();
         }

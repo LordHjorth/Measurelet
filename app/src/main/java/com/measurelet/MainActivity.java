@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        NavigationUI.setupWithNavController(navigationView, navC);
 
         Patient patient = App.getCurrentPatient();
         if(patient != null && findViewById(R.id.nav_header_name) != null){
@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         if(patient != null && findViewById(R.id.nav_header_name) != null){
             ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
         }
-        NavigationUI.setupWithNavController(navigationView, navC);
     }
 
 
