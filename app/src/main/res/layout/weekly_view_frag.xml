@@ -25,8 +25,7 @@
             android:textAlignment="center"
             android:textSize="30sp" />
 
-
-        <com.jjoe64.graphview.GraphView
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/graph"
             android:layout_width="match_parent"
             android:layout_height="239dp"
@@ -34,7 +33,9 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -42,9 +43,10 @@
 
             <TextView
                 android:id="@+id/textView12"
-                android:layout_width="0dp"
-                android:layout_height="27dp"
-                android:layout_marginEnd="6dp"
+                android:layout_width="62dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="116dp"
+                android:layout_marginStart="30dp"
                 android:text=" Dato"
                 android:textAlignment="viewStart"
                 android:textSize="18sp"
@@ -55,16 +57,15 @@
 
             <TextView
                 android:id="@+id/textView13"
-                android:layout_width="141dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="132dp"
+                android:layout_width="100dp"
+                android:layout_height="31dp"
+                android:layout_marginEnd="80dp"
                 android:text="Antal ml"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView12"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 

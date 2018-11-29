@@ -12,87 +12,100 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
-import com.jjoe64.graphview.DefaultLabelFormatter;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
 
     private ListView list;
+    private BarChart barGraph;
+    private BarData barData;
+    private ArrayList<BarEntry> datapoints = new ArrayList<>();
+    private XAxis xAxisDato;
+    private ArrayList<VæskeRegistrering> væskeList ;
+    private ArrayList<String> dates = new ArrayList<>();
+
+    final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         View dailyView = inflater.inflate(R.layout.daily_view_frag, container, false);
 
         list=dailyView.findViewById(R.id.listDaily);
+        barGraph = dailyView.findViewById(R.id.graph);
 
-        MyAdapter adapter = new MyAdapter(getActivity(),Weekly_view_frag.getVæske());
+        createData();
+        createGraph();
+
+        MyAdapter adapter = new MyAdapter(getActivity(),væskeList);
         list.setAdapter(adapter);
 
-        createGraph(dailyView);
 
         return dailyView;
     }
 
 
-
-    private void createGraph(View v){
-        GraphView graph = v.findViewById(R.id.graph);
+    private IAxisValueFormatter getformatter() {
 
 
-
-        ArrayList<VæskeRegistrering> list = Weekly_view_frag.væskeList;
-        DataPoint[] pointsArray = new DataPoint[list.size()];
-
-        final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-
-        for (int i = 0; i < list.size(); i++) {
-            pointsArray[i]=new DataPoint(list.get(i).getDate(), list.get(i).getMængde());
-        }
-
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(pointsArray);
-
-        graph.addSeries(series);
-
-
-        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
             @Override
-            public String formatLabel(double value, boolean isValueX){
-                if(isValueX){
-                    return format.format(new Date((long) value));
-                }
-                else {
-                    return super.formatLabel(value, isValueX);
-                }
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                return dates.toArray(new String[dates.size()])[(int) value];
             }
-        });        //graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
 
-        // set manual x bounds to have nice steps
-        // graph.getViewport().setMinX(d1.getTime());
-        // graph.getViewport().setMaxX(d5.getTime());
-        graph.getViewport().setMinY(0.0);
+        };
+        return formatter;
+    }
 
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setYAxisBoundsManual(true);
+    private void createGraph() {
 
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true); // enables vertical scrolling
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true);
+        for (int i = 0; i < væskeList.size(); i++) {
+            datapoints.add(new BarEntry(i, væskeList.get(i).getMængde()));
+            dates.add(format.format(væskeList.get(i).getDate()));
 
-// as we use dates as labels, the human rounding to nice readable numbers
-// is not necessary
-        graph.getGridLabelRenderer().setHumanRounding(false);
+        }
+        BarDataSet data = new BarDataSet(datapoints,"Væskeindtag ml");
 
+
+        barData = new BarData(data);
+        barData.setBarWidth(0.7f);
+
+
+        barGraph.setData(barData);
+
+
+        xAxisDato = barGraph.getXAxis();
+        xAxisDato.setValueFormatter(getformatter());
+        xAxisDato.setGranularity(1f);
+        barGraph.setVisibleXRangeMaximum(7);
+        barGraph.setVisibleXRangeMinimum(7);
+        barGraph.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
+        barGraph.getAxisRight().setDrawGridLines(false);
+        barGraph.getDescription().setEnabled(false);
+        barGraph.getAxisLeft().setDrawGridLines(false);
+        xAxisDato.setDrawGridLines(false);
+
+
+        barGraph.invalidate();
 
     }
 
@@ -131,5 +144,63 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
             return rowView;
         }
+    }
+
+    private void createData(){
+        væskeList = new ArrayList<VæskeRegistrering>();
+
+        Calendar calendar = Calendar.getInstance();
+        Date d1 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d2 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d3 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d4 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d5 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d6 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d7 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d8 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+        Date d9 = calendar.getTime();
+        calendar.add(Calendar.DATE, 1);
+
+        VæskeRegistrering væske = new VæskeRegistrering();
+        væske.setDate(d1);
+        væske.setMængde(300);
+        væske.setType("Kaffe");
+
+        VæskeRegistrering væske2 = new VæskeRegistrering();
+        væske2.setDate(d2);
+        væske2.setMængde(200);
+        væske2.setType("Vand");
+
+        VæskeRegistrering væske3 = new VæskeRegistrering();
+        væske3.setDate(d3);
+        væske3.setMængde(500);
+        væske3.setType("Cola");
+
+
+        VæskeRegistrering væske4 = new VæskeRegistrering();
+        væske4.setDate(d4);
+        væske4.setMængde(200);
+        væske4.setType("Vand");
+
+        VæskeRegistrering væske5 = new VæskeRegistrering();
+        væske5.setDate(d5);
+        væske5.setMængde(300);
+        væske5.setType("kaffe");
+
+
+        væskeList.add(0,væske);
+        væskeList.add(1,væske2);
+        væskeList.add(2,væske3);
+        væskeList.add(3,væske4);
+        væskeList.add(4,væske5);
+
     }
 }

@@ -11,7 +11,11 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView3"
@@ -22,7 +26,7 @@
             android:textAlignment="center"
             android:textSize="30sp" />
 
-        <com.jjoe64.graphview.GraphView
+        <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/graph"
             android:layout_width="match_parent"
             android:layout_height="239dp"
@@ -34,44 +38,43 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="45dp"
+            app:layout_constraintEnd_toStartOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="@+id/textView14">
 
             <TextView
                 android:id="@+id/textView8"
-                android:layout_width="0dp"
+                android:layout_width="92dp"
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
+                android:layout_marginStart="4dp"
                 android:text="Antal ml"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView14"
                 app:layout_constraintStart_toEndOf="@+id/textView11"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="0dp"
-                android:layout_height="41dp"
-                android:layout_marginEnd="71dp"
+                android:layout_width="115dp"
+                android:layout_height="39dp"
                 android:text="Væske"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView8" />
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="0dp"
-                android:layout_height="37dp"
-                android:layout_marginEnd="3dp"
+                android:layout_width="66dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="4dp"
                 android:text="Tid"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-                app:layout_constraintEnd_toStartOf="@+id/textView8"
                 app:layout_constraintStart_toStartOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
