@@ -28,6 +28,7 @@
             android:autoSizeTextType="uniform"
             android:focusedByDefault="true"
             android:inputType="text"
+            android:maxLength="10"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             tools:layout_editor_absoluteX="167dp"
@@ -148,8 +149,10 @@
             android:layout_height="match_parent"
             android:autoSizeTextType="uniform"
             android:digits="0123456789"
+            android:hint="Væske i ml"
             android:imeOptions="actionDone"
             android:inputType="number"
+            android:maxLength="4"
             tools:layout_editor_absoluteX="167dp"
             tools:layout_editor_absoluteY="403dp" />
     </LinearLayout>

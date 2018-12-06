@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 
 
 public class Reg_weight_frag extends Fragment implements View.OnClickListener {
@@ -27,6 +28,8 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
     private ArrayList<String> vaegtListe = new ArrayList<>();
     private SimpleDateFormat fm;
     private Calendar cal;
+    private ArrayAdapter<String> arrayAdapter;
+    private Date today;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -36,16 +39,21 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
         lsView = regweight.findViewById(R.id.listviewVaegt);
         indtastningAfVaegt= regweight.findViewById(R.id.indtastVaegt);
 
+        today=cal.getTime();
         registrerVaegt = regweight.findViewById(R.id.registrer);
         registrerVaegt.setOnClickListener(this);
         for(int i=0;i<10;i++){
           vaegtListe.add(fm.format(cal.getTime())+":                      "+(60
                   +i)+"kg");
-        cal.add(Calendar.DATE,-1);
+         cal.add(Calendar.DATE,-1);
+
+
+            arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, vaegtListe);
+            lsView.setAdapter(arrayAdapter);
 
         }
 
-                visVaegt();
+
         return regweight;
     }
 
@@ -53,18 +61,14 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
 
     public void visVaegt(){
         vægt = indtastningAfVaegt.getText().toString();
-        if(vægt==""){
-            vægt="56";
+        if(vægt.equals("")){
+            vægt="66";
         }
 
-        vaegtListe.add(fm.format(cal.getTime())+":                      "+vægt+"kg");
-        Collections.reverse(vaegtListe);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, vaegtListe);
+        vaegtListe.add(0,fm.format(today)+":                      "+vægt+" kg");
 
+        arrayAdapter.notifyDataSetChanged();
 
-
-
-        lsView.setAdapter(arrayAdapter);
 
     }
 

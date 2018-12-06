@@ -45,7 +45,7 @@ public class Registration_standard_frag extends Fragment implements View.OnClick
 
         } else {
             ((MainActivity)getActivity()).getAddAnimation();
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_registration_standard_frag_to_dashboard_frag);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 
 
 

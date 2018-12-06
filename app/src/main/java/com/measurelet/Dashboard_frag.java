@@ -62,7 +62,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
         }
         if (view == mllayout) {
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_daily_view_frag);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
         }
         if (view!=add_btn&&view != mllayout) {
             if (view == ffour) {

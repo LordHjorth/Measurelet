@@ -3,6 +3,7 @@ package com.measurelet;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -21,11 +22,12 @@ import com.measurelet.registration.IntroSlidePager;
 import java.util.List;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavController.OnNavigatedListener {
 
     private NavController navC;
     private  DrawerLayout drawer;
@@ -36,19 +38,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-
         setNavC(Navigation.findNavController(findViewById(R.id.nav_host))); //navC= ;
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         drawer = findViewById(R.id.drawer_layout);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
-
-
+        navC.addOnNavigatedListener(this);
         nvH=findViewById(R.id.nav_host);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
         if(App.getCurrentPatient() == null) {
@@ -75,20 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        Fragment f = getSupportFragmentManager().findFragmentById(R.id.nav_host);
-        List<Fragment> a = f.getChildFragmentManager().getFragments();
-        if(a.get(a.size()-1).getClass().equals(IntroSlidePager.class)){
-            finishAffinity();
-            return;
-        }
-
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            navC.navigateUp();
+          super.onBackPressed();
 
 
         }
@@ -99,16 +94,18 @@ public class MainActivity extends AppCompatActivity {
 
         lw=findViewById(R.id.lot_view);
         lw.setAnimation("checkm.zip");
-        lw.setSpeed(0.8f);
+        lw.setSpeed(1f);
 
         lw.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {nvH.setVisibility(View.INVISIBLE);
+            public void onAnimationStart(Animator animation) {nvH.animate().alpha(0.3f);
                 lw.setVisibility(View.VISIBLE);
+                lw.animate().alpha(0.9f);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) { nvH.setVisibility(View.VISIBLE);
+            public void onAnimationEnd(Animator animation) { nvH.animate().alpha(1f);
+
                 lw.setVisibility(View.INVISIBLE);
             }
 
@@ -134,4 +131,11 @@ public class MainActivity extends AppCompatActivity {
         this.navC = navC;
     }
 
+    @Override
+    public void onNavigated(@NonNull NavController controller, @NonNull NavDestination destination) {
+        if(destination.getId()==navC.getGraph().getStartDestination()){
+            navC.popBackStack(navC.getGraph().getStartDestination(),false);
+
+        }
+    }
 }

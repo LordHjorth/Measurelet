@@ -41,34 +41,20 @@
             android:id="@+id/today_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2.5"
+            android:layout_weight="3"
             android:autoSizeTextType="uniform"
             android:text="I dag"
             android:textAlignment="center" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/registrated_amount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:autoSizeTextType="uniform"
+            android:padding="20dp"
+            android:textAlignment="center" />
 
-
-            <TextView
-                android:id="@+id/registrated_amount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:autoSizeTextType="uniform"
-                android:padding="20dp"
-                android:textAlignment="center" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -96,7 +82,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

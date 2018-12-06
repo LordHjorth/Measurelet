@@ -24,7 +24,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
     private EditText tastandet;
     private ImageButton add;
     private boolean andet = false;
-    Bundle bundle;
+    private Bundle bundle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View customfrag = inflater.inflate(R.layout.registration_custom_frag, container, false);
@@ -76,7 +76,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
 
             ((MainActivity)getActivity()).getAddAnimation();
 
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_registration_custom_frag_to_dashboard_frag, bundle);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag, bundle);
         }
 
     }

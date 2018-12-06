@@ -10,12 +10,10 @@
         android:id="@+id/dashboard_frag"
         android:name="com.measurelet.Dashboard_frag"
         android:label="dashboard_frag"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false"
         tools:layout="@layout/dashboard_frag">
-
     </fragment>
     <fragment
+
         android:id="@+id/daily_view_frag"
         android:name="com.measurelet.Daily_view_frag"
         android:label="Daily_view_frag" />
@@ -25,6 +23,13 @@
         android:label="registration_standard_frag"
         tools:layout="@layout/registration_standard_frag">
 
+        <action
+            android:id="@+id/action_registration_standard_frag_to_registration_custom_frag"
+            app:destination="@id/registration_custom_frag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/registration_custom_frag"
@@ -48,24 +53,8 @@
         android:name="com.measurelet.Settings_frag"
         android:label="settings_frag"
         tools:layout="@layout/settings_frag" />
-    <action
-        android:id="@+id/action_dashboard_frag_to_daily_view_frag"
-        app:destination="@id/daily_view_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false" />
-    <action
-        android:id="@+id/action_dashboard_frag_to_profile_frag"
-        app:destination="@id/profile_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false" />
+
+
     <action
         android:id="@+id/action_dashboard_frag_to_registration_standard_frag"
         app:destination="@id/registration_standard_frag"
@@ -75,74 +64,61 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         app:popUpTo="@+id/dashboard_frag"
         app:popUpToInclusive="false" />
-    <action
-        android:id="@+id/action_dashboard_frag_to_weekly_view_frag"
-        app:destination="@id/weekly_view_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false" />
-    <action
-        android:id="@+id/action_dashboard_frag_to_settings_frag"
-        app:destination="@id/settings_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false" />
-    <action
-        android:id="@+id/action_registration_standard_frag_to_registration_custom_frag"
-        app:destination="@id/registration_custom_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-    <action
-        android:id="@+id/action_registration_standard_frag_to_dashboard_frag"
-        app:destination="@id/dashboard_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false" />
-    <action
-        android:id="@+id/action_registration_custom_frag_to_dashboard_frag"
-        app:destination="@id/dashboard_frag"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
 
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/dashboard_frag"
-        app:popUpToInclusive="false" />
-    <argument
-        android:name="liq"
-        android:defaultValue="0"
-        app:argType="integer" />
+
     <fragment
         android:id="@+id/reg_weight_frag"
         android:name="com.measurelet.Reg_weight_frag"
         android:label="reg_weight_frag"
-        tools:layout="@layout/reg_weight_frag" /><action android:id="@+id/action_global_reg_weight_frag" app:destination="@id/reg_weight_frag" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popUpTo="@id/dashboard_frag" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/><action android:id="@+id/action_week_to_daily_view_frag" app:destination="@id/daily_view_frag" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popUpTo="@id/weekly_view_frag" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        tools:layout="@layout/reg_weight_frag" />
+
     <fragment
         android:id="@+id/introSlidePager"
         android:name="com.measurelet.registration.IntroSlidePager"
         android:label="fragment_intro_slide_pager"
         tools:layout="@layout/fragment_intro_slide_pager" />
-    <action android:id="@+id/action_global_introSlidePager" app:destination="@id/introSlidePager" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action android:id="@+id/action_global_introSlidePager"
+        app:destination="@id/introSlidePager"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     <fragment
         android:id="@+id/termsFragment"
         android:name="com.measurelet.registration.TermsFragment"
         android:label="fragment_terms"
         tools:layout="@layout/fragment_terms" />
-    <action android:id="@+id/action_global_termsFragment" app:destination="@id/termsFragment" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popUpTo="@id/introSlidePager" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <action android:id="@+id/action_global_termsFragment"
+        app:destination="@id/termsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/introSlidePager"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.measurelet.registration.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" /><action android:id="@+id/action_global_signupFragment" app:destination="@id/signupFragment" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popUpTo="@id/termsFragment" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/><action android:id="@+id/action_global_dashboard_frag" app:destination="@id/dashboard_frag" app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim" app:popUpTo="@id/dashboard_frag" app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        tools:layout="@layout/fragment_signup" />
+
+    <action android:id="@+id/action_global_signupFragment"
+        app:destination="@id/signupFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/termsFragment"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
+    <action android:id="@+id/action_global_dashboard_frag"
+        app:destination="@id/dashboard_frag"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/dashboard_frag"
+        app:popUpToInclusive="true"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
 </navigation>

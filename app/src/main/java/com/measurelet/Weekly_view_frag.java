@@ -210,7 +210,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_week_to_daily_view_frag);
+        ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
 
 
     }
