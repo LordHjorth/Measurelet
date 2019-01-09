@@ -1,10 +1,9 @@
 package com.measurelet.Factories;
 
-import com.measurelet.Database.LocalDatabase;
+import com.measurelet.Database.Database_Local.LocalDatabase;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.Weight;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +11,8 @@ import java.util.UUID;
 
 public class GraphFactory {
 
+
+    //region Room local_database
     private LocalDatabase db;
 
     public GraphFactory(LocalDatabase db){
@@ -39,5 +40,12 @@ public class GraphFactory {
         return intakeMap;
     }
 
+    //endregion
+
+    //region Firebase local_database
+
+
+
+    //endregion
 
 }

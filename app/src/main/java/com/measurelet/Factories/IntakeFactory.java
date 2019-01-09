@@ -1,7 +1,6 @@
 package com.measurelet.Factories;
 
-import com.measurelet.Database.IntakeDao;
-import com.measurelet.Database.LocalDatabase;
+import com.measurelet.Database.Database_Local.LocalDatabase;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.IntakeFav;
 import com.measurelet.Model.IntakeStandard;
@@ -12,6 +11,7 @@ import java.util.UUID;
 
 public class IntakeFactory {
 
+    //region Room local_database
     private LocalDatabase db;
 
     public IntakeFactory(LocalDatabase db){
@@ -68,4 +68,14 @@ public class IntakeFactory {
     public void DeleteIntakeStandard(IntakeStandard intakeStandard){
 
     }
+
+
+    //endregion
+
+    //region Firebase local_database
+
+
+
+    //endregion
 }
+

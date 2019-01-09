@@ -8,12 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.App;
+import com.measurelet.Database.Database_Online.ChildDatabase;
+import com.measurelet.Database.Database_Online.IntakeFirebase;
+import com.measurelet.Database.Database_Online.PatientFirebase;
 import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
+
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,9 +51,14 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         String name = ((EditText)fragment.findViewById(R.id.signup_name_txt)).getText().toString();
 
-        Patient patient = new Patient(name);
+        PatientFirebase patient = new PatientFirebase(name, bed);
+        ChildDatabase.InsertPatient(patient);
 
-        App.database.patientDao().insert(patient);
+        IntakeFirebase intake = new IntakeFirebase("water", 1000);
+        ChildDatabase.InsertNewIntake(intake);
+
+        //Patient patient = new Patient(name);
+        //App.local_database.patientDao().insert(patient);
 
         ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 

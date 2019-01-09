@@ -70,6 +70,7 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        ((MainActivity)getActivity()).getAddAnimation(); visVaegt();
+        ((MainActivity)getActivity()).getAddAnimation();
+        visVaegt();
     }
 }

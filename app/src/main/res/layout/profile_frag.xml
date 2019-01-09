@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/profile_header"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/profile_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -39,14 +39,14 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/profile_name_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Navn"
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/name_input"
+            android:id="@+id/profile_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="skriv dit navn her..."
@@ -54,6 +54,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/profile_height"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -67,14 +68,14 @@
         app:layout_constraintTop_toTopOf="@+id/guideline6">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/profile_height_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Højde"
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/profile_height_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Indtast din højde i cm..."

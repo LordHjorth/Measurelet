@@ -1,7 +1,5 @@
-package com.measurelet.Database;
+package com.measurelet.Database.Database_Local;
 
-import com.measurelet.Model.Intake;
-import com.measurelet.Model.Patient;
 import com.measurelet.Model.Weight;
 
 import java.util.Date;

@@ -6,7 +6,11 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.measurelet.Database.Database_Online.ChildDatabase;
+
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.UUID;
 
 
@@ -32,4 +36,6 @@ public class Patient {
 
     public Patient(){
     }
+
+
 }
