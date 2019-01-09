@@ -10,14 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.App;
 import com.measurelet.Database.Database_Online.ChildDatabase;
-import com.measurelet.Database.Database_Online.IntakeFirebase;
-import com.measurelet.Database.Database_Online.PatientFirebase;
 import com.measurelet.MainActivity;
+import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -51,10 +48,12 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         String name = ((EditText)fragment.findViewById(R.id.signup_name_txt)).getText().toString();
 
-        PatientFirebase patient = new PatientFirebase(name, bed);
+        Patient.patientID = UUID.randomUUID();
+
+        Patient patient = new Patient(name, bed);
         ChildDatabase.InsertPatient(patient);
 
-        IntakeFirebase intake = new IntakeFirebase("water", 1000);
+        Intake intake = new Intake("water", 1000);
         ChildDatabase.InsertNewIntake(intake);
 
         //Patient patient = new Patient(name);

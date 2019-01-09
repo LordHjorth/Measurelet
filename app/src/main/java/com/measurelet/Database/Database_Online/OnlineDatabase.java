@@ -1,15 +1,13 @@
 package com.measurelet.Database.Database_Online;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.measurelet.Database.Database_Local.BedDao;
-import com.measurelet.Database.Database_Local.IntakeDao;
-import com.measurelet.Database.Database_Local.IntakeFavDao;
-import com.measurelet.Database.Database_Local.IntakeStandardDao;
-import com.measurelet.Database.Database_Local.PatientDao;
-import com.measurelet.Database.Database_Local.WeightDao;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -18,13 +16,6 @@ public abstract class OnlineDatabase {
 
     private static FirebaseDatabase DB_INSTANCE;
     private static DatabaseReference DB_REFERENCE;
-
-    public abstract PatientDao patientDao();
-    public abstract BedDao bedDao();
-    public abstract IntakeDao intakeDao();
-    public abstract IntakeFavDao intakeFavDao();
-    public abstract IntakeStandardDao intakeStandardDao();
-    public abstract WeightDao weightDao();
 
     public static DatabaseReference getAppDatabase() {
 
@@ -48,4 +39,17 @@ public abstract class OnlineDatabase {
         }
         return childRef;
     }
+
+    private static ValueEventListener update = new ValueEventListener() {
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            System.out.println("Succeeded");
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            System.out.println("Cancelled");
+        }
+    };
 }

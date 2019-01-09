@@ -12,11 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.Database.Database_Online.PatientFirebase;
 
 public class Profile_frag extends Fragment implements View.OnClickListener {
-
-    PatientFirebase patient;
 
     Button search;
     TextView labelName, labelHeight;
@@ -43,7 +40,6 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String input = inputName.getText().toString();
 
     }
 }

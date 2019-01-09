@@ -51,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
-        if(App.getCurrentPatient() == null) {
+
+       if(true) {
             navC.navigate(R.id.action_global_introSlidePager);
         }
-
+/*
         Patient patient = App.getCurrentPatient();
         if(patient != null && findViewById(R.id.nav_header_name) != null){
             ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
-        }
+        }*/
 
     }
 
@@ -66,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Patient patient = App.getCurrentPatient();
+/*        Patient patient = App.getCurrentPatient();
         if(patient != null && findViewById(R.id.nav_header_name) != null){
             ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
-        }
+        }*/
     }
 
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.Database.Database_Online.ChildDatabase;
-import com.measurelet.Database.Database_Online.IntakeFirebase;
+import com.measurelet.Model.Intake;
 
 public class Dashboard_frag extends Fragment implements View.OnClickListener {
     ImageButton add_btn;
@@ -67,26 +67,26 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_daily_view_frag);
         }
         if (view!=add_btn&&view != mllayout) {
-            IntakeFirebase intake = new IntakeFirebase();
+            Intake intake = new Intake();
             if (view == ffour) {
                 ml = ml + 1000;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new IntakeFirebase("wasser", 1000);
+                intake = new Intake("wasser", 1000);
             }
             if (view == ftree) {
                 ml = ml + 125;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new IntakeFirebase("wasser", 1000);
+                intake = new Intake("wasser", 125);
             }
             if (view == ftwo) {
                 ml = ml + 175;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new IntakeFirebase("wasser", 1000);
+                intake = new Intake("wasser", 175);
             }
             if (view == fone) {
                 ml = ml + 500;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new IntakeFirebase("wasser", 1000);
+                intake = new Intake("wasser", 500);
 
             }
             ChildDatabase.InsertNewIntake(intake);
