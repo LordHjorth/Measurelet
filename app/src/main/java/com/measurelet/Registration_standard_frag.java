@@ -17,9 +17,9 @@ public class Registration_standard_frag extends Fragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View standardfrag = inflater.inflate(R.layout.registration_standard_frag, container, false);
-        tv=standardfrag.findViewById(R.id.cliquidtit);
-        tv.setText(R.string.choose);
-        tv.setPaintFlags(0);
+       // tv=standardfrag.findViewById(R.id.cliquidtit);
+       // tv.setText(R.string.choose);
+       // tv.setPaintFlags(0);
         soda = standardfrag.findViewById(R.id.sodavand);
         soda.setOnClickListener(this);
         juice = standardfrag.findViewById(R.id.juice);

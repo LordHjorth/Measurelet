@@ -3,18 +3,18 @@ package com.measurelet;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
-
-import androidx.navigation.fragment.NavHostFragment;
 
 public class Dashboard_frag extends Fragment implements View.OnClickListener {
     ImageButton add_btn;
@@ -23,6 +23,12 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
     Button fone,ftwo,ftree,ffour;
     static int ml=0;
     static int overallml=2000;
+
+    EditText vaegt;
+    Button vaegt_knap;
+    ConstraintLayout vaegtLayout;
+    ConstraintLayout vaegtRegistreret;
+
 
     @Nullable
     @Override
@@ -41,6 +47,14 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         fone=dashboard.findViewById(R.id.fav1_img);
         fone.setOnClickListener(this);
 
+        //vægt
+        vaegt = dashboard.findViewById(R.id.vaegt_edit);
+        vaegt_knap=dashboard.findViewById(R.id.vagt_knap);
+        vaegt_knap.setOnClickListener(this);
+
+        vaegtLayout=dashboard.findViewById(R.id.vaegt);
+        vaegtRegistreret=dashboard.findViewById(R.id.vaegt_registreret);
+
         if(getArguments()!=null){
         ml=ml+getArguments().getInt("liq");
         }
@@ -58,13 +72,22 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
+        if (view==vaegt_knap){
+            vaegtLayout.setVisibility(View.INVISIBLE);
+            ((MainActivity) getActivity()).getAddAnimation();
+
+            vaegtRegistreret.setVisibility(View.VISIBLE);
+
+            //vægt skal gemmes i databasen
+        }
+
         if (view == add_btn) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
         }
         if (view == mllayout) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
         }
-        if (view!=add_btn&&view != mllayout) {
+        if (view!=add_btn&&view != mllayout&&view!=vaegt_knap) {
             if (view == ffour) {
                 ml = ml + 1000;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
@@ -83,5 +106,6 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             }
             ((MainActivity) getActivity()).getAddAnimation();
         }
+
         }
 }

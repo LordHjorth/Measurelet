@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -90,7 +91,8 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         barGraph.getAxisLeft().setDrawGridLines(false);
         barGraph.getDescription().setEnabled(false);
         xAxisDato.setDrawGridLines(false);
-
+        data.setColor(R.color.colorPrimary);
+        data.setValueTextSize(10);
         barGraph.invalidate();
 
     }

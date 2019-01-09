@@ -95,6 +95,9 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         barGraph.getAxisRight().setDrawGridLines(false);
         barGraph.getDescription().setEnabled(false);
         barGraph.getAxisLeft().setDrawGridLines(false);
+        data.setValueTextSize(10);
+        data.setColor(R.color.colorPrimary);
+
         xAxisDato.setDrawGridLines(false);
 
 

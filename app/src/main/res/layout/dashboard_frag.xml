@@ -6,82 +6,154 @@
     android:layout_height="match_parent"
     tools:context="com.measurelet.Dashboard_frag">
 
-    <TextView
-        android:id="@+id/title_registration"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="11dp"
-        android:autoSizeTextType="uniform"
-        android:gravity="center"
-        android:text="Registrering"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/mllayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="373dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058">
 
         <TextView
             android:id="@+id/today_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:autoSizeTextType="uniform"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="I dag"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/registrated_amount"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autoSizeTextType="uniform"
-            android:padding="20dp"
-            android:textAlignment="center" />
+            android:text="2000 ml "
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/vaegt"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:layout_marginBottom="24dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Du mangler at registrere vægt i dag"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="10dp" />
+
+        <EditText
+            android:id="@+id/vaegt_edit"
+            android:layout_width="96dp"
+            android:layout_height="39dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Vægt"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vagt_knap"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.68" />
+
+        <Button
+            android:id="@+id/vagt_knap"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="106dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="72dp"
+            android:layout_weight="1"
+            android:text="Registrer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/vaegt_registreret"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="142dp"
+        android:layout_marginTop="100dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Du har registreret vægt i dag"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="139dp"
+        android:layout_marginBottom="132dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintTop_toBottomOf="@+id/vaegt_edit"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/quick_add_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_height="55dp"
+            android:layout_weight="1"
             android:autoSizeTextType="uniform"
             android:text="@string/quick_add_text"
             android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
+            android:layout_height="129dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -93,12 +165,12 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:autoSizeTextType="uniform"
                 android:background="@drawable/ripple"
-                android:drawableTop="@drawable/bottle"
+                android:drawableTop="@drawable/ic_front_soda"
                 android:padding="7dp"
                 android:text="Cola\n500 ml"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/fav2_img"
@@ -106,12 +178,12 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:autoSizeTextType="uniform"
                 android:background="@drawable/ripple"
-                android:drawableTop="@drawable/glass"
+                android:drawableTop="@drawable/ic_front_water"
                 android:padding="7dp"
                 android:text="Vand\n175ml"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/fav3_img"
@@ -120,12 +192,12 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:autoSizeTextType="uniform"
                 android:background="@drawable/ripple"
-                android:drawableTop="@drawable/cup"
+                android:drawableTop="@drawable/ic_front_coffee"
                 android:padding="7dp"
                 android:text="Kaffe\n125 ml"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/fav4_img"
@@ -133,34 +205,27 @@
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
                 android:layout_weight="1"
-                android:autoSizeTextType="uniform"
                 android:background="@drawable/ripple"
-                android:drawableTop="@drawable/pitcher"
+                android:drawableTop="@drawable/ic_front_pitchers"
                 android:padding="7dp"
                 android:text="Vand\n1000 ml"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="16sp" />
 
-            <ImageButton
-                android:id="@+id/edit_fav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:layout_weight="1.1"
-                android:background="@color/background_color"
-                android:src="@drawable/edit_btn" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
-        android:layout_height="128dp"
+        android:layout_height="111dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <ImageButton
             android:id="@+id/add_btn"
@@ -176,27 +241,6 @@
             android:text="Tilføj andet"
             android:textAlignment="center" />
     </LinearLayout>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.41" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
 
 
 </android.support.constraint.ConstraintLayout>
