@@ -3,6 +3,7 @@ package com.measurelet;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -45,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
+
+        TextView bed= navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+        bed.setText("hej");
 
        if(!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
