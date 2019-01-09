@@ -5,19 +5,16 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.firebase.FirebaseApp;
-import com.measurelet.Database.Database_Local.LocalDatabase;
-import com.measurelet.Database.Database_Online.OnlineDatabase;
-import com.measurelet.Database.Database_Online.PatientFirebase;
 import com.measurelet.Model.Patient;
 
 public class App extends Application {
 
     public static SharedPreferences preferenceManager;
 
-    public static Boolean loggedIn = false;
+    private static Boolean loggedIn = false;
 
 
-    public static PatientFirebase currentUser;
+    public static Patient currentUser;
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
@@ -30,17 +27,21 @@ public class App extends Application {
 
 
         // Verify if a user is logged in
+        String key = preferenceManager.getString("KEY", null);
+
+        // We have a key in storage. Lets try to fetch the current user
+        if(key.length() > 0){
+
+
+        }
 
     }
 
     public static boolean isLoggedIn(){
 
-        return false;
+        return loggedIn;
     }
 
-    public static Patient getCurrentPatient(){
-        return local_database.patientDao().getFirstPatient();
-    }
 
 }
 

@@ -20,6 +20,7 @@ public class ChildDatabase {
     private static DatabaseReference dbRef = OnlineDatabase.getAppDatabase();
     public static DatabaseReference dbPatientRef;
 
+
     public static void InsertPatient(Patient patient){
         HashMap<String, Object> map = new HashMap<>();
         map.put(Patient.patientID.toString(), patient);
@@ -39,6 +40,7 @@ public class ChildDatabase {
         map.put(intake.intakeID.toString(), intake);
 
         OnlineDatabase.getChildDBReference(childRefs).updateChildren(map);
+
     }
 
     public static void UpdateNewIntake(Patient patient, Intake intake){
