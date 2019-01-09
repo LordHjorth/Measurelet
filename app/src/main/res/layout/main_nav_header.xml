@@ -12,26 +12,16 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/profilbillede"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/profil" />
-
     <TextView
-        android:id="@+id/nav_header_name"
+        android:id="@+id/patientname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/profilnavn"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/bednumber"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profilemail" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
