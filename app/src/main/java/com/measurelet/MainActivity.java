@@ -79,13 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
-                    Toolbar toolbar = ((Toolbar) findViewById(R.id.toolbar));
-
-                    TextView name = (TextView) toolbar.findViewById(R.id.patientname);
-                    TextView bed = (TextView) toolbar.findViewById(R.id.bednumber);
-                    name.setText("abc@stackoverflow.com");
-                    bed.setText("awawaw");
+                    System.out.println("PATIENT FETCHED");
                 }
 
                 @Override
