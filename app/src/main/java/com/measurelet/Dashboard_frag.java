@@ -89,6 +89,8 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         if (view == mllayout) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
         }
+
+    /*
         if (view!=add_btn&&view != mllayout&&view!=vaegt_knap) {
             if (view == ffour) {
                 ml = ml + 1000;
@@ -114,6 +116,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             IntakeFactory.InsertNewIntake(intake);
             ((MainActivity) getActivity()).getAddAnimation();
         }
+        */
 
         }
 }

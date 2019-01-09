@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.hjorth.measurelet.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.measurelet.Model.Patient;
 import com.measurelet.registration.IntroSlidePager;
 
@@ -71,10 +74,26 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
     protected void onResume() {
         super.onResume();
 
-/*        Patient patient = App.getCurrentPatient();
-        if(patient != null && findViewById(R.id.nav_header_name) != null){
-            ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
-        }*/
+        if (App.patientRef != null) {
+            App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                    Toolbar toolbar = ((Toolbar) findViewById(R.id.toolbar));
+
+                    TextView name = (TextView) toolbar.findViewById(R.id.patientname);
+                    TextView bed = (TextView) toolbar.findViewById(R.id.bednumber);
+                    name.setText("abc@stackoverflow.com");
+                    bed.setText("awawaw");
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
 

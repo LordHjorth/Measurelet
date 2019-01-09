@@ -58,6 +58,7 @@ public class App extends Application {
     public static void referenceStartUp(DatabaseReference rootRef, String key){
         patientRef = rootRef.child(key);
         intakeRef = patientRef.child("registrations");
+
     }
 
     public static boolean isLoggedIn(){

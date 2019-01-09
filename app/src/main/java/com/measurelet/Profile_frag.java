@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.measurelet.Model.Patient;
 
 public class Profile_frag extends Fragment implements View.OnClickListener {
 
@@ -27,6 +31,20 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
 
         search = profil.findViewById(R.id.save_changes);
         search.setOnClickListener(this);
+
+        App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Patient p = dataSnapshot.getValue(Patient.class);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         labelName = profil.findViewById(R.id.profile_name_label);
         inputName = profil.findViewById(R.id.profile_name_input);
