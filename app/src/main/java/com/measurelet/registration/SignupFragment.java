@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.Database.Database_Online.ChildDatabase;
+import com.measurelet.App;
+import com.measurelet.Factories.PatientFactory;
 import com.measurelet.MainActivity;
-import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
-
-import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,16 +46,12 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         String name = ((EditText)fragment.findViewById(R.id.signup_name_txt)).getText().toString();
 
-        Patient.patientID = UUID.randomUUID();
 
         Patient patient = new Patient(name, bed);
-        ChildDatabase.InsertPatient(patient);
+        PatientFactory.InsertPatient(patient);
 
-        Intake intake = new Intake("water", 1000);
-        ChildDatabase.InsertNewIntake(intake);
-
-        //Patient patient = new Patient(name);
-        //App.local_database.patientDao().insert(patient);
+        App.referenceStartUp(App.getAppDatabase(), patient.patientID.toString());
+        App.preferenceManager.edit().putString("KEY", patient.patientID.toString()).commit();
 
         ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 

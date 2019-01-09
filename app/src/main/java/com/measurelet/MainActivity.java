@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
 
-       if(true) {
+       if(!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
         }
 /*

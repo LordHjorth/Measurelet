@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.Database.Database_Online.ChildDatabase;
+import com.measurelet.Factories.IntakeFactory;
 import com.measurelet.Model.Intake;
 
 public class Dashboard_frag extends Fragment implements View.OnClickListener {
@@ -89,7 +89,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
                 intake = new Intake("wasser", 500);
 
             }
-            ChildDatabase.InsertNewIntake(intake);
+            IntakeFactory.InsertNewIntake(intake);
             ((MainActivity) getActivity()).getAddAnimation();
         }
     }

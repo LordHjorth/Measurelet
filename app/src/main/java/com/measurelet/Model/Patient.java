@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Patient implements Observer {
 
-    public static UUID patientID;
+    public UUID patientID;
     private String name;
     private int bedNum;
     private double weight;
@@ -18,6 +18,7 @@ public class Patient implements Observer {
     List<Intake> intakes;
 
     public Patient(String name, int bedNum){
+        this.patientID = UUID.randomUUID();
         this.name = name;
         this.bedNum = bedNum;
         this.intakes = new ArrayList<>();
