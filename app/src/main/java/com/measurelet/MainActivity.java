@@ -59,12 +59,38 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         NavigationView navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
 
-        TextView bed= navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-        bed.setText("hej");
 
        if(!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
         }
+
+        if (App.patientRef != null) {
+
+            TextView bed= navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+            TextView name= navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+            App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    System.out.println("PATIENT FETCHED");
+
+                    Patient patient = dataSnapshot.getValue(Patient.class);
+
+                    System.out.println(patient.patientID);
+                    System.out.println(patient.getName());
+
+
+                    bed.setText(patient.getBedNum()+ "");
+                    name.setText(patient.getName());
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
+
 /*
         Patient patient = App.getCurrentPatient();
         if(patient != null && findViewById(R.id.nav_header_name) != null){
