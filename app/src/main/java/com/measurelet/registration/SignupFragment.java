@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.App;
+import com.measurelet.Factories.PatientFactory;
 import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
 
@@ -46,9 +46,12 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         String name = ((EditText)fragment.findViewById(R.id.signup_name_txt)).getText().toString();
 
-        Patient patient = new Patient(name);
 
-        App.database.patientDao().insert(patient);
+        Patient patient = new Patient(name, bed);
+        PatientFactory.InsertPatient(patient);
+
+        App.referenceStartUp(App.getAppDatabase(), patient.patientID.toString());
+        App.preferenceManager.edit().putString("KEY", patient.patientID.toString()).commit();
 
         ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 

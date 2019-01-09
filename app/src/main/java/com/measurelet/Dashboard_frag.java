@@ -34,6 +34,8 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View dashboard = inflater.inflate(R.layout.dashboard_frag, container, false);
+
+
         add_btn = dashboard.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
         mllayout= dashboard.findViewById(R.id.mllayout);
@@ -91,19 +93,25 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             if (view == ffour) {
                 ml = ml + 1000;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 1000);
             }
             if (view == ftree) {
                 ml = ml + 125;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 125);
             }
             if (view == ftwo) {
                 ml = ml + 175;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 175);
             }
             if (view == fone) {
                 ml = ml + 500;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 500);
+
             }
+            IntakeFactory.InsertNewIntake(intake);
             ((MainActivity) getActivity()).getAddAnimation();
         }
 

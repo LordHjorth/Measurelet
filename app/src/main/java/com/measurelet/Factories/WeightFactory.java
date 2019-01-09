@@ -1,6 +1,4 @@
 package com.measurelet.Factories;
 
-
-public class GraphFactory {
-
+public class WeightFactory {
 }

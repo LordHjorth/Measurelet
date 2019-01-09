@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "54689521290",
+    "firebase_url": "https://measurelet.firebaseio.com",
+    "project_id": "measurelet",
+    "storage_bucket": "measurelet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54689521290:android:22b84238e16bc366",
+        "android_client_info": {
+          "package_name": "com.example.hjorth.measurelet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54689521290-kla50pjj2nvebqo7t3qpipua6bfdnaqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGv34ZRRyi5kprzSsF_z4gbF4IEF8HSyM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

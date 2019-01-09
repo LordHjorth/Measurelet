@@ -1,71 +1,25 @@
 package com.measurelet.Factories;
 
-import com.measurelet.Database.IntakeDao;
-import com.measurelet.Database.LocalDatabase;
+import com.measurelet.App;
 import com.measurelet.Model.Intake;
-import com.measurelet.Model.IntakeFav;
-import com.measurelet.Model.IntakeStandard;
+import com.measurelet.Model.Patient;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.HashMap;
 
 public class IntakeFactory {
 
-    private LocalDatabase db;
+    public static void InsertNewIntake(Intake intake){
 
-    public IntakeFactory(LocalDatabase db){
-        this.db = db;
-    }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(intake.intakeID.toString(), intake);
 
-    public void insertIntake(Intake intake){
-        db.intakeDao().insert(intake);
-    }
-
-    public void updateIntake(Intake intake){
-        db.intakeDao().Update(intake);
-    }
-
-    public void deleteIntake(Intake intake){
-        db.intakeDao().Delete(intake);
-    }
-
-    public List<Intake> getIntakes(){
-        return db.intakeDao().getAllIntakes();
-    }
-
-    public List<Intake> getPatientIntakes(UUID patientID){
-        return db.intakeDao().getPatientIntake(patientID);
-    }
-
-    public Intake getSpecificIntake(UUID patientID, Date regDate){
-        return db.intakeDao().getPatientIntakeByTime(patientID,regDate);
-    }
-
-    public int sumIntake(){
-        List<Intake> intakes = db.intakeDao().getAllIntakes();
-        int total = 0;
-
-        for(Intake i : intakes){
-            total += i.amount;
-        }
-
-        return total;
-    }
-
-    public void UpsertIntakeFav(IntakeFav insFav){
+        App.intakeRef.updateChildren(map);
 
     }
 
-    public void DeleteIntakeFav(IntakeFav intakeFav){
+    public static void UpdateNewIntake(Patient patient, Intake intake){
 
     }
 
-    public void UpsertIntakeStandard(IntakeStandard intakeStandard){
-
-    }
-
-    public void DeleteIntakeStandard(IntakeStandard intakeStandard){
-
-    }
 }
+

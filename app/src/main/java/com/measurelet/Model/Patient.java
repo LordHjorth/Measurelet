@@ -1,35 +1,66 @@
 package com.measurelet.Model;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.UUID;
 
 
-@Entity
-public class Patient {
+public class Patient implements Observer {
 
-    @PrimaryKey
-    @NonNull
-    public UUID id = UUID.randomUUID();
+    public UUID patientID;
+    private String name;
+    private int bedNum;
+    private double weight;
 
-    @ColumnInfo(name = "Name")
-    public String name;
 
-    @ColumnInfo(name = "RegDate")
-    public Date regDate;
+    List<Intake> intakes;
 
-    @Ignore
-    public Patient(String name){
-        this.id = UUID.randomUUID();
+    public Patient(String name, int bedNum){
+        this.patientID = UUID.randomUUID();
         this.name = name;
-        this.regDate = new Date();
+        this.bedNum = bedNum;
+        this.intakes = new ArrayList<>();
     }
 
-    public Patient(){
+    @Override
+    public void update(Observable o, Object arg) {
+        //Når et patient objekt opdateres, så skal UI'en opdateres.
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getBedNum() {
+        return bedNum;
+    }
+
+    public void setBedNum(int bedNum) {
+        this.bedNum = bedNum;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public List<Intake> getIntakes() {
+        return intakes;
+    }
+
+    public void setIntakes(List<Intake> intakes) {
+        this.intakes = intakes;
+    }
+
+
 }
