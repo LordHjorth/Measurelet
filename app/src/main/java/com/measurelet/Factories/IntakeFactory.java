@@ -2,16 +2,20 @@ package com.measurelet.Factories;
 
 import com.measurelet.App;
 import com.measurelet.Model.Intake;
+import com.measurelet.Model.Weight;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class IntakeFactory {
 
     public static void InsertNewIntake(Intake intake){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put(intake.uuid, intake);
 
-        App.intakeRef.updateChildren(map);
+        List<Intake> intakes = App.currentUser == null ? new ArrayList<>() : App.currentUser.getRegistrations();
+        intakes.add(intake);
+
+        App.intakeRef.setValue(intakes);
     }
 
     public static void UpdateNewIntake(Intake intake){

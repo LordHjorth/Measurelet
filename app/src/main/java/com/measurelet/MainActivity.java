@@ -19,10 +19,12 @@ import com.example.hjorth.measurelet.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
-import com.measurelet.registration.IntroSlidePager;
+import com.measurelet.Model.Weight;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -35,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
     private NavController navC;
     private DrawerLayout drawer;
     private View nvH;
+
+    String patient_name, uuid;
+    int bedNum;
+    Date date;
+    ArrayList<Weight> weights;
+    ArrayList<Intake> registrations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,39 +70,22 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         if (!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
         }
-
-        if (App.patientRef != null) {
-
-            TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-            TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
-
-            App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    System.out.println("PATIENT FETCHED");
-
-                    Patient patient = dataSnapshot.getValue(Patient.class);
-
-                    System.out.println(patient.uuid);
-                    System.out.println(patient.getName());
-
-
-                    bed.setText(patient.getBedNum() + "");
-                    name.setText(patient.getName());
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
-
 /*
-        Patient patient = App.getCurrentPatient();
-        if(patient != null && findViewById(R.id.nav_header_name) != null){
-            ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
-        }*/
+        TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+        TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+
+        addListenersForReferences();
+
+        Patient patient = new Patient(patient_name, bedNum, uuid, registrations, weights);
+
+        bed.setText(patient.getBedNum() + "");
+        name.setText(patient.getName());
+
+        System.out.println(patient.getBedNum() + " - " + bed.getText() + " - " + bedNum);
+        System.out.println(patient.getName() + " - " + name.getText() + " - " + patient_name);
+*/
+
 
     }
 
