@@ -11,8 +11,8 @@ public class Patient {
     private String name;
     private int bedNum;
 
-    List<Weight> weights;
-    List<Intake> intakes;
+    private ArrayList<Weight> weights;
+    private ArrayList<Intake> intakes;
 
     public Patient(String name, int bedNum){
         this.uuid = UUID.randomUUID().toString();
@@ -26,6 +26,14 @@ public class Patient {
 
     }
 
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getName() {
         return name;
@@ -42,14 +50,4 @@ public class Patient {
     public void setBedNum(int bedNum) {
         this.bedNum = bedNum;
     }
-
-    public List<Intake> getIntakes() {
-        return intakes;
-    }
-
-    public void setIntakes(List<Intake> intakes) {
-        this.intakes = intakes;
-    }
-
-
 }

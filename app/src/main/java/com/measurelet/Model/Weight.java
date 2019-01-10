@@ -19,4 +19,27 @@ public class Weight {
 
     }
 
+    public double getWeightKG() {
+        return weightKG;
+    }
+
+    public void setWeightKG(double weightKG) {
+        this.weightKG = weightKG;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }

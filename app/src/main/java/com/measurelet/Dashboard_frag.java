@@ -1,5 +1,6 @@
 package com.measurelet;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.Factories.WeightFactory;
 import com.measurelet.Model.Intake;
+import com.measurelet.Model.Weight;
 
 import java.util.Date;
 import java.util.UUID;
@@ -25,9 +28,9 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
     ImageButton add_btn;
     TextView overall;
     LinearLayout mllayout;
-    Button fone,ftwo,ftree,ffour;
-    static int ml=0;
-    static int overallml=2000;
+    Button fone, ftwo, ftree, ffour;
+    static int ml = 0;
+    static int overallml = 2000;
 
     EditText vaegt;
     Button vaegt_knap;
@@ -43,31 +46,31 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
 
         add_btn = dashboard.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
-        mllayout= dashboard.findViewById(R.id.mllayout);
+        mllayout = dashboard.findViewById(R.id.mllayout);
         mllayout.setOnClickListener(this);
-        ffour=dashboard.findViewById(R.id.fav4_img);
+        ffour = dashboard.findViewById(R.id.fav4_img);
         ffour.setOnClickListener(this);
-        ftree=dashboard.findViewById(R.id.fav3_img);
+        ftree = dashboard.findViewById(R.id.fav3_img);
         ftree.setOnClickListener(this);
-        ftwo=dashboard.findViewById(R.id.fav2_img);
+        ftwo = dashboard.findViewById(R.id.fav2_img);
         ftwo.setOnClickListener(this);
-        fone=dashboard.findViewById(R.id.fav1_img);
+        fone = dashboard.findViewById(R.id.fav1_img);
         fone.setOnClickListener(this);
 
         //vægt
         vaegt = dashboard.findViewById(R.id.vaegt_edit);
-        vaegt_knap=dashboard.findViewById(R.id.vagt_knap);
+        vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
         vaegt_knap.setOnClickListener(this);
 
-        vaegtLayout=dashboard.findViewById(R.id.vaegt);
-        vaegtRegistreret=dashboard.findViewById(R.id.vaegt_registreret);
+        vaegtLayout = dashboard.findViewById(R.id.vaegt);
+        vaegtRegistreret = dashboard.findViewById(R.id.vaegt_registreret);
 
-        if(getArguments()!=null){
-            ml=ml+getArguments().getInt("liq");
+        if (getArguments() != null) {
+            ml = ml + getArguments().getInt("liq");
         }
 
-        overall=dashboard.findViewById(R.id.registrated_amount);
-        overall.setText(Integer.toString(ml)+"ml"+"/"+Integer.toString(overallml)+"ml");
+        overall = dashboard.findViewById(R.id.registrated_amount);
+        overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
 
         ((MainActivity) getActivity()).getSupportActionBar().show();
 
@@ -79,13 +82,28 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        if (view==vaegt_knap){
+
+        if (view == vaegt_knap) {
+
+            String weightkg = vaegt.getText().toString();
+            if (weightkg.equals("")) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Intet indtastet")
+                        .setMessage("Hvad vejer du? Skriv din vægt i kg.")
+                        .setCancelable(true)
+                        .show();
+                return;
+            }
+
+            Weight weight = new Weight(Double.parseDouble(weightkg));
+            WeightFactory.InsertNewWeight(weight);
+
             vaegtLayout.setVisibility(View.INVISIBLE);
             ((MainActivity) getActivity()).getAddAnimation();
 
             vaegtRegistreret.setVisibility(View.VISIBLE);
 
-            //vægt skal gemmes i databasen
+
         }
 
         if (view == add_btn) {
@@ -96,7 +114,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         }
 
 
-        if (view!=add_btn&&view != mllayout&&view!=vaegt_knap) {
+        if (view != add_btn && view != mllayout && view != vaegt_knap) {
             Intake intake;
             if (view == ffour) {
                 ml = ml + 1000;
@@ -119,7 +137,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             if (view == fone) {
                 ml = ml + 500;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake("3e371fb7-af79-4f8d-a8bf-bd67a4095909","Cola", 500, new Date());
+                intake = new Intake("3e371fb7-af79-4f8d-a8bf-bd67a4095909", "Cola", 500, new Date());
                 IntakeFactory.UpdateNewIntake(intake);
 
             }
@@ -127,5 +145,5 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         }
 
 
-        }
+    }
 }
