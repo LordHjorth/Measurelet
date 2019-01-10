@@ -9,7 +9,7 @@ public class PatientFactory {
 
     public static void InsertPatient(Patient patient){
         HashMap<String, Object> map = new HashMap<>();
-        map.put(patient.patientID.toString(), patient);
+        map.put(patient.uuid.toString(), patient);
         App.getAppDatabase().updateChildren(map);
     }
 

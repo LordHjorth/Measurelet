@@ -50,8 +50,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         Patient patient = new Patient(name, bed);
         PatientFactory.InsertPatient(patient);
 
-        App.referenceStartUp(App.getAppDatabase(), patient.patientID.toString());
-        App.preferenceManager.edit().putString("KEY", patient.patientID.toString()).commit();
+        App.referenceStartUp(App.getAppDatabase(), patient.uuid);
+        App.preferenceManager.edit().putString("KEY", patient.uuid).commit();
 
         ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.Model.Intake;
 
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -23,22 +25,26 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
     private EditText tastml;
     private EditText tastandet;
     private ImageButton add;
-    private boolean andet = false;
+    private boolean andet;
     private Bundle bundle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View customfrag = inflater.inflate(R.layout.registration_custom_frag, container, false);
+
         TextView druk = customfrag.findViewById(R.id.drink);
         druk.setText(R.string.drink);
         TextView m = customfrag.findViewById(R.id.amounttitle);
         m.setText(R.string.amount);
         tastml = customfrag.findViewById(R.id.amountofliquid);
         tastandet = customfrag.findViewById(R.id.selftyped);
-        tastandet.setVisibility(View.INVISIBLE);
+        //tastandet.setVisibility(View.INVISIBLE);
         customfrag.findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
+
         add = customfrag.findViewById(R.id.plusbut);
         add.setOnClickListener(this);
         bundle = new Bundle();
+        andet = false;
 
         Spinner spin = customfrag.findViewById(R.id.scrollvalg);
         String[] items = new String[]{"Sodavand", "Vand", "Kaffe", "Saftevand", "Andet"};
@@ -54,28 +60,33 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
     public void onClick(View view) {
 
         if (view == add) {
-            String mil = tastml.getText().toString();
 
-            if (mil.equals("")) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Intet indtastet")
-                        .setMessage("Hvor mange milliliter har du drukket?")
-                        .setCancelable(true)
-                        .show();
+            //handles size
+            String size = tastml.getText().toString();
+
+            if (size.equals("")) {
+                emptyFieldAlert("Hvor mange milliliter har du drukket?");
                 return;
             }
-            ml = Integer.parseInt(mil);
-            bundle.putInt("liq",ml);
+            ml = Integer.parseInt(size);
+            bundle.putInt("liq", ml);
 
-          /*  if (andet) {
+            //handles type
+            String type = tastandet.getText().toString();
+            if (andet) {
+                if (type.equals("")) {
+                    emptyFieldAlert("Hvilken type væske har du drukket?");
+                    return;
+                }
                 liqtyp = tastandet.getText().toString();
             }
-*/
-            tastandet.setVisibility(View.INVISIBLE);
-            getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
-            ((MainActivity)getActivity()).getAddAnimation();
+            //inserts to DB
+            Intake intake = new Intake(liqtyp, ml);
+            IntakeFactory.InsertNewIntake(intake);
 
+            //navigates back to dashboard
+            ((MainActivity) getActivity()).getAddAnimation();
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag, bundle);
         }
 
@@ -83,35 +94,46 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+
         switch (position) {
             case 0:
-                andet = false;
                 liqtyp = "Sodavand";
                 break;
             case 1:
                 liqtyp = "Vand";
-                andet = false;
                 break;
             case 2:
                 liqtyp = "Kaffe";
-                andet = false;
                 break;
             case 3:
                 liqtyp = "Saftevand";
-                andet = false;
                 break;
             case 4:
                 liqtyp = "Andet";
-                andet = true;
-                getView().findViewById(R.id.setsynligt).setVisibility(View.VISIBLE);
-                tastandet.setVisibility(View.VISIBLE);
                 break;
+        }
+
+        if (liqtyp.equals("Andet")) {
+            andet = true;
+            getView().findViewById(R.id.setsynligt).setVisibility(View.VISIBLE);
+        } else {
+
+            andet = false;
+            getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
         }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         Toast.makeText(getActivity(), "Ingen drikkevarer valgt!", Toast.LENGTH_LONG).show();
+    }
+
+    private void emptyFieldAlert(String errorMsg) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Intet indtastet")
+                .setMessage(errorMsg)
+                .setCancelable(true)
+                .show();
     }
 
 

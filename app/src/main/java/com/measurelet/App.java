@@ -28,12 +28,9 @@ public class App extends Application {
     //Child references.
     public static DatabaseReference patientRef;
     public static DatabaseReference intakeRef;
+    public static DatabaseReference weightRef;
 
     private static Boolean loggedIn = false;
-
-
-
-    public static Patient currentUser;
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
@@ -58,7 +55,7 @@ public class App extends Application {
     public static void referenceStartUp(DatabaseReference rootRef, String key){
         patientRef = rootRef.child(key);
         intakeRef = patientRef.child("registrations");
-
+        weightRef = patientRef.child("weights");
     }
 
     public static boolean isLoggedIn(){
@@ -88,7 +85,6 @@ public class App extends Application {
 
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
             System.out.println("Succeeded");
         }
 

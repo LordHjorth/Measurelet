@@ -2,31 +2,24 @@ package com.measurelet.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.UUID;
 
 
-public class Patient implements Observer {
+public class Patient {
 
-    public UUID patientID;
+    public String uuid;
     private String name;
     private int bedNum;
-    private double weight;
 
-
+    List<Weight> weights;
     List<Intake> intakes;
 
     public Patient(String name, int bedNum){
-        this.patientID = UUID.randomUUID();
+        this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.bedNum = bedNum;
         this.intakes = new ArrayList<>();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        //Når et patient objekt opdateres, så skal UI'en opdateres.
+        this.weights = new ArrayList<>();
     }
 
 
@@ -44,14 +37,6 @@ public class Patient implements Observer {
 
     public void setBedNum(int bedNum) {
         this.bedNum = bedNum;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
     }
 
     public List<Intake> getIntakes() {

@@ -15,6 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.Model.Intake;
+
+import java.util.Date;
+import java.util.UUID;
 
 public class Dashboard_frag extends Fragment implements View.OnClickListener {
     ImageButton add_btn;
@@ -58,7 +63,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
         vaegtRegistreret=dashboard.findViewById(R.id.vaegt_registreret);
 
         if(getArguments()!=null){
-        ml=ml+getArguments().getInt("liq");
+            ml=ml+getArguments().getInt("liq");
         }
 
         overall=dashboard.findViewById(R.id.registrated_amount);
@@ -90,33 +95,37 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
         }
 
-    /*
+
         if (view!=add_btn&&view != mllayout&&view!=vaegt_knap) {
+            Intake intake;
             if (view == ffour) {
                 ml = ml + 1000;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
                 intake = new Intake("wasser", 1000);
+                IntakeFactory.InsertNewIntake(intake);
             }
             if (view == ftree) {
                 ml = ml + 125;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
                 intake = new Intake("wasser", 125);
+                IntakeFactory.InsertNewIntake(intake);
             }
             if (view == ftwo) {
                 ml = ml + 175;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
                 intake = new Intake("wasser", 175);
+                IntakeFactory.InsertNewIntake(intake);
             }
             if (view == fone) {
                 ml = ml + 500;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake("wasser", 500);
+                intake = new Intake(UUID.fromString("3e371fb7-af79-4f8d-a8bf-bd67a4095909"),"Cola", 500, new Date());
+                IntakeFactory.UpdateNewIntake(intake);
 
             }
-            IntakeFactory.InsertNewIntake(intake);
             ((MainActivity) getActivity()).getAddAnimation();
         }
-        */
+
 
         }
 }
