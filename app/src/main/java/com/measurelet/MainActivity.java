@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
                     Patient patient = dataSnapshot.getValue(Patient.class);
 
-                    System.out.println(patient.patientID);
+                    System.out.println(patient.uuid);
                     System.out.println(patient.getName());
 
 

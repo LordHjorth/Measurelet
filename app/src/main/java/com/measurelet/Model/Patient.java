@@ -22,6 +22,10 @@ public class Patient {
         this.weights = new ArrayList<>();
     }
 
+    public Patient(){
+
+    }
+
 
     public String getName() {
         return name;

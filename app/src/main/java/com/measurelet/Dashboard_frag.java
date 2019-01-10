@@ -119,7 +119,7 @@ public class Dashboard_frag extends Fragment implements View.OnClickListener {
             if (view == fone) {
                 ml = ml + 500;
                 overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake(UUID.fromString("3e371fb7-af79-4f8d-a8bf-bd67a4095909"),"Cola", 500, new Date());
+                intake = new Intake("3e371fb7-af79-4f8d-a8bf-bd67a4095909","Cola", 500, new Date());
                 IntakeFactory.UpdateNewIntake(intake);
 
             }
