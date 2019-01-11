@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private ArrayList<VæskeRegistrering> væskeList ;
     private ArrayList<String> dates = new ArrayList<>();
 
+    public static ArrayList<VæskeRegistrering> væskelistProeve =new ArrayList<VæskeRegistrering>();
+
     final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
 
@@ -51,10 +54,10 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         list=dailyView.findViewById(R.id.listDaily);
         barGraph = dailyView.findViewById(R.id.graph);
 
-        createData();
+       // createData();
         createGraph();
 
-        MyAdapter adapter = new MyAdapter(getActivity(),væskeList);
+        MyAdapter adapter = new MyAdapter(getActivity(),væskelistProeve);
         list.setAdapter(adapter);
 
 
@@ -71,9 +74,9 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
     private void createGraph() {
 
-        for (int i = 0; i < væskeList.size(); i++) {
-            datapoints.add(new BarEntry(i, væskeList.get(i).getMængde()));
-            dates.add(format.format(væskeList.get(i).getDate()));
+        for (int i = 0; i < væskelistProeve.size(); i++) {
+            datapoints.add(new BarEntry(i, væskelistProeve.get(i).getMængde()));
+            dates.add(format.format(væskelistProeve.get(i).getDate()));
 
         }
         BarDataSet data = new BarDataSet(datapoints,"Væskeindtag ml");
@@ -96,7 +99,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         barGraph.getDescription().setEnabled(false);
         barGraph.getAxisLeft().setDrawGridLines(false);
         data.setValueTextSize(10);
-        data.setColor(R.color.colorPrimary);
+        data.setColor(ColorTemplate.rgb("7cb5e4"));
 
         xAxisDato.setDrawGridLines(false);
 
