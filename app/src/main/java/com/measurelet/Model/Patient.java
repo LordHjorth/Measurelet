@@ -1,38 +1,44 @@
 package com.measurelet.Model;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.UUID;
 
 
-public class Patient implements Observer {
+public class Patient {
 
-    public String patientID;
+    public String uuid;
     private String name;
     private int bedNum;
-    private double weight;
 
+    private ArrayList<Weight> weights = new ArrayList<>();
+    private ArrayList<Intake> registrations = new ArrayList<>();
 
-    List<Intake> intakes;
-
-    public Patient(){
-
-    }
-
-    public Patient(String name, int bedNum){
-        this.patientID = UUID.randomUUID().toString();
+    public Patient(String name, int bedNum) {
+        this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.bedNum = bedNum;
-        this.intakes = new ArrayList<>();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        //Når et patient objekt opdateres, så skal UI'en opdateres.
+    public Patient(String name, int bedNum, String uuid, ArrayList<Intake> registrations, ArrayList<Weight> weights) {
+        this.uuid = uuid;
+        this.name = name;
+        this.bedNum = bedNum;
+        this.registrations = registrations;
+        this.weights = weights;
     }
 
+    public Patient() {
+
+    }
+
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getName() {
         return name;
@@ -50,21 +56,19 @@ public class Patient implements Observer {
         this.bedNum = bedNum;
     }
 
-    public double getWeight() {
-        return weight;
+    public ArrayList<Weight> getWeights() {
+        return weights;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setWeights(ArrayList<Weight> weights) {
+        this.weights = weights;
     }
 
-    public List<Intake> getIntakes() {
-        return intakes;
+    public ArrayList<Intake> getRegistrations() {
+        return registrations;
     }
 
-    public void setIntakes(List<Intake> intakes) {
-        this.intakes = intakes;
+    public void setRegistrations(ArrayList<Intake> registrations) {
+        this.registrations = registrations;
     }
-
-
 }

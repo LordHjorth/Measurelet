@@ -1,5 +1,6 @@
 package com.measurelet;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.Factories.WeightFactory;
+import com.measurelet.Model.Intake;
+import com.measurelet.Model.Weight;
+
+import java.util.Date;
+import java.util.UUID;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,7 +61,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
         add_btn = dashboard.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
-        mllayout= dashboard.findViewById(R.id.mllayout);
+        mllayout = dashboard.findViewById(R.id.mllayout);
         mllayout.setOnClickListener(this);
 
 
@@ -70,11 +78,11 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
         //vægt
         vaegt = dashboard.findViewById(R.id.vaegt_edit);
-        vaegt_knap=dashboard.findViewById(R.id.vagt_knap);
+        vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
         vaegt_knap.setOnClickListener(this);
 
-        vaegtLayout=dashboard.findViewById(R.id.vaegt);
-        vaegtRegistreret=dashboard.findViewById(R.id.vaegt_registreret);
+        vaegtLayout = dashboard.findViewById(R.id.vaegt);
+        vaegtRegistreret = dashboard.findViewById(R.id.vaegt_registreret);
 
         if(getArguments()!=null){
         //ml=ml+getArguments().getInt("liq");
@@ -107,13 +115,28 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     @Override
     public void onClick(View view) {
 
-        if (view==vaegt_knap){
+
+        if (view == vaegt_knap) {
+
+            String weightkg = vaegt.getText().toString();
+            if (weightkg.equals("")) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Intet indtastet")
+                        .setMessage("Hvad vejer du? Skriv din vægt i kg.")
+                        .setCancelable(true)
+                        .show();
+                return;
+            }
+
+            Weight weight = new Weight(Double.parseDouble(weightkg));
+            WeightFactory.InsertNewWeight(weight);
+
             vaegtLayout.setVisibility(View.INVISIBLE);
             ((MainActivity) getActivity()).getAddAnimation();
 
             vaegtRegistreret.setVisibility(View.VISIBLE);
 
-            //vægt skal gemmes i databasen
+
         }
 
         if (view == add_btn) {
@@ -256,6 +279,40 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         Daily_view_frag.væskelistProeve.add(tretten);
         Daily_view_frag.væskelistProeve.add(fjorden);
         Daily_view_frag.væskelistProeve.add(femten);
+
+        /*
+        if (view != add_btn && view != mllayout && view != vaegt_knap) {
+            Intake intake;
+            if (view == ffour) {
+                ml = ml + 1000;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 1000);
+                IntakeFactory.InsertNewIntake(intake);
+            }
+            if (view == ftree) {
+                ml = ml + 125;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 125);
+                IntakeFactory.InsertNewIntake(intake);
+            }
+            if (view == ftwo) {
+                ml = ml + 175;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("wasser", 175);
+                IntakeFactory.InsertNewIntake(intake);
+            }
+            if (view == fone) {
+                ml = ml + 500;
+                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
+                intake = new Intake("3e371fb7-af79-4f8d-a8bf-bd67a4095909", "Cola", 500, new Date());
+                IntakeFactory.UpdateNewIntake(intake);
+
+            }
+
+            ((MainActivity) getActivity()).getAddAnimation();
+        }
+        */
+
 
     }
 }

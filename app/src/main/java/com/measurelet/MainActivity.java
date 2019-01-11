@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,10 +19,12 @@ import com.example.hjorth.measurelet.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
-import com.measurelet.registration.IntroSlidePager;
+import com.measurelet.Model.Weight;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -34,8 +35,14 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity implements NavController.OnNavigatedListener {
 
     private NavController navC;
-    private  DrawerLayout drawer;
-    private   View nvH;
+    private DrawerLayout drawer;
+    private View nvH;
+
+    String patient_name, uuid;
+    int bedNum;
+    Date date;
+    ArrayList<Weight> weights;
+    ArrayList<Intake> registrations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
         navC.addOnNavigatedListener(this);
-        nvH=findViewById(R.id.nav_host);
+        nvH = findViewById(R.id.nav_host);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -60,42 +67,25 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         NavigationUI.setupWithNavController(navigationView, navC);
 
 
-       if(!App.isLoggedIn()) {
+        if (!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
         }
-
-        if (App.patientRef != null) {
-
-            TextView bed= navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-            TextView name= navigationView.getHeaderView(0).findViewById(R.id.patientname);
-
-            App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    System.out.println("PATIENT FETCHED");
-
-                    Patient patient = dataSnapshot.getValue(Patient.class);
-
-                    System.out.println(patient.patientID);
-                    System.out.println(patient.getName());
-
-
-                    bed.setText(patient.getBedNum()+ "");
-                    name.setText(patient.getName());
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
-
 /*
-        Patient patient = App.getCurrentPatient();
-        if(patient != null && findViewById(R.id.nav_header_name) != null){
-            ((TextView)findViewById(R.id.nav_header_name)).setText(patient.name);
-        }*/
+        TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+        TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+
+        addListenersForReferences();
+
+        Patient patient = new Patient(patient_name, bedNum, uuid, registrations, weights);
+
+        bed.setText(patient.getBedNum() + "");
+        name.setText(patient.getName());
+
+        System.out.println(patient.getBedNum() + " - " + bed.getText() + " - " + bedNum);
+        System.out.println(patient.getName() + " - " + name.getText() + " - " + patient_name);
+*/
+
 
     }
 
@@ -126,28 +116,30 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-          super.onBackPressed();
+            super.onBackPressed();
 
 
         }
     }
 
-    public void getAddAnimation(){
+    public void getAddAnimation() {
         LottieAnimationView lw;
 
-        lw=findViewById(R.id.lot_view);
+        lw = findViewById(R.id.lot_view);
         lw.setAnimation("checkm.zip");
         lw.setSpeed(1f);
 
         lw.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animator animation) {nvH.animate().alpha(0.3f);
+            public void onAnimationStart(Animator animation) {
+                nvH.animate().alpha(0.3f);
                 lw.setVisibility(View.VISIBLE);
                 lw.animate().alpha(0.9f);
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) { nvH.animate().alpha(1f);
+            public void onAnimationEnd(Animator animation) {
+                nvH.animate().alpha(1f);
 
                 lw.setVisibility(View.INVISIBLE);
             }
@@ -176,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
     @Override
     public void onNavigated(@NonNull NavController controller, @NonNull NavDestination destination) {
-        if(destination.getId()==navC.getGraph().getStartDestination()){
-            navC.popBackStack(navC.getGraph().getStartDestination(),false);
+        if (destination.getId() == navC.getGraph().getStartDestination()) {
+            navC.popBackStack(navC.getGraph().getStartDestination(), false);
 
         }
     }

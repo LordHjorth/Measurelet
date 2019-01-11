@@ -1,35 +1,63 @@
 package com.measurelet.Model;
 
-import com.measurelet.Enums;
-
 import java.util.Date;
 import java.util.UUID;
-
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 public class Intake {
 
 
-    public UUID intakeID;
-    String type;
-    int size;
-    Date timestamp;
+    public String uuid;
+    private String type;
+    private int size;
+    private Date timestamp;
 
-    public Intake(String type, int size){
-        this.intakeID = UUID.randomUUID();
+    public Intake(String type, int size) {
+        this.uuid = UUID.randomUUID().toString();
         this.type = type;
         this.size = size;
         this.timestamp = new Date();
     }
 
-    public Intake(){
+    public Intake(String uuid, String type, int size, Date date) {
+        this.uuid = uuid;
+        this.type = type;
+        this.size = size;
+        this.timestamp = date;
+    }
+
+    public Intake() {
 
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 }
