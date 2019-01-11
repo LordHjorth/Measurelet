@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -142,7 +143,7 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
         xAxisDato = lineChart.getXAxis();
         xAxisDato.setValueFormatter(getformatter());
         data.setCircleRadius(5f);
-        data.setCircleColor(R.color.colorPrimary);
+        data.setCircleColor(ColorTemplate.rgb("7cb5e4"));
         lineChart.setVisibleXRangeMaximum(7);
         lineChart.setVisibleXRangeMinimum(7);
         xAxisDato.setGranularity(1f);
@@ -152,9 +153,7 @@ public class Reg_weight_frag extends Fragment implements View.OnClickListener {
         lineChart.getDescription().setEnabled(false);
         xAxisDato.setDrawGridLines(false);
         data.setValueTextSize(10);
-        data.setColor(R.color.colorPrimary);
-
-
+        data.setColor(ColorTemplate.rgb("7cb5e4"));
         lineChart.invalidate();
 
     }

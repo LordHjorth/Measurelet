@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import java.util.Map;
 import com.example.hjorth.measurelet.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -24,11 +24,14 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClickListener {
@@ -36,7 +39,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     ListView listView;
     private View view;
-    private ArrayList<VæskeRegistrering> væskeList ;
+    private ArrayList<DagVæske> væskeList = new ArrayList<>();
     private BarChart barGraph;
     private BarData barData;
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
@@ -45,7 +48,14 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     final SimpleDateFormat format = new SimpleDateFormat("dd/MM");
 
+    HashSet<Date> hej = new HashSet<>();
 
+    HashMap<String,Integer> ko = new HashMap<>();
+
+
+    int mængde=0;
+    Calendar calendar = Calendar.getInstance();
+    Date d1 ;
 
     @Nullable
     @Override
@@ -56,7 +66,37 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         listView.setOnItemClickListener(this);
         barGraph = view.findViewById(R.id.graph);
 
-        createData();
+        //createData();
+
+
+        for (VæskeRegistrering registrering : Daily_view_frag.væskelistProeve){
+
+            d1=registrering.getDate();
+
+            String h = format.format(d1);
+            System.out.println(h);
+
+            if (ko.containsKey(h))
+            {
+                mængde=mængde+registrering.getMængde();
+            }
+            else{
+                mængde=registrering.getMængde();
+            }
+
+            ko.put(h,mængde);
+
+        }
+
+
+
+        for (Map.Entry<String, Integer> entry : ko.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            væskeList.add(new DagVæske(key,value));
+
+        }
+
         createGraph();
 
 
@@ -71,7 +111,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
         for (int i = 0; i < væskeList.size(); i++) {
             datapoints.add(new BarEntry(i, væskeList.get(i).getMængde()));
-            dates.add(format.format(væskeList.get(i).getDate()));
+            dates.add(væskeList.get(i).getDate());
         }
 
         BarDataSet data = new BarDataSet(datapoints,"Væskeindtag ml");
@@ -91,14 +131,15 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         barGraph.getAxisLeft().setDrawGridLines(false);
         barGraph.getDescription().setEnabled(false);
         xAxisDato.setDrawGridLines(false);
-        data.setColor(R.color.colorPrimary);
+
+        data.setColor(ColorTemplate.rgb("7cb5e4"));
         data.setValueTextSize(10);
         barGraph.invalidate();
 
     }
 
     private void createData(){
-        væskeList = new ArrayList<VæskeRegistrering>();
+      /*  væskeList = new ArrayList<VæskeRegistrering>();
         Calendar calendar = Calendar.getInstance();
         Date d1 = calendar.getTime();
         calendar.add(Calendar.DATE, 1);
@@ -169,8 +210,9 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         væskeList.add(6,væske7);
         væskeList.add(7,væske8);
         væskeList.add(8,væske9);
-
+*/
     }
+
 
     private IAxisValueFormatter getformatter() {
 
@@ -188,27 +230,11 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
 
 
-    public  ArrayList<VæskeRegistrering> getVæske() {
+    public  ArrayList<DagVæske> getVæske() {
         return væskeList;
     }
 
-    public ArrayList<VæskeRegistrering> getDatoVæskeliste(Date date) {
-        ArrayList<VæskeRegistrering> daglig = new ArrayList<>();
-        for (VæskeRegistrering hej : væskeList) {
-            if (hej.getDate().getDate() == date.getDate()) {
-                daglig.add(hej);
-            }
-        }
-        return daglig;
-    }
 
-  /*  private ArrayList<VæskeRegistrering> getUgentligVæskesorteret() {
-        ArrayList<VæskeRegistrering> ugentlig = new ArrayList<>();
-        for (VæskeRegistrering hej : væskeList) {
-        }
-        return ugentlig;
-    }
-    */
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -217,11 +243,11 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     }
 
-    private class MyAdapter extends ArrayAdapter<VæskeRegistrering> {
-        private ArrayList<VæskeRegistrering> dataSet;
+    private class MyAdapter extends ArrayAdapter<DagVæske> {
+        private ArrayList<DagVæske> dataSet;
         Context mContext;
 
-        public MyAdapter(@NonNull Context context, ArrayList<VæskeRegistrering> data) {
+        public MyAdapter(@NonNull Context context, ArrayList<DagVæske> data) {
             super(context, R.layout.list_weeklyview, data);
             this.dataSet = data;
             this.mContext = context;
@@ -237,10 +263,9 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
             TextView dato = rowView.findViewById(R.id.dato);
             TextView mængde = rowView.findViewById(R.id.mængde);
 
-            SimpleDateFormat format = new SimpleDateFormat("dd. MMM");
 
 
-            dato.setText(format.format(dataSet.get(position).getDate()));
+            dato.setText(dataSet.get(position).getDate());
 
             mængde.setText(String.valueOf(dataSet.get(position).getMængde()));
 

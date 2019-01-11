@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private int ml;
@@ -25,6 +28,11 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
     private ImageButton add;
     private boolean andet = false;
     private Bundle bundle;
+
+    Calendar calendar = Calendar.getInstance();
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View customfrag = inflater.inflate(R.layout.registration_custom_frag, container, false);
@@ -67,16 +75,80 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
             ml = Integer.parseInt(mil);
             bundle.putInt("liq",ml);
 
-          /*  if (andet) {
-                liqtyp = tastandet.getText().toString();
-            }
-*/
+
             tastandet.setVisibility(View.INVISIBLE);
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
+
+
+            updateButtons(Dashboard_frag.knapperSeneste);
+            updateButtons(Registration_standard_frag.knapper);
+
+
+            Dashboard_frag.ml=Dashboard_frag.ml+ml;
+
+            VæskeRegistrering registrering=new VæskeRegistrering();
+            registrering.setType(liqtyp);
+            registrering.setMængde(ml);
+            registrering.setDate(calendar.getTime());
+
+            Daily_view_frag.væskelistProeve.add(0,registrering) ;
+
 
             ((MainActivity)getActivity()).getAddAnimation();
 
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag, bundle);
+        }
+
+    }
+
+    private int getBillede(){
+        int billede;
+        if(liqtyp=="Sodavand"){
+            billede=R.drawable.ic_soda;
+        }
+        else if(liqtyp=="Vand"){
+            billede=R.drawable.ic_glass_of_water;
+        }
+        else if(liqtyp=="Kaffe"){
+            billede=R.drawable.ic_coffee_cup;
+        }
+        else if(liqtyp=="Saftevand"){
+            billede=R.drawable.ic_orange_juice;
+        }
+        else if(liqtyp=="Andet"){
+            billede=R.drawable.ic_glass_of_water;
+            liqtyp = tastandet.getText().toString();
+        }
+        else {
+            billede= R.drawable.ic_glass_of_water;
+        }
+        return billede;
+    }
+
+
+    private void updateButtons(ArrayList<VaeskeKnap> knapper){
+
+        VaeskeKnap knap2 = new VaeskeKnap();
+
+        int billede = getBillede();
+        boolean tilføj=false;
+
+        for (VaeskeKnap knap :knapper) {
+            if (knap.getMængde()==ml && knap.getType()==liqtyp) {
+                tilføj = true;
+                knap2=knap;
+            }
+        }
+
+        if (tilføj==false){
+            knapper.add(0, new VaeskeKnap(liqtyp,ml,billede));
+            System.out.println(" 1: " + liqtyp +"  " + ml );
+        }
+
+        else if (tilføj=true){
+            knapper.remove(knap2);
+            knapper.add(0,knap2);
+            System.out.println(" 2: " + knap2.getType() +knap2.getMængde() );
         }
 
     }
@@ -107,7 +179,9 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
                 tastandet.setVisibility(View.VISIBLE);
                 break;
         }
+
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

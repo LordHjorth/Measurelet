@@ -9,7 +9,14 @@ public class VæskeRegistrering {
     int mængde;
     String type;
     String navn;
+    public VæskeRegistrering(){
 
+    }
+
+    public VæskeRegistrering(Date date,int mængde){
+    this.date=date;
+    this.mængde=mængde;
+    }
     public Date getDate() {
         return date;
     }
