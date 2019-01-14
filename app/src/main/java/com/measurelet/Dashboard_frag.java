@@ -31,25 +31,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener,View.OnClickListener {
-    ImageButton add_btn;
-    TextView overall;
-    LinearLayout mllayout;
-    Button fone,ftwo,ftree,ffour;
-
-
-
-    static int ml=0;
-    static int overallml=2000;
-
-    EditText vaegt;
-    Button vaegt_knap;
-    ConstraintLayout vaegtLayout;
-    ConstraintLayout vaegtRegistreret;
-
-    MyRecyclerViewAdapter adapter;
-    RecyclerView recyclerView;
+    private ImageButton add_btn;
+    private TextView overall;
+    private LinearLayout mllayout;
+    private Button fone,ftwo,ftree,ffour;
+    public static int ml=0;
+    public static int overallml=2000;
+    private EditText vaegt;
+    private Button vaegt_knap;
+    private ConstraintLayout vaegtLayout;
+    private ConstraintLayout vaegtRegistreret;
+    private MyRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
     public static ArrayList<VaeskeKnap> knapperSeneste=new ArrayList<>();
-    Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
 
 
@@ -68,7 +63,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         updateFavoritter();
 
         //createData();
-        recyclerView = dashboard.findViewById(R.id.item_recycler_view);
+        recyclerView = dashboard.findViewById(R.id.dashboardrecycle);
         int numberOfColumns = 4;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
         adapter = new MyRecyclerViewAdapter(getActivity(), knapperSeneste);
@@ -102,10 +97,10 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
     private void updateFavoritter(){
         if (knapperSeneste.size()==0) {
-            knapperSeneste.add(0,new VaeskeKnap("Vand", 175, R.drawable.ic_front_water));
-            knapperSeneste.add(1,new VaeskeKnap("Kaffe", 175, R.drawable.ic_front_coffee));
-            knapperSeneste.add(2,new VaeskeKnap("Saft", 175, R.drawable.ic_front_water));
-            knapperSeneste.add(3,new VaeskeKnap("Juice", 150, R.drawable.ic_front_juice));
+            knapperSeneste.add(0,new VaeskeKnap("Vand", 175, R.drawable.ic_glass_of_water));
+            knapperSeneste.add(1,new VaeskeKnap("Kaffe", 175, R.drawable.ic_coffee_cup));
+            knapperSeneste.add(2,new VaeskeKnap("Saft", 175, R.drawable.ic_glass_of_water));
+            knapperSeneste.add(3,new VaeskeKnap("Juice", 150, R.drawable.ic_orange_juice));
         }
         if(knapperSeneste.size()>4){
             knapperSeneste.remove(4);

@@ -55,7 +55,7 @@ public class Registration_standard_frag extends Fragment implements MyRecyclerVi
 
         // set up the RecyclerView
 
-        RecyclerView recyclerView = standardfrag.findViewById(R.id.item_recycler_view);
+        RecyclerView recyclerView = standardfrag.findViewById(R.id.standrecycle);
         int numberOfColumns = 2;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
 

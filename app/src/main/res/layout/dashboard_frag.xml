@@ -89,7 +89,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Vægt"
-            android:inputType="textPersonName"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
             android:textAlignment="textStart"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -210,7 +211,7 @@
             android:textAlignment="center" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/item_recycler_view"
+            android:id="@+id/dashboardrecycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
