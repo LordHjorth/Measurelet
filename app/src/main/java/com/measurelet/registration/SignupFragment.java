@@ -50,11 +50,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         name = ((EditText) fragment.findViewById(R.id.signup_name_txt)).getText().toString();
 
-
         new AsyncThread().execute();
-
-
-        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 
     }
 
@@ -62,7 +58,11 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            App.referenceStartUp(App.getAppDatabase(), patient.uuid);
+
+
+            PatientFactory.InsertPatient(patient);
+
+            App.referenceStartUp();
             return null;
         }
 
@@ -70,12 +70,13 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         protected void onPreExecute() {
             patient = new Patient(name, bed);
             App.preferenceManager.edit().putString("KEY", patient.uuid).commit();
+            App.setupRef(App.getAppDatabase(),patient.uuid);
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            PatientFactory.InsertPatient(patient);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
         }
 
     }

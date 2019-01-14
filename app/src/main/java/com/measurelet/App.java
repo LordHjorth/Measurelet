@@ -2,6 +2,7 @@ package com.measurelet;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import com.measurelet.Model.Patient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class App extends Application {
 
@@ -60,13 +62,25 @@ public class App extends Application {
 
         // We have a key in storage. Lets try to fetch the current user
         if (key.length() > 0) {
-            referenceStartUp(getAppDatabase(), key);
+
+            new AsyncTask(){
+                @Override
+                protected Object doInBackground(Object[] objects) {
+                    setupRef(getAppDatabase(),key);
+                    referenceStartUp();
+                    return null;
+                }
+            }.execute();
+
             loggedIn = true;
         }
 
     }
 
-    public static void referenceStartUp(DatabaseReference rootRef, String key_string) {
+    static Semaphore sem = new Semaphore(0,true);
+
+
+    public static void setupRef(DatabaseReference rootRef, String key_string) {
         key = key_string;
         patientRef = rootRef.child("patients").child(key);
         patientsIdentificationRef = rootRef.child("patient_identification");
@@ -76,8 +90,28 @@ public class App extends Application {
         bedNumRef = patientRef.child("bedNum");
         nameRef = patientRef.child("name");
 
+    }
+
+    public static void referenceStartUp() {
+
+        sem = new Semaphore(0);
+
         patientsIdentificationRef.addListenerForSingleValueEvent(updateIdentificationsList);
+
+        try {
+            sem.acquire();
+        } catch (InterruptedException e) {
+            Log.w("APP", "Interrupted");
+        }
+
         patientRef.addListenerForSingleValueEvent(update);
+
+        try {
+            sem.acquire();
+        } catch (InterruptedException e) {
+            Log.w("APP", "Interrupted");
+        }
+
     }
 
     public static boolean isLoggedIn() {
@@ -111,11 +145,13 @@ public class App extends Application {
             currentUser = dataSnapshot.getValue(Patient.class);
 
             System.out.println("Succeeded \n" + currentUser.getName());
+            sem.release();
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             System.out.println("Cancelled");
+            sem.release();
         }
     };
 
@@ -133,11 +169,13 @@ public class App extends Application {
             patients_id.add(key);
 
             patientsIdentificationRef.setValue(patients_id);
+            sem.release();
         }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
             System.out.println("Cancelled");
+            sem.release();
         }
     };
 }
