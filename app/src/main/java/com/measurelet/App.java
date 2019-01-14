@@ -31,8 +31,6 @@ public class App extends Application {
     public static DatabaseReference DB_REFERENCE;
 
     //Child references.
-    private static DatabaseReference patientsIdentificationRef;
-
     public static DatabaseReference patientRef;
     public static DatabaseReference intakeRef;
     public static DatabaseReference weightRef;
@@ -43,7 +41,6 @@ public class App extends Application {
     private static Boolean loggedIn = false;
 
     public static Patient currentUser;
-    public static List<Patient> activeUsers;
 
     static String key;
 
@@ -82,7 +79,6 @@ public class App extends Application {
     public static void setupRef(DatabaseReference rootRef, String key_string) {
         key = key_string;
         patientRef = rootRef.child("patients").child(key);
-        patientsIdentificationRef = rootRef.child("patient_identification");
         intakeRef = patientRef.child("registrations");
         weightRef = patientRef.child("weights");
         uuidRef = patientRef.child("uuid");
@@ -94,14 +90,6 @@ public class App extends Application {
     public static void referenceStartUp() {
 
         sem = new Semaphore(0);
-
-        patientsIdentificationRef.addListenerForSingleValueEvent(updateIdentificationsList);
-
-        try {
-            sem.acquire();
-        } catch (InterruptedException e) {
-            Log.w("APP", "Interrupted");
-        }
 
         patientRef.addListenerForSingleValueEvent(update);
 
@@ -144,30 +132,6 @@ public class App extends Application {
             currentUser = dataSnapshot.getValue(Patient.class);
 
             System.out.println("Succeeded \n" + currentUser.getName());
-            sem.release();
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-            System.out.println("Cancelled");
-            sem.release();
-        }
-    };
-
-    private static ValueEventListener updateIdentificationsList = new ValueEventListener() {
-
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-            ArrayList<String> patients_id = new ArrayList<>();
-
-            for(DataSnapshot child : dataSnapshot.getChildren()){
-                patients_id.add(child.getValue(String.class));
-            }
-
-            patients_id.add(key);
-
-            patientsIdentificationRef.setValue(patients_id);
             sem.release();
         }
 
