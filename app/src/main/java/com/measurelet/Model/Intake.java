@@ -5,28 +5,22 @@ import java.util.UUID;
 
 public class Intake {
 
+    //TODO: Handle IV
 
     public String uuid;
     private String type;
     private int size;
     private Date timestamp;
 
+    public Intake() {
+
+    }
+
     public Intake(String type, int size) {
         this.uuid = UUID.randomUUID().toString();
         this.type = type;
         this.size = size;
         this.timestamp = new Date();
-    }
-
-    public Intake(String uuid, String type, int size, Date date) {
-        this.uuid = uuid;
-        this.type = type;
-        this.size = size;
-        this.timestamp = date;
-    }
-
-    public Intake() {
-
     }
 
     public String getUuid() {

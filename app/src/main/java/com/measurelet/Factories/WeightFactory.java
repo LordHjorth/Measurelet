@@ -1,11 +1,9 @@
 package com.measurelet.Factories;
 
 import com.measurelet.App;
-import com.measurelet.Model.Intake;
 import com.measurelet.Model.Weight;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class WeightFactory {
@@ -20,4 +18,7 @@ public class WeightFactory {
     public static void UpdateNewWeight(Weight weight) {
         App.weightRef.child(weight.uuid).setValue(weight);
     }
+
+
+    //TODO: delete, update weight
 }

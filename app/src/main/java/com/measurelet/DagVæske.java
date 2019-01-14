@@ -1,6 +1,9 @@
 package com.measurelet;
 
 public class DagVæske {
+
+    //TODO: Use intake instead -> then delete. Rename
+
     String date;
     int mængde;
 

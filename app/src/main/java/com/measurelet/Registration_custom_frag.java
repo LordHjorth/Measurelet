@@ -23,17 +23,12 @@ import java.util.Calendar;
 
 
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
-    private int ml;
     private String liqtyp;
-    private EditText tastml;
-    private EditText tastandet;
+    private EditText input_ml, input_type_other;
     private ImageButton add;
-    private boolean andet;
-    private Bundle bundle;
+    private boolean other;
 
-    Calendar calendar = Calendar.getInstance();
-
-
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,15 +38,14 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
         druk.setText(R.string.drink);
         TextView m = customfrag.findViewById(R.id.amounttitle);
         m.setText(R.string.amount);
-        tastml = customfrag.findViewById(R.id.amountofliquid);
-        tastandet = customfrag.findViewById(R.id.selftyped);
-        //tastandet.setVisibility(View.INVISIBLE);
+        input_ml = customfrag.findViewById(R.id.amountofliquid);
+        input_type_other = customfrag.findViewById(R.id.selftyped);
+
         customfrag.findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
         add = customfrag.findViewById(R.id.plusbut);
         add.setOnClickListener(this);
-        bundle = new Bundle();
-        andet = false;
+        other = false;
 
         Spinner spin = customfrag.findViewById(R.id.scrollvalg);
         String[] items = new String[]{"Sodavand", "Vand", "Kaffe", "Saftevand", "Andet"};
@@ -69,107 +63,93 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
         if (view == add) {
 
             //handles size
-            String size = tastml.getText().toString();
+            String size_string = input_ml.getText().toString();
+            String type = input_type_other.getText().toString();
 
-            if (size.equals("")) {
+            if (size_string.equals("")) {
+
                 emptyFieldAlert("Hvor mange milliliter har du drukket?");
                 return;
             }
 
-           // ml = Integer.parseInt(mil);
-
-            bundle.putInt("liq",ml);
-
-
-            tastandet.setVisibility(View.INVISIBLE);
-            getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
-
-
-            updateButtons(Dashboard_frag.knapperSeneste);
-            updateButtons(Registration_standard_frag.knapper);
-
-
-            Dashboard_frag.ml=Dashboard_frag.ml+ml;
-
-            VæskeRegistrering registrering=new VæskeRegistrering();
-            registrering.setType(liqtyp);
-            registrering.setMængde(ml);
-            registrering.setDate(calendar.getTime());
-
-            Daily_view_frag.væskelistProeve.add(0,registrering) ;
-
-            ml = Integer.parseInt(size);
-            bundle.putInt("liq", ml);
-
-            //handles type
-            String type = tastandet.getText().toString();
-            if (andet) {
+            if (other) {
                 if (type.equals("")) {
                     emptyFieldAlert("Hvilken type væske har du drukket?");
                     return;
                 }
-                liqtyp = tastandet.getText().toString();
+                liqtyp = type;
             }
 
+            int size = Integer.parseInt(size_string);
+
+
+            input_type_other.setVisibility(View.INVISIBLE);
+            getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
+
+            updateButtons(Registration_standard_frag.knapper, size);
+
+
+            Dashboard_frag.ml += size;
+
+            VæskeRegistrering registrering = new VæskeRegistrering();
+            registrering.setType(liqtyp);
+            registrering.setMængde(size);
+            registrering.setDate(calendar.getTime());
+
+            Daily_view_frag.væskelistProeve.add(0, registrering);
+
             //inserts to DB
-            Intake intake = new Intake(liqtyp, ml);
+            Intake intake = new Intake(liqtyp, size);
             IntakeFactory.InsertNewIntake(intake);
 
             //navigates back to dashboard
-            ((MainActivity) getActivity()).getAddAnimation(1);
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag, bundle);
+            ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
         }
 
     }
 
-    private int getBillede(){
+    private int getBillede() {
         int billede;
-        if(liqtyp=="Sodavand"){
-            billede=R.drawable.ic_soda;
-        }
-        else if(liqtyp=="Vand"){
-            billede=R.drawable.ic_glass_of_water;
-        }
-        else if(liqtyp=="Kaffe"){
-            billede=R.drawable.ic_coffee_cup;
-        }
-        else if(liqtyp=="Saftevand"){
-            billede=R.drawable.ic_orange_juice;
-        }
-        else if(liqtyp=="Andet"){
-            billede=R.drawable.ic_glass_of_water;
-            liqtyp = tastandet.getText().toString();
-        }
-        else {
-            billede= R.drawable.ic_glass_of_water;
+        if (liqtyp == "Sodavand") {
+            billede = R.drawable.ic_soda;
+        } else if (liqtyp == "Vand") {
+            billede = R.drawable.ic_glass_of_water;
+        } else if (liqtyp == "Kaffe") {
+            billede = R.drawable.ic_coffee_cup;
+        } else if (liqtyp == "Saftevand") {
+            billede = R.drawable.ic_orange_juice;
+        } else if (liqtyp == "Andet") {
+            billede = R.drawable.ic_glass_of_water;
+            liqtyp = input_type_other.getText().toString();
+        } else {
+            billede = R.drawable.ic_glass_of_water;
         }
         return billede;
     }
 
 
-    private void updateButtons(ArrayList<VaeskeKnap> knapper){
+    private void updateButtons(ArrayList<VaeskeKnap> knapper, int size) {
 
         VaeskeKnap knap2 = new VaeskeKnap();
 
         int billede = getBillede();
-        boolean tilføj=false;
+        boolean tilføj = false;
 
-        for (VaeskeKnap knap :knapper) {
-            if (knap.getMængde()==ml && knap.getType()==liqtyp) {
+        for (VaeskeKnap knap : knapper) {
+            if (knap.getMængde() == size && knap.getType() == liqtyp) {
                 tilføj = true;
-                knap2=knap;
+                knap2 = knap;
             }
         }
 
-        if (tilføj==false){
-            knapper.add(0, new VaeskeKnap(liqtyp,ml,billede));
-            System.out.println(" 1: " + liqtyp +"  " + ml );
-        }
-
-        else if (tilføj=true){
+        if (tilføj == false) {
+            knapper.add(0, new VaeskeKnap(liqtyp, size, billede));
+            System.out.println(" 1: " + liqtyp + "  " + size);
+        } else if (tilføj = true) {
             knapper.remove(knap2);
-            knapper.add(0,knap2);
-            System.out.println(" 2: " + knap2.getType() +knap2.getMængde() );
+            knapper.add(0, knap2);
+            System.out.println(" 2: " + knap2.getType() + knap2.getMængde());
         }
 
     }
@@ -196,11 +176,11 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
         }
 
         if (liqtyp.equals("Andet")) {
-            andet = true;
+            other = true;
             getView().findViewById(R.id.setsynligt).setVisibility(View.VISIBLE);
         } else {
 
-            andet = false;
+            other = false;
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
         }
     }

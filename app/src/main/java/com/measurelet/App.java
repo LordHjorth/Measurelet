@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -16,8 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.measurelet.Model.Patient;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class App extends Application {
@@ -31,18 +28,12 @@ public class App extends Application {
     public static DatabaseReference DB_REFERENCE;
 
     //Child references.
-    public static DatabaseReference patientRef;
-    public static DatabaseReference intakeRef;
-    public static DatabaseReference weightRef;
-    public static DatabaseReference uuidRef;
-    public static DatabaseReference bedNumRef;
-    public static DatabaseReference nameRef;
+    public static DatabaseReference patientRef, intakeRef, weightRef;
 
     private static Boolean loggedIn = false;
-
     public static Patient currentUser;
-
-    static String key;
+    private static String key;
+    private static Semaphore sem = new Semaphore(0, true);
 
 
     // Called when the application is starting, before any other application objects have been created.
@@ -59,8 +50,19 @@ public class App extends Application {
 
         // We have a key in storage. Lets try to fetch the current user
         if (key.length() > 0) {
-            setupRef(getAppDatabase(),key);
-            new AsyncTask(){
+            setupRef(getAppDatabase(), key);
+            //TODO: fix this. Add spinner while loading
+            new AsyncTask() {
+                @Override
+                protected void onPreExecute() {
+
+                }
+
+                @Override
+                protected void onPostExecute(Object o) {
+
+                }
+
                 @Override
                 protected Object doInBackground(Object[] objects) {
                     referenceStartUp();
@@ -70,28 +72,37 @@ public class App extends Application {
 
             loggedIn = true;
         }
-
     }
-
-    static Semaphore sem = new Semaphore(0,true);
-
 
     public static void setupRef(DatabaseReference rootRef, String key_string) {
         key = key_string;
         patientRef = rootRef.child("patients").child(key);
         intakeRef = patientRef.child("registrations");
         weightRef = patientRef.child("weights");
-        uuidRef = patientRef.child("uuid");
-        bedNumRef = patientRef.child("bedNum");
-        nameRef = patientRef.child("name");
-
     }
 
     public static void referenceStartUp() {
 
         sem = new Semaphore(0);
 
-        patientRef.addListenerForSingleValueEvent(update);
+        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue());
+
+                currentUser = dataSnapshot.getValue(Patient.class);
+
+                System.out.println("Succeeded \n" + currentUser.getName());
+                sem.release();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Cancelled");
+                sem.release();
+            }
+        });
 
         try {
             sem.acquire();
@@ -121,25 +132,5 @@ public class App extends Application {
 
         return DB_REFERENCE;
     }
-
-
-    private static ValueEventListener update = new ValueEventListener() {
-
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            System.out.println(dataSnapshot.getValue());
-
-            currentUser = dataSnapshot.getValue(Patient.class);
-
-            System.out.println("Succeeded \n" + currentUser.getName());
-            sem.release();
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
-            System.out.println("Cancelled");
-            sem.release();
-        }
-    };
 }
 

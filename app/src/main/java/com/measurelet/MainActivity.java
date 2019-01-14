@@ -1,9 +1,7 @@
 package com.measurelet;
 
 import android.animation.Animator;
-import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -38,12 +36,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
     private DrawerLayout drawer;
     private View nvH;
 
-    String patient_name, uuid;
-    int bedNum;
-    Date date;
-    ArrayList<Weight> weights;
-    ArrayList<Intake> registrations;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,46 +61,17 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
         if (!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
+            return;
         }
-/*
+
+        /*
         TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
         TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
 
-
-        addListenersForReferences();
-
-        Patient patient = new Patient(patient_name, bedNum, uuid, registrations, weights);
-
-        bed.setText(patient.getBedNum() + "");
-        name.setText(patient.getName());
-
-        System.out.println(patient.getBedNum() + " - " + bed.getText() + " - " + bedNum);
-        System.out.println(patient.getName() + " - " + name.getText() + " - " + patient_name);
-*/
-
-
+        bed.setText(App.currentUser.getBedNum() + "");
+        name.setText(App.currentUser.getName());
+        */
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (App.patientRef != null) {
-            App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    System.out.println("PATIENT FETCHED");
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-    }
-
 
     @Override
     public void onBackPressed() {
@@ -117,8 +80,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-
-
         }
     }
 
@@ -129,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         lw = findViewById(R.id.lot_view);
         lw.setAnimation("checkm.zip");
 
-        switch (i){
+        switch (i) {
             case 1:
                 lw.setAnimation("checkm.zip");
                 lw.setSpeed(1f);
@@ -138,10 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             case 2:
                 lw.setAnimation("trail_loading.json");
                 break;
-
-
         }
-
 
         lw.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
@@ -164,11 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-
             }
         });
-       return lw;
-
+        return lw;
     }
 
     public NavController getNavC() {

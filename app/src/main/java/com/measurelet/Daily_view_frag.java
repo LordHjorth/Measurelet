@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -24,8 +23,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
@@ -35,15 +32,12 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private BarData barData;
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
-    private ArrayList<VæskeRegistrering> væskeList ;
+    private ArrayList<VæskeRegistrering> væskeList;
     private ArrayList<String> dates = new ArrayList<>();
 
-    public static ArrayList<VæskeRegistrering> væskelistProeve =new ArrayList<VæskeRegistrering>();
+    public static ArrayList<VæskeRegistrering> væskelistProeve = new ArrayList<>();
 
-    final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-
-
+    private final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
 
     @Override
@@ -51,13 +45,12 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
         View dailyView = inflater.inflate(R.layout.daily_view_frag, container, false);
 
-        list=dailyView.findViewById(R.id.listDaily);
+        list = dailyView.findViewById(R.id.listDaily);
         barGraph = dailyView.findViewById(R.id.graph);
 
-       // createData();
         createGraph();
 
-        MyAdapter adapter = new MyAdapter(getActivity(),væskelistProeve);
+        MyAdapter adapter = new MyAdapter(getActivity(), væskelistProeve);
         list.setAdapter(adapter);
 
 
@@ -79,15 +72,13 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             dates.add(format.format(væskelistProeve.get(i).getDate()));
 
         }
-        BarDataSet data = new BarDataSet(datapoints,"Væskeindtag ml");
+        BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
 
 
         barData = new BarData(data);
         barData.setBarWidth(0.7f);
 
-
         barGraph.setData(barData);
-
 
         xAxisDato = barGraph.getXAxis();
         xAxisDato.setValueFormatter(getformatter());
@@ -103,9 +94,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
         xAxisDato.setDrawGridLines(false);
 
-
         barGraph.invalidate();
-
     }
 
     @Override
@@ -119,8 +108,8 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
         public MyAdapter(@NonNull Context context, ArrayList<VæskeRegistrering> data) {
             super(context, R.layout.list_daily, data);
-            this.dataSet=data;
-            this.mContext=context;
+            this.dataSet = data;
+            this.mContext = context;
         }
 
         @Override
@@ -129,9 +118,9 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_daily, parent, false);
 
-           TextView tid = rowView.findViewById(R.id.tid_daily);
-           TextView mængde=rowView.findViewById(R.id.ml_daily);
-           TextView type = rowView.findViewById(R.id.type_daily);
+            TextView tid = rowView.findViewById(R.id.tid_daily);
+            TextView mængde = rowView.findViewById(R.id.ml_daily);
+            TextView type = rowView.findViewById(R.id.type_daily);
 
 
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
@@ -143,63 +132,5 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
             return rowView;
         }
-    }
-
-    private void createData(){
-        væskeList = new ArrayList<VæskeRegistrering>();
-
-        Calendar calendar = Calendar.getInstance();
-        Date d1 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d2 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d3 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d4 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d5 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d6 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d7 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d8 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d9 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-
-        VæskeRegistrering væske = new VæskeRegistrering();
-        væske.setDate(d1);
-        væske.setMængde(300);
-        væske.setType("Kaffe");
-
-        VæskeRegistrering væske2 = new VæskeRegistrering();
-        væske2.setDate(d2);
-        væske2.setMængde(200);
-        væske2.setType("Vand");
-
-        VæskeRegistrering væske3 = new VæskeRegistrering();
-        væske3.setDate(d3);
-        væske3.setMængde(500);
-        væske3.setType("Cola");
-
-
-        VæskeRegistrering væske4 = new VæskeRegistrering();
-        væske4.setDate(d4);
-        væske4.setMængde(200);
-        væske4.setType("Vand");
-
-        VæskeRegistrering væske5 = new VæskeRegistrering();
-        væske5.setDate(d5);
-        væske5.setMængde(300);
-        væske5.setType("kaffe");
-
-
-        væskeList.add(0,væske);
-        væskeList.add(1,væske2);
-        væskeList.add(2,væske3);
-        væskeList.add(3,væske4);
-        væskeList.add(4,væske5);
-
     }
 }

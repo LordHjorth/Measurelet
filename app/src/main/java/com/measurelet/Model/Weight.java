@@ -9,14 +9,14 @@ public class Weight {
     private Date timestamp;
     public String uuid;
 
-    public Weight(double weightKG){
+    public Weight() {
+
+    }
+
+    public Weight(double weightKG) {
         this.weightKG = weightKG;
         this.timestamp = new Date();
         this.uuid = UUID.randomUUID().toString();
-    }
-
-    public Weight(){
-
     }
 
     public double getWeightKG() {

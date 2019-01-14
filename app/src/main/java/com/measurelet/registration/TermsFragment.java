@@ -15,9 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TermsFragment extends Fragment implements View.OnClickListener {
 
 

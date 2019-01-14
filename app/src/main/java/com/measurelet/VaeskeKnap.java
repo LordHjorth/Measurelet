@@ -1,6 +1,9 @@
 package com.measurelet;
 
 public class VaeskeKnap {
+
+    //TODO: Use intake instead -> then delete. Rename
+
     private String type;
     private int mængde;
     private int thumbnail;

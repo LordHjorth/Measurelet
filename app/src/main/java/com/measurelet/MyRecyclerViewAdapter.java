@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,21 +18,19 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-
     private Context mContext;
     private List<VaeskeKnap> mdata;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context,ArrayList<VaeskeKnap> mdata) {
-        this.mContext=context;
+    MyRecyclerViewAdapter(Context context, ArrayList<VaeskeKnap> mdata) {
+        this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mdata=mdata;
+        this.mdata = mdata;
     }
 
     // inflates the cell layout from xml when needed
     @Override
-
-    public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.registration_standard_proeve, parent, false);
         return new ViewHolder(view);
     }
@@ -43,8 +40,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mdata.get(position).getType());
         holder.myPicture_thumbnail.setImageResource(mdata.get(position).getThumbnail());
-        holder.myMaengde.setText( mdata.get(position).getMængde() +" ml");
-
+        holder.myMaengde.setText(mdata.get(position).getMængde() + " ml");
     }
 
     // total number of cells
@@ -53,20 +49,17 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return mdata.size();
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
         TextView myMaengde;
         ImageView myPicture_thumbnail;
-        Button knap;
 
-
-       public ViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.item_label);
-            myPicture_thumbnail=itemView.findViewById(R.id.item_picture);
-            myMaengde=itemView.findViewById(R.id.itemmaengde);
+            myPicture_thumbnail = itemView.findViewById(R.id.item_picture);
+            myMaengde = itemView.findViewById(R.id.itemmaengde);
 
             itemView.setOnClickListener(this);
         }
@@ -76,8 +69,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
-
-
 
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {

@@ -21,6 +21,8 @@
             android:id="@+id/reg_weight_frag"
             android:icon="@drawable/profil"
             android:title="Registrering af vægt" />
+
+        <!--
         <item
             android:id="@+id/profile_frag"
             android:icon="@drawable/profil"
@@ -28,7 +30,9 @@
         <item
             android:id="@+id/settings_frag"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Indstillinger" />
+            android:title="Indstillinger" />'
+
+            !-->
     </group>
 
 </menu>

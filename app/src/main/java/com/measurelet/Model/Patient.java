@@ -13,24 +13,15 @@ public class Patient {
     private ArrayList<Weight> weights = new ArrayList<>();
     private ArrayList<Intake> registrations = new ArrayList<>();
 
+    public Patient() {
+
+    }
+
     public Patient(String name, int bedNum) {
         this.uuid = UUID.randomUUID().toString();
         this.name = name;
         this.bedNum = bedNum;
     }
-
-    public Patient(String name, int bedNum, String uuid, ArrayList<Intake> registrations, ArrayList<Weight> weights) {
-        this.uuid = uuid;
-        this.name = name;
-        this.bedNum = bedNum;
-        this.registrations = registrations;
-        this.weights = weights;
-    }
-
-    public Patient() {
-
-    }
-
 
     public String getUuid() {
         return uuid;

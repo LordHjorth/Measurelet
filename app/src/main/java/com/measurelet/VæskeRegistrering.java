@@ -5,18 +5,20 @@ import java.util.Date;
 public class VæskeRegistrering {
 
 
-    Date date ;
+    Date date;
     int mængde;
     String type;
     String navn;
-    public VæskeRegistrering(){
+
+    public VæskeRegistrering() {
 
     }
 
-    public VæskeRegistrering(Date date,int mængde){
-    this.date=date;
-    this.mængde=mængde;
+    public VæskeRegistrering(Date date, int mængde) {
+        this.date = date;
+        this.mængde = mængde;
     }
+
     public Date getDate() {
         return date;
     }
@@ -48,7 +50,6 @@ public class VæskeRegistrering {
     public void setNavn(String navn) {
         this.navn = navn;
     }
-
 
 
 }

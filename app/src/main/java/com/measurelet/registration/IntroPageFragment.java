@@ -1,6 +1,5 @@
 package com.measurelet.registration;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,14 +10,7 @@ import android.widget.Button;
 import com.example.hjorth.measurelet.R;
 import com.measurelet.MainActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class IntroPageFragment extends Fragment {
-
-    public IntroPageFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +22,7 @@ public class IntroPageFragment extends Fragment {
 
         View fragment;
 
-        switch (page){
+        switch (page) {
             case 0:
                 fragment = inflater.inflate(R.layout.fragment_intro_page_0, container, false);
                 break;

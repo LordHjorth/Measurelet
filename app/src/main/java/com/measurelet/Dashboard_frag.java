@@ -23,53 +23,44 @@ import com.measurelet.Factories.WeightFactory;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.Weight;
 
-import java.util.Date;
-import java.util.UUID;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener,View.OnClickListener {
+public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
     private ImageButton add_btn;
     private TextView overall;
     private LinearLayout mllayout;
-    private Button fone,ftwo,ftree,ffour;
-    public static int ml=0;
-    public static int overallml=2000;
+    public static int ml = 0;
     private EditText vaegt;
     private Button vaegt_knap;
     private ConstraintLayout vaegtLayout;
     private ConstraintLayout vaegtRegistreret;
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
-    public static ArrayList<VaeskeKnap> knapperSeneste=new ArrayList<>();
     private Calendar calendar = Calendar.getInstance();
 
 
+    //TODO: make it possible to add goals (overallml)
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View dashboard = inflater.inflate(R.layout.dashboard_frag, container, false);
 
-
         add_btn = dashboard.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
         mllayout = dashboard.findViewById(R.id.mllayout);
         mllayout.setOnClickListener(this);
 
-
-        updateFavoritter();
-
-        //createData();
         recyclerView = dashboard.findViewById(R.id.dashboardrecycle);
         int numberOfColumns = 4;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
-        adapter = new MyRecyclerViewAdapter(getActivity(), knapperSeneste);
+
+        updateKnapper();
+
+        adapter = new MyRecyclerViewAdapter(getActivity(), new ArrayList<>(Registration_standard_frag.knapper.subList(0, 4)));
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
-
 
         //vægt
         vaegt = dashboard.findViewById(R.id.vaegt_edit);
@@ -79,38 +70,26 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         vaegtLayout = dashboard.findViewById(R.id.vaegt);
         vaegtRegistreret = dashboard.findViewById(R.id.vaegt_registreret);
 
-        if(getArguments()!=null){
-        //ml=ml+getArguments().getInt("liq");
-        }
-
-        overall=dashboard.findViewById(R.id.registrated_amount);
-        overall.setText(ml+" ml"+"/"+overallml+" ml");
+        overall = dashboard.findViewById(R.id.registrated_amount);
+        overall.setText(ml + " ml");
 
         ((MainActivity) getActivity()).getSupportActionBar().show();
 
-
-
         return dashboard;
-
-
     }
 
-    private void updateFavoritter(){
-        if (knapperSeneste.size()==0) {
-            knapperSeneste.add(0,new VaeskeKnap("Vand", 175, R.drawable.ic_glass_of_water));
-            knapperSeneste.add(1,new VaeskeKnap("Kaffe", 175, R.drawable.ic_coffee_cup));
-            knapperSeneste.add(2,new VaeskeKnap("Saft", 175, R.drawable.ic_glass_of_water));
-            knapperSeneste.add(3,new VaeskeKnap("Juice", 150, R.drawable.ic_orange_juice));
-        }
-        if(knapperSeneste.size()>4){
-            knapperSeneste.remove(4);
-
+    private void updateKnapper() {
+        if (Registration_standard_frag.knapper.size() < 5) {
+            Registration_standard_frag.knapper.add(0, new VaeskeKnap("Juice", 125, R.drawable.ic_orange_juice));
+            Registration_standard_frag.knapper.add(1, new VaeskeKnap("Vand", 250, R.drawable.ic_glass_of_water));
+            Registration_standard_frag.knapper.add(2, new VaeskeKnap("Kaffe", 250, R.drawable.ic_coffee_cup));
+            Registration_standard_frag.knapper.add(3, new VaeskeKnap("Sodavand", 500, R.drawable.ic_soda));
+            Registration_standard_frag.knapper.add(4, new VaeskeKnap("Vand", 500, R.drawable.ic_glass_of_water));
         }
     }
+
     @Override
     public void onClick(View view) {
-
-
         if (view == vaegt_knap) {
 
             String weightkg = vaegt.getText().toString();
@@ -130,8 +109,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             ((MainActivity) getActivity()).getAddAnimation(1);
 
             vaegtRegistreret.setVisibility(View.VISIBLE);
-
-
         }
 
         if (view == add_btn) {
@@ -140,174 +117,24 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         if (view == mllayout) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
         }
-
-
-        }
+    }
 
     @Override
     public void onItemClick(View view, int position) {
-        ((MainActivity)getActivity()).getAddAnimation(1).playAnimation();
+        ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
 
-        VæskeRegistrering registrering=new VæskeRegistrering();
-        registrering.setType(knapperSeneste.get(position).getType());
-        registrering.setMængde(knapperSeneste.get(position).getMængde());
+        VæskeRegistrering registrering = new VæskeRegistrering();
+        registrering.setType(Registration_standard_frag.knapper.get(position).getType());
+        registrering.setMængde(Registration_standard_frag.knapper.get(position).getMængde());
         registrering.setDate(calendar.getTime());
 
-        Daily_view_frag.væskelistProeve.add(0,registrering) ;
+        Daily_view_frag.væskelistProeve.add(0, registrering);
 
+        ml = ml + Registration_standard_frag.knapper.get(position).getMængde();
 
-        ml=ml+knapperSeneste.get(position).getMængde();
+        Intake intake = new Intake(Registration_standard_frag.knapper.get(position).getType(), Registration_standard_frag.knapper.get(position).getMængde());
+        IntakeFactory.InsertNewIntake(intake);
 
-        overall.setText(ml+" ml"+"/"+overallml+" ml");
-    }
-
-    private void createData(){
-        Calendar calendar = Calendar.getInstance();
-        Date d1 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d2 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d3 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d4 = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
-        Date d5 = calendar.getTime();
-
-        VæskeRegistrering et =new VæskeRegistrering();
-        et.setMængde(250);
-        et.setDate(d1);
-        et.setType("Vand");
-
-        VæskeRegistrering to =new VæskeRegistrering();
-        to.setMængde(250);
-        to.setDate(d1);
-        to.setType("Saft");
-
-        VæskeRegistrering tre =new VæskeRegistrering();
-        tre.setMængde(250);
-        tre.setDate(d1);
-        tre.setType("Vand");
-
-        VæskeRegistrering fire =new VæskeRegistrering();
-        fire.setMængde(250);
-        fire.setDate(d1);
-        fire.setType("Vand");
-
-
-        VæskeRegistrering fem =new VæskeRegistrering();
-        fem.setMængde(250);
-        fem.setDate(d2);
-        fem.setType("Vand");
-
-        VæskeRegistrering seks =new VæskeRegistrering();
-        seks.setMængde(250);
-        seks.setDate(d2);
-        seks.setType("Vand");
-
-        VæskeRegistrering syv =new VæskeRegistrering();
-        syv.setMængde(250);
-        syv.setDate(d2);
-        syv.setType("Vand");
-
-        VæskeRegistrering syv2 =new VæskeRegistrering();
-        syv2.setMængde(250);
-        syv2.setDate(d2);
-        syv2.setType("Vand");
-
-        VæskeRegistrering otte =new VæskeRegistrering();
-        otte.setMængde(250);
-        otte.setDate(d3);
-        otte.setType("Vand");
-
-
-        VæskeRegistrering ni =new VæskeRegistrering();
-        ni.setMængde(250);
-        ni.setDate(d3);
-        ni.setType("Vand");
-
-        VæskeRegistrering ti =new VæskeRegistrering();
-        ti.setMængde(250);
-        ti.setDate(d3);
-        ti.setType("Vand");
-
-        VæskeRegistrering elleve =new VæskeRegistrering();
-        elleve.setMængde(250);
-        elleve.setDate(d3);
-        elleve.setType("Vand");
-
-
-        VæskeRegistrering tolv =new VæskeRegistrering();
-        tolv.setMængde(250);
-        tolv.setDate(d4);
-        tolv.setType("Vand");
-
-
-        VæskeRegistrering tretten =new VæskeRegistrering();
-        tretten.setMængde(250);
-        tretten.setDate(d4);
-        tretten.setType("Vand");
-
-        VæskeRegistrering fjorden =new VæskeRegistrering();
-        fjorden.setMængde(250);
-        fjorden.setDate(d4);
-        fjorden.setType("Vand");
-
-        VæskeRegistrering femten =new VæskeRegistrering();
-        femten.setMængde(250);
-        femten.setDate(d4);
-        femten.setType("Vand");
-
-
-        Daily_view_frag.væskelistProeve.add(et);
-        Daily_view_frag.væskelistProeve.add(to);
-        Daily_view_frag.væskelistProeve.add(tre);
-        Daily_view_frag.væskelistProeve.add(fire);
-        Daily_view_frag.væskelistProeve.add(fem);
-        Daily_view_frag.væskelistProeve.add(seks);
-        Daily_view_frag.væskelistProeve.add(syv);
-        Daily_view_frag.væskelistProeve.add(syv2);
-        Daily_view_frag.væskelistProeve.add(otte);
-        Daily_view_frag.væskelistProeve.add(ni);
-        Daily_view_frag.væskelistProeve.add(ti);
-        Daily_view_frag.væskelistProeve.add(elleve);
-        Daily_view_frag.væskelistProeve.add(tolv);
-        Daily_view_frag.væskelistProeve.add(tretten);
-        Daily_view_frag.væskelistProeve.add(fjorden);
-        Daily_view_frag.væskelistProeve.add(femten);
-
-        /*
-        if (view != add_btn && view != mllayout && view != vaegt_knap) {
-            Intake intake;
-            if (view == ffour) {
-                ml = ml + 1000;
-                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake("wasser", 1000);
-                IntakeFactory.InsertNewIntake(intake);
-            }
-            if (view == ftree) {
-                ml = ml + 125;
-                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake("wasser", 125);
-                IntakeFactory.InsertNewIntake(intake);
-            }
-            if (view == ftwo) {
-                ml = ml + 175;
-                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake("wasser", 175);
-                IntakeFactory.InsertNewIntake(intake);
-            }
-            if (view == fone) {
-                ml = ml + 500;
-                overall.setText(Integer.toString(ml) + "ml" + "/" + Integer.toString(overallml) + "ml");
-                intake = new Intake("3e371fb7-af79-4f8d-a8bf-bd67a4095909", "Cola", 500, new Date());
-                IntakeFactory.UpdateNewIntake(intake);
-
-            }
-
-            ((MainActivity) getActivity()).getAddAnimation();
-        }
-        */
-
-
+        overall.setText(ml + " ml");
     }
 }

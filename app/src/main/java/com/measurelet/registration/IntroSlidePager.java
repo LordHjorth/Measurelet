@@ -1,6 +1,5 @@
 package com.measurelet.registration;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,9 +14,7 @@ import com.example.hjorth.measurelet.R;
 import com.measurelet.MainActivity;
 import com.measurelet.registration.transformers.ZoomOutPageTransformer;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class IntroSlidePager extends Fragment {
 
     /**

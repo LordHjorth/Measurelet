@@ -6,11 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.measurelet.App;
 import com.measurelet.Model.Patient;
-import com.measurelet.Model.Weight;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class PatientFactory {
@@ -37,5 +33,8 @@ public class PatientFactory {
     public static void UpdatePatient() {
 
     }
+
+
+    //TODO: update patient
 
 }

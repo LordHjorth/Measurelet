@@ -1,6 +1,5 @@
 package com.measurelet.registration;
 
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +15,6 @@ import com.measurelet.Factories.PatientFactory;
 import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SignupFragment extends Fragment implements View.OnClickListener {
 
 
@@ -70,7 +66,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         protected void onPreExecute() {
             patient = new Patient(name, bed);
             App.preferenceManager.edit().putString("KEY", patient.uuid).commit();
-            App.setupRef(App.getAppDatabase(),patient.uuid);
+            App.setupRef(App.getAppDatabase(), patient.uuid);
         }
 
         @Override

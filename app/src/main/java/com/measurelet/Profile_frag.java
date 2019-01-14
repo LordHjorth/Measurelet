@@ -28,29 +28,16 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View profil = inflater.inflate(R.layout.profile_frag, container, false);
 
-
         search = profil.findViewById(R.id.save_changes);
         search.setOnClickListener(this);
-
-        App.patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Patient p = dataSnapshot.getValue(Patient.class);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         labelName = profil.findViewById(R.id.profile_name_label);
         inputName = profil.findViewById(R.id.profile_name_input);
 
         labelHeight = profil.findViewById(R.id.profile_height_input);
         inputWeight = profil.findViewById(R.id.profile_height_label);
+
+        inputName.setText(App.currentUser.getName());
 
         return profil;
 
