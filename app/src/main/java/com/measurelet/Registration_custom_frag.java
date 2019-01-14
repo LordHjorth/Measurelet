@@ -116,7 +116,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
             IntakeFactory.InsertNewIntake(intake);
 
             //navigates back to dashboard
-            ((MainActivity) getActivity()).getAddAnimation();
+            ((MainActivity) getActivity()).getAddAnimation(1);
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag, bundle);
         }
 

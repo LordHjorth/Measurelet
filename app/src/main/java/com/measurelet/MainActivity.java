@@ -122,12 +122,26 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         }
     }
 
-    public void getAddAnimation() {
+    public LottieAnimationView getAddAnimation(int i) {
+
         LottieAnimationView lw;
 
         lw = findViewById(R.id.lot_view);
         lw.setAnimation("checkm.zip");
-        lw.setSpeed(1f);
+
+        switch (i){
+            case 1:
+                lw.setAnimation("checkm.zip");
+                lw.setSpeed(1f);
+                break;
+
+            case 2:
+                lw.setAnimation("trail_loading.json");
+                break;
+
+
+        }
+
 
         lw.addAnimatorListener(new Animator.AnimatorListener() {
             @Override
@@ -140,13 +154,12 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             @Override
             public void onAnimationEnd(Animator animation) {
                 nvH.animate().alpha(1f);
-
                 lw.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-
+                lw.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -154,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
             }
         });
-        lw.playAnimation();
+       return lw;
 
     }
 

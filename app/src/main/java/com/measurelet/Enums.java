@@ -1,9 +1,6 @@
 package com.measurelet;
 
 public class Enums {
-
-
-
     public enum IntakeType{
         Cup(175),
         Glas(175),

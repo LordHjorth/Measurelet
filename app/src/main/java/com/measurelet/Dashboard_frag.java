@@ -127,7 +127,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             WeightFactory.InsertNewWeight(weight);
 
             vaegtLayout.setVisibility(View.INVISIBLE);
-            ((MainActivity) getActivity()).getAddAnimation();
+            ((MainActivity) getActivity()).getAddAnimation(1);
 
             vaegtRegistreret.setVisibility(View.VISIBLE);
 
@@ -146,7 +146,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
     @Override
     public void onItemClick(View view, int position) {
-        ((MainActivity)getActivity()).getAddAnimation();
+        ((MainActivity)getActivity()).getAddAnimation(1).playAnimation();
 
         VæskeRegistrering registrering=new VæskeRegistrering();
         registrering.setType(knapperSeneste.get(position).getType());

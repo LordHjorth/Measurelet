@@ -106,7 +106,7 @@ public class Registration_standard_frag extends Fragment implements MyRecyclerVi
         Daily_view_frag.væskelistProeve.add(0,registrering) ;
 
 
-        ((MainActivity)getActivity()).getAddAnimation();
+        ((MainActivity)getActivity()).getAddAnimation(1).playAnimation();
         ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
 
     }

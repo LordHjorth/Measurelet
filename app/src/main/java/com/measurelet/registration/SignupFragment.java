@@ -49,7 +49,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         bed = !b.equals("") ? Integer.parseInt(b) : 0;
 
         name = ((EditText) fragment.findViewById(R.id.signup_name_txt)).getText().toString();
-
+        ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
         new AsyncThread().execute();
 
     }
@@ -75,7 +75,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-
+            ((MainActivity) getActivity()).getAddAnimation(2).cancelAnimation();
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
         }
 
