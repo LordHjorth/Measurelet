@@ -3,6 +3,7 @@ package com.measurelet;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -14,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.measurelet.Model.Patient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class App extends Application {
@@ -27,6 +29,8 @@ public class App extends Application {
     public static DatabaseReference DB_REFERENCE;
 
     //Child references.
+    private static DatabaseReference patientsIdentificationRef;
+
     public static DatabaseReference patientRef;
     public static DatabaseReference intakeRef;
     public static DatabaseReference weightRef;
@@ -39,6 +43,8 @@ public class App extends Application {
     public static Patient currentUser;
     public static List<Patient> activeUsers;
 
+    static String key;
+
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
@@ -50,7 +56,7 @@ public class App extends Application {
         preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Verify if a user is logged in
-        String key = preferenceManager.getString("KEY", "");
+        key = preferenceManager.getString("KEY", "");
 
         // We have a key in storage. Lets try to fetch the current user
         if (key.length() > 0) {
@@ -60,19 +66,21 @@ public class App extends Application {
 
     }
 
-    public static void referenceStartUp(DatabaseReference rootRef, String key) {
-        patientRef = rootRef.child(key);
+    public static void referenceStartUp(DatabaseReference rootRef, String key_string) {
+        key = key_string;
+        patientRef = rootRef.child("patients").child(key);
+        patientsIdentificationRef = rootRef.child("patient_identification");
         intakeRef = patientRef.child("registrations");
         weightRef = patientRef.child("weights");
         uuidRef = patientRef.child("uuid");
         bedNumRef = patientRef.child("bedNum");
         nameRef = patientRef.child("name");
 
+        patientsIdentificationRef.addListenerForSingleValueEvent(updateIdentificationsList);
         patientRef.addListenerForSingleValueEvent(update);
     }
 
     public static boolean isLoggedIn() {
-
         return loggedIn;
     }
 
@@ -98,17 +106,34 @@ public class App extends Application {
 
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
             System.out.println(dataSnapshot.getValue());
 
             currentUser = dataSnapshot.getValue(Patient.class);
 
             System.out.println("Succeeded \n" + currentUser.getName());
-
-
         }
 
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            System.out.println("Cancelled");
+        }
+    };
+
+    private static ValueEventListener updateIdentificationsList = new ValueEventListener() {
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            ArrayList<String> patients_id = new ArrayList<>();
+
+            for(DataSnapshot child : dataSnapshot.getChildren()){
+                patients_id.add(child.getValue(String.class));
+            }
+
+            patients_id.add(key);
+
+            patientsIdentificationRef.setValue(patients_id);
+        }
 
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
