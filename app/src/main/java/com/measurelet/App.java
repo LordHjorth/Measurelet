@@ -62,11 +62,10 @@ public class App extends Application {
 
         // We have a key in storage. Lets try to fetch the current user
         if (key.length() > 0) {
-
+            setupRef(getAppDatabase(),key);
             new AsyncTask(){
                 @Override
                 protected Object doInBackground(Object[] objects) {
-                    setupRef(getAppDatabase(),key);
                     referenceStartUp();
                     return null;
                 }
