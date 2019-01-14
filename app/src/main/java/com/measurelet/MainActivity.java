@@ -118,8 +118,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             @Override
             public void onAnimationCancel(Animator animation) {
                 lw.setVisibility(View.INVISIBLE);
-            }
+                nvH.animate().alpha(1f);
 
+            }
             @Override
             public void onAnimationRepeat(Animator animation) {
             }
