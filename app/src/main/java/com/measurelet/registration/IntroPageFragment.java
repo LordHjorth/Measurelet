@@ -43,13 +43,6 @@ public class IntroPageFragment extends Fragment {
                 break;
         }
 
-
-        Button btn = fragment.findViewById(R.id.sign_up_btn);
-        btn.setOnClickListener((view) -> {
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_termsFragment);
-
-        });
-
         return fragment;
     }
 
