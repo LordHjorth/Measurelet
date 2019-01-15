@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,13 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.measurelet.Model.Intake;
+import com.measurelet.Model.Weight;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
@@ -32,13 +37,16 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private BarData barData;
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
-    private ArrayList<VæskeRegistrering> væskeList;
     private ArrayList<String> dates = new ArrayList<>();
 
-    public static ArrayList<VæskeRegistrering> væskelistProeve = new ArrayList<>();
 
     private final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
+    private final SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
+
+    private Calendar calendar = Calendar.getInstance();
+
+    private Date date;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,10 +57,8 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         barGraph = dailyView.findViewById(R.id.graph);
 
         createGraph();
-
-        MyAdapter adapter = new MyAdapter(getActivity(), væskelistProeve);
+        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getRegistrations());
         list.setAdapter(adapter);
-
 
         return dailyView;
     }
@@ -66,12 +72,19 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     }
 
     private void createGraph() {
+        int i=0;
+        for (Intake intake :App.currentUser.getRegistrations() ){
+            System.out.println(format2.format(calendar.getTime()) + "  "+format2.format(intake.getTimestamp()) );
 
-        for (int i = 0; i < væskelistProeve.size(); i++) {
-            datapoints.add(new BarEntry(i, væskelistProeve.get(i).getMængde()));
-            dates.add(format.format(væskelistProeve.get(i).getDate()));
+            if (format2.format(calendar.getTime()).equals(format2.format(intake.getTimestamp()))){
+                datapoints.add(new BarEntry(i, intake.getSize()));
+                dates.add(format.format(intake.getTimestamp()));
+                i++;
+                System.out.println(i +" ");
 
+            }
         }
+
         BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
 
 
@@ -102,11 +115,11 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
     }
 
-    private class MyAdapter extends ArrayAdapter<VæskeRegistrering> {
-        private ArrayList<VæskeRegistrering> dataSet;
+    private class MyAdapter extends ArrayAdapter<Intake> {
+        private ArrayList<Intake> dataSet;
         Context mContext;
 
-        public MyAdapter(@NonNull Context context, ArrayList<VæskeRegistrering> data) {
+        public MyAdapter(@NonNull Context context, ArrayList<Intake> data) {
             super(context, R.layout.list_daily, data);
             this.dataSet = data;
             this.mContext = context;
@@ -125,9 +138,9 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-            tid.setText(format.format(dataSet.get(position).getDate()));
+            tid.setText(format.format(dataSet.get(position).getTimestamp()));
             type.setText(dataSet.get(position).getType());
-            mængde.setText(String.valueOf(dataSet.get(position).getMængde()));
+            mængde.setText(String.valueOf(dataSet.get(position).getSize())+" ml");
 
 
             return rowView;

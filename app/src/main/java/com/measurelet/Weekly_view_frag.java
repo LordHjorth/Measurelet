@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.measurelet.Model.Intake;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,16 +60,16 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         listView.setOnItemClickListener(this);
         barGraph = view.findViewById(R.id.graph);
 
-        for (VæskeRegistrering registrering : Daily_view_frag.væskelistProeve) {
+        for (Intake registrering : App.currentUser.getRegistrations()) {
 
-            d1 = registrering.getDate();
+            d1 = registrering.getTimestamp();
 
             String h = format.format(d1);
 
             if (ko.containsKey(h)) {
-                mængde = mængde + registrering.getMængde();
+                mængde = mængde + registrering.getSize();
             } else {
-                mængde = registrering.getMængde();
+                mængde = registrering.getSize();
             }
             ko.put(h, mængde);
         }
@@ -151,7 +152,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
             dato.setText(dataSet.get(position).getDate());
 
-            mængde.setText(String.valueOf(dataSet.get(position).getMængde()));
+            mængde.setText(String.valueOf(dataSet.get(position).getMængde())+" ml");
 
             return rowView;
         }
