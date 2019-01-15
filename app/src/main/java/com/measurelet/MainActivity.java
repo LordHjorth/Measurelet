@@ -30,7 +30,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 
-public class MainActivity extends AppCompatActivity implements NavController.OnNavigatedListener {
+public class MainActivity extends AppCompatActivity {
 
     private NavController navC;
     private DrawerLayout drawer;
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
-        navC.addOnNavigatedListener(this);
         nvH = findViewById(R.id.nav_host);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -75,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
     @Override
     public void onBackPressed() {
+        if (navC.getCurrentDestination().getId() == R.id.introSlidePager) {
+            finish();
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -136,11 +138,4 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         this.navC = navC;
     }
 
-    @Override
-    public void onNavigated(@NonNull NavController controller, @NonNull NavDestination destination) {
-        if (destination.getId() == navC.getGraph().getStartDestination()) {
-            navC.popBackStack(navC.getGraph().getStartDestination(), false);
-
-        }
-    }
 }
