@@ -84,7 +84,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
             PatientFactory.InsertPatient(patient);
 
-            App.referenceStartUp();
+            //App.referenceStartUp();
             return null;
         }
 
@@ -97,9 +97,10 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            ((MainActivity) getActivity()).getAddAnimation(2).cancelAnimation();
+            MainActivity activity = ((MainActivity) getActivity());
+            activity.getAddAnimation(2).cancelAnimation();
+            activity.setupListeners();
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
         }
-
     }
 }

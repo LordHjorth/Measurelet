@@ -17,15 +17,9 @@ import com.example.hjorth.measurelet.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
-import com.measurelet.Model.Weight;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -35,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navC;
     private DrawerLayout drawer;
     private View nvH;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
 
 
@@ -63,13 +58,34 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        /*
-        TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-        TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+        setupListeners();
 
-        bed.setText(App.currentUser.getBedNum() + "");
-        name.setText(App.currentUser.getName());
-        */
+    }
+
+    public void setupListeners(){
+
+        App.patientRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue());
+
+                App.currentUser = dataSnapshot.getValue(Patient.class);
+
+                System.out.println("Succeeded \n" + App.currentUser.getName());
+
+                TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+                TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+                bed.setText(App.currentUser.getBedNum() + "");
+                name.setText(App.currentUser.getName());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Cancelled");
+            }
+        });
     }
 
     @Override
@@ -123,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 nvH.animate().alpha(1f);
 
             }
+
             @Override
             public void onAnimationRepeat(Animator animation) {
             }
