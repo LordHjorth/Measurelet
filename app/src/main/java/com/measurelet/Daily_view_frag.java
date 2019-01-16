@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
+
 
 
     private final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
@@ -135,6 +137,16 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             TextView mængde = rowView.findViewById(R.id.ml_daily);
             TextView type = rowView.findViewById(R.id.type_daily);
 
+            ImageButton edit_button = rowView.findViewById(R.id.edit_daily);
+
+            edit_button.setOnClickListener(v -> {
+
+                Bundle b = new Bundle();
+                b.putInt("position", position);
+
+                ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
+
+            });
 
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 

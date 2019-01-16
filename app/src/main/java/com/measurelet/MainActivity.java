@@ -10,19 +10,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.hjorth.measurelet.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.measurelet.Model.Intake;
-import com.measurelet.Model.Patient;
-import com.measurelet.Model.Weight;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;

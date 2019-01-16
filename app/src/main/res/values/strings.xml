@@ -20,5 +20,15 @@
     <string name="registrerOverskrift">Indtast din vægt nedenfor</string>
     <string name="antalkg">Indtast din vægt i kg.</string>
     <string name="seneste">Seneste registreret vægt</string>
+    <string name="redigerindtag">Rediger en registrering</string>
 
+    
+    
+    <string-array name="fluidtypes">
+        <item>Vand</item>
+        <item>Kaffe</item>
+        <item>Sodavand</item>
+        <item>Saftevand</item>
+        <item>Andet</item>
+    </string-array>
 </resources>

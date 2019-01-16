@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
+        android:text="Type"
+        app:layout_constraintBottom_toTopOf="@+id/guide45"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+
+    <EditText
+        android:id="@+id/selftyped1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/roundedcorners"
+        android:focusedByDefault="true"
+        android:inputType="text"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:maxLength="20"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/guide55"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidetop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.09" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guide45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guidelowermid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="39dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.89" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guide55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.64" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.34" />
+
+
+    <TextView
+        android:id="@+id/amounttitle1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:autoSizeTextType="uniform"
+        android:text="@string/amount"
+        app:layout_constraintBottom_toTopOf="@+id/guidelowermid"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guide55" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/roundedcorners"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guide45">
+
+        <Spinner
+            android:id="@+id/scrollvalg1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/amount_input"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/roundedcorners"
+        android:focusedByDefault="true"
+        android:inputType="number"
+        android:maxLength="5"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toBottomOf="@+id/amounttitle1" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.54" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.81" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.97" />
+
+    <TimePicker
+        android:id="@+id/timepicker"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:timePickerMode="spinner"
+        app:layout_constraintBottom_toTopOf="@+id/guideline35"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guidetop">
+
+    </TimePicker>
+
+    <Button
+        android:id="@+id/deleteReg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Slet"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toStartOf="@+id/space"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <Button
+        android:id="@+id/saveChanges"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Gem"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toEndOf="@+id/space"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <TextView
+        android:id="@+id/timefield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/guidetop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amount_input" />
+
+</android.support.constraint.ConstraintLayout>

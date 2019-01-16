@@ -123,17 +123,13 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     public void onItemClick(View view, int position) {
         ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
 
-        VæskeRegistrering registrering = new VæskeRegistrering();
-        registrering.setType(Registration_standard_frag.knapper.get(position).getType());
-        registrering.setMængde(Registration_standard_frag.knapper.get(position).getMængde());
-        registrering.setDate(calendar.getTime());
-
-        Daily_view_frag.væskelistProeve.add(0, registrering);
-
         ml = ml + Registration_standard_frag.knapper.get(position).getMængde();
 
         Intake intake = new Intake(Registration_standard_frag.knapper.get(position).getType(), Registration_standard_frag.knapper.get(position).getMængde());
         IntakeFactory.InsertNewIntake(intake);
+
+
+        App.currentUser.getRegistrations().add(0, intake);
 
         overall.setText(ml + " ml");
     }

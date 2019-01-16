@@ -23,6 +23,13 @@ public class Intake {
         this.timestamp = new Date();
     }
 
+    public Intake(String type, int size, String uuid, Date timestamp) {
+        this.uuid = uuid;
+        this.type = type;
+        this.size = size;
+        this.timestamp = timestamp;
+    }
+
     public String getUuid() {
         return uuid;
     }
