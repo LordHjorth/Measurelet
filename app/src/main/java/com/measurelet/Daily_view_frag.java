@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
@@ -43,47 +46,91 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
     private final SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
+    private final SimpleDateFormat formatHour = new SimpleDateFormat("HH");
 
     private Calendar calendar = Calendar.getInstance();
 
-    private Date date;
+    private ArrayList<Intake> proeve ;
+
+    //private String date = format2.format(calendar.getTime());
+
+    HashMap<String, Integer> hourMap = new HashMap<>();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View dailyView = inflater.inflate(R.layout.daily_view_frag, container, false);
-
         list = dailyView.findViewById(R.id.listDaily);
         barGraph = dailyView.findViewById(R.id.graph);
 
-        createGraph();
-        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getRegistrations());
-        list.setAdapter(adapter);
+
+        Bundle b = new Bundle();
+
+        if (b != null) {
+            b=this.getArguments();
+            String date = b.getString("date");
+            if (b.isEmpty()){
+                createGraph(getDateIntake(format2.format(calendar.getTime())));
+                MyAdapter adapter = new MyAdapter(getActivity(),getDateIntake(format2.format(calendar.getTime())));
+                list.setAdapter(adapter);
+            }
+            else {
+                createGraph(getDateIntake(date));
+                MyAdapter adapter = new MyAdapter(getActivity(), getDateIntake(date));
+                list.setAdapter(adapter);
+            }
+        }
+
+
+
 
         return dailyView;
     }
 
 
+
+    private ArrayList<Intake> getDateIntake(String date){
+        proeve = new ArrayList<>();
+        for (Intake intake : App.currentUser.getRegistrations()) {
+            if (date.equals(format2.format(intake.getTimestamp()))) {
+                proeve.add(intake);
+            }
+        }
+        return proeve;
+    }
+
     private IAxisValueFormatter getformatter() {
-
-
         IAxisValueFormatter formatter = (value, axis) -> dates.toArray(new String[dates.size()])[(int) value];
         return formatter;
     }
 
-    private void createGraph() {
-        int i=0;
-        for (Intake intake :App.currentUser.getRegistrations() ){
-            System.out.println(format2.format(calendar.getTime()) + "  "+format2.format(intake.getTimestamp()) );
+    private void createGraph(ArrayList<Intake> dailyIntake ) {
 
-            if (format2.format(calendar.getTime()).equals(format2.format(intake.getTimestamp()))){
-                datapoints.add(new BarEntry(i, intake.getSize()));
-                dates.add(format.format(intake.getTimestamp()));
-                i++;
-                System.out.println(i +" ");
-
+        //samler mængder efter time
+        int mængde=0;
+        for (Intake intake :dailyIntake){
+            String hour=formatHour.format(intake.getTimestamp());
+            if (hourMap.containsKey(hour)){
+                mængde = mængde + intake.getSize();
             }
+            else {
+                mængde = intake.getSize();
+            }
+
+            hourMap.put(hour, mængde);
         }
+
+        int i=0;
+        for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            datapoints.add(new BarEntry(i, value));
+            dates.add(key);
+            System.out.println(dates.toString());
+            i++;
+        }
+
 
         BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
 

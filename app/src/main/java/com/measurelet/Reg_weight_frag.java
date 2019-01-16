@@ -59,6 +59,7 @@ public class Reg_weight_frag extends Fragment {
 
         lineChart =regweight.findViewById(R.id.graphvaegt);
         lsView = regweight.findViewById(R.id.listviewVaegt);
+
         arrayAdapter = new MyAdapter(getActivity(), App.currentUser.getWeights());
         lsView.setAdapter(arrayAdapter);
 

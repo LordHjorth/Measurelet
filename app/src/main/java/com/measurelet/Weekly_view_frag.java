@@ -36,7 +36,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     ListView listView;
     private View view;
-    private ArrayList<DagVæske> væskeList = new ArrayList<>();
+   private ArrayList<DagVaeske> væskeList = new ArrayList<>();
     private BarChart barGraph;
     private BarData barData;
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
@@ -45,7 +45,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     final SimpleDateFormat format = new SimpleDateFormat("dd/MM");
 
-    HashMap<String, Integer> ko = new HashMap<>();
+    HashMap<String, ArrayList<Intake>> ko = new HashMap<>();
 
 
     int mængde = 0;
@@ -60,26 +60,8 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         listView.setOnItemClickListener(this);
         barGraph = view.findViewById(R.id.graph);
 
-        for (Intake registrering : App.currentUser.getRegistrations()) {
 
-            d1 = registrering.getTimestamp();
-
-            String h = format.format(d1);
-
-            if (ko.containsKey(h)) {
-                mængde = mængde + registrering.getSize();
-            } else {
-                mængde = registrering.getSize();
-            }
-            ko.put(h, mængde);
-        }
-
-        for (Map.Entry<String, Integer> entry : ko.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            væskeList.add(new DagVæske(key, value));
-        }
-
+        createData();
         createGraph();
 
         MyAdapter adapter = new MyAdapter(getActivity(), væskeList);
@@ -89,11 +71,37 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
     }
 
 
+    private void createData(){
+
+        for (Intake registrering: App.currentUser.getRegistrations()) {
+            ArrayList<Intake> list=ko.get(format.format(registrering.getTimestamp()));
+
+            if (list == null) {
+                list = new ArrayList<>();
+                ko.put(format.format(registrering.getTimestamp()), list);
+            }
+            list.add(registrering);
+        }
+
+    }
+
+
     private void createGraph() {
 
-        for (int i = 0; i < væskeList.size(); i++) {
-            datapoints.add(new BarEntry(i, væskeList.get(i).getMængde()));
-            dates.add(væskeList.get(i).getDate());
+        int i=0;
+        for (Map.Entry<String, ArrayList<Intake>> entry : ko.entrySet()) {
+            int mængde=0;
+            for (Intake intake : entry.getValue()){
+                mængde=intake.getSize()+mængde;
+
+            }
+            System.out.println(mængde);
+            datapoints.add(new BarEntry(i,mængde));
+            dates.add(entry.getKey());
+
+            væskeList.add(new DagVaeske(entry.getKey(),mængde));
+            System.out.println(dates.toString());
+            i++;
         }
 
         BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
@@ -127,14 +135,14 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
+
     }
 
-    private class MyAdapter extends ArrayAdapter<DagVæske> {
-        private ArrayList<DagVæske> dataSet;
+    private class MyAdapter extends ArrayAdapter<DagVaeske> {
+        private ArrayList<DagVaeske> dataSet;
         Context mContext;
 
-        public MyAdapter(@NonNull Context context, ArrayList<DagVæske> data) {
+        public MyAdapter(@NonNull Context context, ArrayList<DagVaeske> data) {
             super(context, R.layout.list_weeklyview, data);
             this.dataSet = data;
             this.mContext = context;
@@ -147,8 +155,20 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_weeklyview, parent, false);
 
+
+
             TextView dato = rowView.findViewById(R.id.dato);
             TextView mængde = rowView.findViewById(R.id.mængde);
+
+            dato.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle b = new Bundle();
+                    b.putString("date",dataSet.get(position).getDate());
+
+                    ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag,b);
+                }
+            });
 
             dato.setText(dataSet.get(position).getDate());
 
