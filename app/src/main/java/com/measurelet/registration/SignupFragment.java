@@ -40,13 +40,39 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        String b = ((EditText) fragment.findViewById(R.id.signup_bed_txt)).getText().toString();
+        EditText bView = fragment.findViewById(R.id.signup_bed_txt);
+        String b = bView.getText().toString();
+        EditText nView = fragment.findViewById(R.id.signup_name_txt);
+        String n = nView.getText().toString();
 
+        // Validate input fields
+        boolean error = false;
+
+        // Name
+        // Empty
+        if(n.equalsIgnoreCase("")){
+            nView.setError("Du skal indtaste dit navn.");
+            error = true;
+        }
+
+        // Bed
+        // Empty
+        if(b.equalsIgnoreCase("")){
+            bView.setError("Du skal indtaste dit senge nummer. Ved problemer spørg personalet");
+            error = true;
+        }
+
+
+        if(error){
+           return;
+        }
+
+        name = n;
         bed = !b.equals("") ? Integer.parseInt(b) : 0;
 
-        name = ((EditText) fragment.findViewById(R.id.signup_name_txt)).getText().toString();
-        ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
-        new AsyncThread().execute();
+
+         ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
+         new AsyncThread().execute();
 
     }
 
