@@ -23,6 +23,8 @@ import com.measurelet.Factories.WeightFactory;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.Weight;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -39,6 +41,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     private RecyclerView recyclerView;
     private Calendar calendar = Calendar.getInstance();
 
+    private final SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
 
     //TODO: make it possible to add goals (overallml)
 
@@ -58,23 +61,37 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
         updateKnapper();
 
+        //vægt
+        vaegtLayout = dashboard.findViewById(R.id.vaegt);
+        vaegtRegistreret = dashboard.findViewById(R.id.vaegt_registreret);
+
+
+        vaegt = dashboard.findViewById(R.id.vaegt_edit);
+        vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
+        vaegt_knap.setOnClickListener(this);
+        overall = dashboard.findViewById(R.id.registrated_amount);
+        overall.setText(ml + " ml");
+
+
+
+
         adapter = new MyRecyclerViewAdapter(getActivity(), new ArrayList<>(Registration_standard_frag.knapper.subList(0, 4)));
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
 
-        //vægt
-        vaegt = dashboard.findViewById(R.id.vaegt_edit);
-        vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
-        vaegt_knap.setOnClickListener(this);
 
-        vaegtLayout = dashboard.findViewById(R.id.vaegt);
-        vaegtRegistreret = dashboard.findViewById(R.id.vaegt_registreret);
-
-        overall = dashboard.findViewById(R.id.registrated_amount);
-        overall.setText(ml + " ml");
 
         ((MainActivity) getActivity()).getSupportActionBar().show();
 
+        /*for (Weight weight : App.currentUser.getWeights()) {
+
+            if (format2.format(calendar.getTime()).equals(format2.format(weight.getTimestamp()))){
+                vaegtRegistreret.setVisibility(View.VISIBLE);
+                vaegtLayout.setVisibility(View.INVISIBLE);
+
+            System.out.println("hej");
+        }
+}*/
         return dashboard;
     }
 
@@ -91,7 +108,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     @Override
     public void onClick(View view) {
         if (view == vaegt_knap) {
-
             String weightkg = vaegt.getText().toString();
             if (weightkg.equals("")) {
                 new AlertDialog.Builder(getActivity())
@@ -109,13 +125,17 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             ((MainActivity) getActivity()).getAddAnimation(1);
 
             vaegtRegistreret.setVisibility(View.VISIBLE);
+            System.out.println(App.currentUser.getWeights().toString());
         }
 
         if (view == add_btn) {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
         }
         if (view == mllayout) {
+
             ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
+
+
         }
     }
 
@@ -123,18 +143,12 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     public void onItemClick(View view, int position) {
         ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
 
-        VæskeRegistrering registrering = new VæskeRegistrering();
-        registrering.setType(Registration_standard_frag.knapper.get(position).getType());
-        registrering.setMængde(Registration_standard_frag.knapper.get(position).getMængde());
-        registrering.setDate(calendar.getTime());
-
-        Daily_view_frag.væskelistProeve.add(0, registrering);
-
         ml = ml + Registration_standard_frag.knapper.get(position).getMængde();
 
         Intake intake = new Intake(Registration_standard_frag.knapper.get(position).getType(), Registration_standard_frag.knapper.get(position).getMængde());
         IntakeFactory.InsertNewIntake(intake);
 
         overall.setText(ml + " ml");
+        App.currentUser.getIntakesForDate(LocalDate.now());
     }
 }

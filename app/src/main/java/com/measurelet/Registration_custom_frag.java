@@ -96,7 +96,7 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
             registrering.setMængde(size);
             registrering.setDate(calendar.getTime());
 
-            Daily_view_frag.væskelistProeve.add(0, registrering);
+            //Daily_view_frag.væskelistProeve.add(0, registrering);
 
             //inserts to DB
             Intake intake = new Intake(liqtyp, size);

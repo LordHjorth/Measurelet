@@ -22,12 +22,14 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.measurelet.Model.Intake;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
 
 
 public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClickListener {
@@ -35,19 +37,12 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     ListView listView;
     private View view;
-    private ArrayList<DagVæske> væskeList = new ArrayList<>();
     private BarChart barGraph;
     private BarData barData;
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
 
-    final SimpleDateFormat format = new SimpleDateFormat("dd/MM");
-
-    HashMap<String, Integer> ko = new HashMap<>();
-
-
-    int mængde = 0;
     Date d1;
 
     @Nullable
@@ -59,29 +54,9 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         listView.setOnItemClickListener(this);
         barGraph = view.findViewById(R.id.graph);
 
-        for (VæskeRegistrering registrering : Daily_view_frag.væskelistProeve) {
-
-            d1 = registrering.getDate();
-
-            String h = format.format(d1);
-
-            if (ko.containsKey(h)) {
-                mængde = mængde + registrering.getMængde();
-            } else {
-                mængde = registrering.getMængde();
-            }
-            ko.put(h, mængde);
-        }
-
-        for (Map.Entry<String, Integer> entry : ko.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            væskeList.add(new DagVæske(key, value));
-        }
-
         createGraph();
 
-        MyAdapter adapter = new MyAdapter(getActivity(), væskeList);
+        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForWeeks());
         listView.setAdapter(adapter);
 
         return view;
@@ -90,9 +65,11 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     private void createGraph() {
 
-        for (int i = 0; i < væskeList.size(); i++) {
-            datapoints.add(new BarEntry(i, væskeList.get(i).getMængde()));
-            dates.add(væskeList.get(i).getDate());
+        int i = 0;
+        for (Map.Entry<String, Integer> entry : App.currentUser.getIntakesForWeeks().entrySet()) {
+            datapoints.add(new BarEntry(i, entry.getValue()));
+            dates.add(LocalDate.parse(entry.getKey()).format(DateTimeFormatter.ofPattern("dd/MM")));
+            i++;
         }
 
         BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
@@ -126,16 +103,21 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
+
     }
 
-    private class MyAdapter extends ArrayAdapter<DagVæske> {
-        private ArrayList<DagVæske> dataSet;
+    private class MyAdapter extends ArrayAdapter<Intake> {
         Context mContext;
+        SortedMap<String, Integer> registrations;
 
-        public MyAdapter(@NonNull Context context, ArrayList<DagVæske> data) {
-            super(context, R.layout.list_weeklyview, data);
-            this.dataSet = data;
+        @Override
+        public int getCount() {
+            return registrations.size();
+        }
+
+        public MyAdapter(@NonNull Context context, SortedMap<String, Integer> registrations) {
+            super(context, R.layout.list_weeklyview);
+            this.registrations = registrations;
             this.mContext = context;
 
         }
@@ -146,12 +128,22 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_weeklyview, parent, false);
 
+            String d = registrations.keySet().toArray()[registrations.size() - position - 1].toString();
+            int a = (int) registrations.values().toArray()[registrations.size() - position - 1];
+
             TextView dato = rowView.findViewById(R.id.dato);
             TextView mængde = rowView.findViewById(R.id.mængde);
 
-            dato.setText(dataSet.get(position).getDate());
+            dato.setOnClickListener(view -> {
+                Bundle b = new Bundle();
+                b.putString("date", d);
 
-            mængde.setText(String.valueOf(dataSet.get(position).getMængde()));
+                ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
+            });
+
+            dato.setText(LocalDate.parse(d).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+            mængde.setText(a + " ml");
 
             return rowView;
         }
