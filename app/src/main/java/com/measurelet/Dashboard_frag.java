@@ -24,10 +24,9 @@ import com.measurelet.Model.Intake;
 import com.measurelet.Model.Weight;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import androidx.navigation.Navigation;
 
 public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
     private ImageButton add_btn;
@@ -43,8 +42,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     private Calendar calendar = Calendar.getInstance();
 
     private final SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
-    Bundle b = new Bundle();
-
 
     //TODO: make it possible to add goals (overallml)
 
@@ -135,9 +132,8 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_dashboard_frag_to_registration_standard_frag);
         }
         if (view == mllayout) {
-            b.putString("date",format2.format(calendar.getTime()));
 
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag,b);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
 
 
         }
@@ -153,5 +149,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         IntakeFactory.InsertNewIntake(intake);
 
         overall.setText(ml + " ml");
+        App.currentUser.getIntakesForDate(LocalDate.now());
     }
 }

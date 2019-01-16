@@ -1,6 +1,13 @@
 package com.measurelet.Model;
 
+import com.google.firebase.database.Exclude;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.UUID;
 
 
@@ -61,5 +68,52 @@ public class Patient {
 
     public void setRegistrations(ArrayList<Intake> registrations) {
         this.registrations = registrations;
+    }
+
+
+    @Exclude
+    public ArrayList<Intake> getIntakesForDate(LocalDate date) {
+
+        ArrayList<Intake> intakesCurrentDate = new ArrayList<>();
+        for (Intake i : registrations) {
+            if (i.getDateTime().getDayOfMonth() == date.getDayOfMonth() && i.getDateTime().getMonthValue() == date.getMonthValue()) {
+                intakesCurrentDate.add(i);
+            }
+        }
+        //SORT
+        Collections.sort(intakesCurrentDate, (o1, o2) -> {
+            if (o1.getDateTime().isEqual(o2.getDateTime())) {
+                return 0;
+            }
+            return o1.getDateTime().isAfter(o2.getDateTime()) ? -1 : 1;
+        });
+
+        return intakesCurrentDate;
+    }
+
+    @Exclude
+    public SortedMap<String, Integer> getIntakesForWeeks() {
+        ArrayList<Intake> intakesCurrentDate = registrations;
+        SortedMap<String, Integer> intakesPerDay = new TreeMap<>();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        //SORT
+        Collections.sort(intakesCurrentDate, (o1, o2) -> {
+            if (o1.getDateTime().isEqual(o2.getDateTime())) {
+                return 0;
+            }
+            return o1.getDateTime().isAfter(o2.getDateTime()) ? -1 : 1;
+        });
+
+        for (Intake i : intakesCurrentDate) {
+            int amount = i.getSize();
+            if (intakesPerDay.containsKey(i.getDateTime().format(dateTimeFormatter))) {
+                amount += intakesPerDay.get(i.getDateTime().format(dateTimeFormatter));
+            }
+
+            intakesPerDay.put(i.getDateTime().format(dateTimeFormatter), amount);
+        }
+
+        return intakesPerDay;
     }
 }
