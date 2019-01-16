@@ -8,27 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="action_dashboard_frag_to_daily_view_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_dashboard_frag_to_profile_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
                   <entry key="action_dashboard_frag_to_registration_standard_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_dashboard_frag_to_settings_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_dashboard_frag_to_weekly_view_frag">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -38,12 +18,12 @@
                       <LayoutPositions />
                     </value>
                   </entry>
-                  <entry key="action_global_introSlidePager">
+                  <entry key="action_global_edit_liquid">
                     <value>
                       <LayoutPositions />
                     </value>
                   </entry>
-                  <entry key="action_global_reg_weight_frag">
+                  <entry key="action_global_introSlidePager">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -54,26 +34,6 @@
                     </value>
                   </entry>
                   <entry key="action_global_termsFragment">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_registration_custom_frag_to_dashboard_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_registration_standard_frag_to_dashboard_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_registration_standard_frag_to_registration_custom_frag">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
-                  <entry key="action_week_to_daily_view_frag">
                     <value>
                       <LayoutPositions />
                     </value>
@@ -97,6 +57,18 @@
                           <Point>
                             <option name="x" value="12" />
                             <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="edit_liquid">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="836" />
+                            <option name="y" value="278" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -158,6 +130,15 @@
                             <option name="x" value="342" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_registration_standard_frag_to_registration_custom_frag">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

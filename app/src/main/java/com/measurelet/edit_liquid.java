@@ -1,5 +1,9 @@
 package com.measurelet;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.DialogFragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,10 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toolbar;
 
 
 import com.example.hjorth.measurelet.R;
@@ -28,7 +34,8 @@ public class edit_liquid extends Fragment implements View.OnClickListener, Adapt
     private EditText indtag, selftyped, amount_input;
     private TextView timer;
     private TimePicker timePicker;
-    private Button sletReg, gemReg;
+    private Button  gemReg;
+    private ImageButton sletReg;
     private ScrollView scrollView;
     private Spinner spinner;
 
@@ -47,6 +54,8 @@ public class edit_liquid extends Fragment implements View.OnClickListener, Adapt
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_liquid, container, false);
+
+
 
         Bundle bundle = getArguments();
         position = bundle.getInt("position");
@@ -86,6 +95,10 @@ public class edit_liquid extends Fragment implements View.OnClickListener, Adapt
 
         return view;
     }
+
+
+
+
 
 
     @Override
