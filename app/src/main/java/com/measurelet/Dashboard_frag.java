@@ -72,8 +72,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         overall = dashboard.findViewById(R.id.registrated_amount);
         overall.setText(ml + " ml");
 
-
-
+        ((MainActivity) getActivity()).setActionBarTitle("MeasureLet");
 
         adapter = new MyRecyclerViewAdapter(getActivity(), new ArrayList<>(Registration_standard_frag.knapper.subList(0, 4)));
         recyclerView.setAdapter(adapter);

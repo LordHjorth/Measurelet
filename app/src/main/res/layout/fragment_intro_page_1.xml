@@ -13,7 +13,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="For at simplificere hospitalets arbejdsopgaver og forbedre indsamlet data, er det fysiske Væskeregnskab forsøgt digitaliseret."
-
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"

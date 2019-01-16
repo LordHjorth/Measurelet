@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
         drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        this.getSupportActionBar().setTitle("Dashboardeladen");
 
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
         nvH = findViewById(R.id.nav_host);
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navC);
 
 
-        if (!App.isLoggedIn()) {
+        if (App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
             return;
         }
@@ -154,5 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public void setNavC(NavController navC) {
         this.navC = navC;
     }
+
+    public void setActionBarTitle(String title) { getSupportActionBar().setTitle(title);  }
 
 }

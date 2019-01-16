@@ -49,7 +49,7 @@
             android:elevation="0dp"
             android:scaleX="0.7"
             android:scaleY="0.7"
-            android:tint="@color/colorAccent"
+            android:tint="@color/colorPrimaryDark"
             app:srcCompat="@android:drawable/ic_menu_edit" />
 
     </LinearLayout>

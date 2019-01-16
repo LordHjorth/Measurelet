@@ -71,6 +71,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         bed = !b.equals("") ? Integer.parseInt(b) : 0;
 
 
+
+
          ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
          new AsyncThread().execute();
 

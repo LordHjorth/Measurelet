@@ -65,6 +65,8 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
         list.setAdapter(adapter);
 
+        ((MainActivity) getActivity()).setActionBarTitle("Dagligt overblik");
+
         return dailyView;
     }
 

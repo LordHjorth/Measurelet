@@ -17,7 +17,7 @@
         android:layout_marginBottom="74dp"
         android:layout_marginEnd="33dp"
         android:background="@drawable/ripple"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:drawableLeft="@drawable/ic_more_horiz_black_24dp"
         android:text="Andet"
         android:textAllCaps="false"

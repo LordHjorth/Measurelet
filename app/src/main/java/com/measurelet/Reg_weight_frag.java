@@ -54,6 +54,8 @@ public class Reg_weight_frag extends Fragment {
 
         createGraph();
 
+        ((MainActivity) getActivity()).setActionBarTitle("Vægt overblik");
+
         return regweight;
     }
 
