@@ -30,7 +30,7 @@ public class App extends Application {
     //Child references.
     public static DatabaseReference patientRef, intakeRef, weightRef;
 
-    private static Boolean loggedIn = false;
+    public static Boolean loggedIn = false;
     public static Patient currentUser;
     private static String key;
 
@@ -38,7 +38,6 @@ public class App extends Application {
     // Overriding this method is totally optional!
     @Override
     public void onCreate() {
-        super.onCreate();
         // Required initialization logic here!
         FirebaseApp.initializeApp(this);
         preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
@@ -51,6 +50,8 @@ public class App extends Application {
             setupRef(getAppDatabase(), key);
             loggedIn = true;
         }
+
+        super.onCreate();
     }
 
     public static void setupRef(DatabaseReference rootRef, String key_string) {
@@ -63,6 +64,7 @@ public class App extends Application {
     public static boolean isLoggedIn() {
         return loggedIn;
     }
+
 
     public static DatabaseReference getAppDatabase() {
 

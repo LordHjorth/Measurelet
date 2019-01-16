@@ -97,6 +97,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            App.loggedIn = true;
             MainActivity activity = ((MainActivity) getActivity());
             activity.getAddAnimation(2).cancelAnimation();
             activity.setupListeners();
