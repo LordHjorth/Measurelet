@@ -36,7 +36,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
-    private ImageButton add_btn;
+    private Button add_btn;
     private TextView overall;
     private LinearLayout mllayout;
     public static int ml = 0;

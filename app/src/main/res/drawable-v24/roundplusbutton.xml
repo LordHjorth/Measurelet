@@ -9,7 +9,7 @@
                 android:topLeftRadius="80dp"
                 android:topRightRadius="80dp" />
 
-            <solid android:color="#43778bfa" />
+            <solid android:color="@color/colorPrimary" />
 
             <padding
                 android:bottom="0dp"
@@ -24,7 +24,7 @@
         </shape>
     </item>
 
-    <item android:top="1dp" android:bottom="3dp">
+    <item android:bottom="3dp" android:left="1dp">
         <shape android:shape="rectangle" >
 
             <corners
@@ -33,7 +33,7 @@
                 android:topLeftRadius="80dp"
                 android:topRightRadius="80dp" />
 
-            <solid android:color="#00c853"/>
+            <solid android:color="@color/colorPrimaryDark" />
 
             <padding
                 android:bottom="0dp"

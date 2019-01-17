@@ -5,6 +5,7 @@
     <color name="colorPrimaryLight">#eeffff</color>
     <color name="black">#000000</color>
     <color name="background_color">#ffffff</color>
+    <color name="shadow_color">#BFE0FA</color>
     <!--<color name="background_color">#a8dae6</color>
     <color name="background_darker">#83d1e4</color>
     !-->
