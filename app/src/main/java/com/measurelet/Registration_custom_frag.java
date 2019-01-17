@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +25,7 @@ import java.util.Calendar;
 public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private String liqtyp;
     private EditText input_ml, input_type_other;
-    private ImageButton add;
+    private Button add;
     private boolean other;
 
     private Calendar calendar = Calendar.getInstance();

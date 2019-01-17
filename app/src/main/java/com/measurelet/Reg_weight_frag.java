@@ -93,7 +93,6 @@ public class Reg_weight_frag extends Fragment {
         }
 
         LineDataSet data = new LineDataSet(datapoints, "Væskeindtag ml");
-
         lineData = new LineData(data);
 
 
@@ -107,15 +106,20 @@ public class Reg_weight_frag extends Fragment {
         lineChart.setVisibleXRangeMinimum(7);
         xAxisDato.setGranularity(1f);
         lineChart.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
-        lineChart.getAxisRight().setDrawGridLines(false);
         lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getAxisLeft().setSpaceBottom(20);
+        lineChart.getAxisRight().setSpaceTop(20);
         lineChart.getDescription().setEnabled(false);
         xAxisDato.setDrawGridLines(false);
         data.setValueTextSize(10);
         data.setColor(ColorTemplate.rgb("7cb5e4"));
+
+
         lineChart.invalidate();
 
     }
+
 
     private class MyAdapter extends ArrayAdapter<Weight> {
         private ArrayList<Weight> dataSet;

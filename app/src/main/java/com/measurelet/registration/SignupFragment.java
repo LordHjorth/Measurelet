@@ -15,6 +15,7 @@ import com.measurelet.Factories.PatientFactory;
 import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
 
+
 public class SignupFragment extends Fragment implements View.OnClickListener {
 
 

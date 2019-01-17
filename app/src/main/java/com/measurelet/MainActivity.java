@@ -20,11 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.measurelet.Model.Patient;
 
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavController.OnNavigatedListener {
 
     private NavController navC;
     private DrawerLayout drawer;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        setNavC(Navigation.findNavController(findViewById(R.id.nav_host))); //navC= ;
+        navC = Navigation.findNavController(findViewById(R.id.nav_host));
+        navC.addOnNavigatedListener(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navC);
 
 
-        if (App.isLoggedIn()) {
+        if (!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
             return;
         }
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
             super.onBackPressed();
         }
     }
@@ -157,6 +160,16 @@ public class MainActivity extends AppCompatActivity {
         this.navC = navC;
     }
 
-    public void setActionBarTitle(String title) { getSupportActionBar().setTitle(title);  }
+    public void setActionBarTitle(String title) {
 
+        getSupportActionBar().setTitle(title);
+    }
+
+    @Override
+    public void onNavigated(@NonNull NavController controller, @NonNull NavDestination destination) {
+        String title = "";
+        switch (destination.getId()) {
+        }
+
+    }
 }
