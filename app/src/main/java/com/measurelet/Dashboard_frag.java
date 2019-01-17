@@ -27,6 +27,7 @@ import com.measurelet.Model.Patient;
 import com.measurelet.Model.Weight;
 import com.robinhood.spark.SparkAdapter;
 import com.robinhood.spark.SparkView;
+import com.robinhood.spark.animation.MorphSparkAnimator;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -83,6 +84,7 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         sparkView.setLineColor(getActivity().getColor(R.color.colorPrimary));
         ((View) sparkView).setAlpha(0.3F);
         sparkView.setLineWidth(6F);
+        sparkView.setSparkAnimator(new MorphSparkAnimator());
 
         App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
