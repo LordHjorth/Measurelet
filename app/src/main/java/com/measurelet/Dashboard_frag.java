@@ -78,6 +78,12 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
         ((MainActivity) getActivity()).setActionBarTitle("MeasureLet");
 
+
+        SparkView sparkView = (SparkView) dashboard.findViewById(R.id.sparkview);
+        sparkView.setLineColor(getActivity().getColor(R.color.colorPrimary));
+        ((View) sparkView).setAlpha(0.3F);
+        sparkView.setLineWidth(6F);
+
         App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -113,9 +119,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
 
                 // Lets draw some stuff
-                SparkView sparkView = (SparkView) dashboard.findViewById(R.id.sparkview);
-                sparkView.setLineColor(getActivity().getColor(R.color.colorPrimary));
-                sparkView.setLineWidth(6F);
                 sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
 
             }
