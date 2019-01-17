@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.measurelet.Profile_frag"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    android:layout_marginTop="10dp">
 
     <LinearLayout
         android:id="@+id/profile_name"

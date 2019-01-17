@@ -55,13 +55,6 @@ public class Registration_standard_frag extends Fragment implements MyRecyclerVi
 
         Dashboard_frag.ml = Dashboard_frag.ml + knapper.get(position).getMængde();
 
-        VæskeRegistrering registrering = new VæskeRegistrering();
-        registrering.setType(knapper.get(position).getType());
-        registrering.setMængde(knapper.get(position).getMængde());
-        registrering.setDate(calendar.getTime());
-
-       // Daily_view_frag.væskelistProeve.add(0, registrering);
-
         Intake intake = new Intake(knapper.get(position).getType(), knapper.get(position).getMængde());
         IntakeFactory.InsertNewIntake(intake);
 

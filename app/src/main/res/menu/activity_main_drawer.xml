@@ -20,7 +20,7 @@
         <item
             android:id="@+id/reg_weight_frag"
             android:icon="@drawable/profil"
-            android:title="Registrering af vægt" />
+            android:title="Vægt overblik" />
 
         <!--
         <item

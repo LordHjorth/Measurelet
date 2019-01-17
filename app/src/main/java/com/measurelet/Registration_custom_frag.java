@@ -89,13 +89,6 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
 
             Dashboard_frag.ml += size;
 
-            VæskeRegistrering registrering = new VæskeRegistrering();
-            registrering.setType(liqtyp);
-            registrering.setMængde(size);
-            registrering.setDate(calendar.getTime());
-
-            //Daily_view_frag.væskelistProeve.add(0, registrering);
-
             //inserts to DB
             Intake intake = new Intake(liqtyp, size);
             IntakeFactory.InsertNewIntake(intake);

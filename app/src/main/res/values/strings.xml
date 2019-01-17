@@ -23,8 +23,7 @@
     <string name="seneste">Seneste registreret vægt</string>
     <string name="redigerindtag">Rediger en registrering</string>
 
-    
-    
+
     <string-array name="fluidtypes">
         <item>Vand</item>
         <item>Kaffe</item>
@@ -32,4 +31,17 @@
         <item>Saftevand</item>
         <item>Andet</item>
     </string-array>
+
+    <!-- Titles to show in action bar !-->
+    <string name="daily_view">Dagligt overblik</string>
+    <string name="weekly_view">Ugenligt overblik</string>
+    <string name="dashboard">MeasureLet</string>
+    <string name="edit_liquid">Dagligt overblik</string>
+    <string name="registration_weight">Vægt overblik</string>
+    <string name="registration_custom">Registrering</string>
+    <string name="registration_standard">Registrering</string>
+    <string name="settings">Indstillinger</string>
+    <string name="profile_frag">Profil</string>
+
+
 </resources>

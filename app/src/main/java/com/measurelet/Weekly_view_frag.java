@@ -59,8 +59,6 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForWeeks());
         listView.setAdapter(adapter);
 
-        ((MainActivity) getActivity()).setActionBarTitle("Uge overblik");
-
         return view;
     }
 

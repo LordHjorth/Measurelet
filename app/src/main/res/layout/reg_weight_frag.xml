@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.measurelet.Reg_weight_frag"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    android:layout_marginTop="10dp">
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/graphvaegt"
@@ -76,7 +77,7 @@
         android:layout_marginTop="8dp"
         android:autoSizeTextType="uniform"
         android:text="@string/seneste"
-        android:textColor="@color/black"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,14 +87,13 @@
         android:id="@+id/listviewVaegt"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
-        app:layout_constraintVertical_bias="0.179"
         android:divider="#4D0C0C0C"
         android:dividerHeight="0.5dp"/>
 

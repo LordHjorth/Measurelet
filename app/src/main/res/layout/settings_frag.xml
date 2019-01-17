@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.measurelet.Settings_frag">
+    tools:context="com.measurelet.Settings_frag"
+    android:layout_marginTop="10dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"

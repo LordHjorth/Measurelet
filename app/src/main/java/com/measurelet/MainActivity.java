@@ -2,13 +2,17 @@ package com.measurelet;
 
 import android.animation.Animator;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.material.navigation.NavigationView;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         setContentView(R.layout.main_activity);
 
         navC = Navigation.findNavController(findViewById(R.id.nav_host));
-        navC.addOnNavigatedListener(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
 
+        navC.addOnNavigatedListener(this);
 
         if (!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
     }
 
-    public void setupListeners(){
+    public void setupListeners() {
 
         App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -169,7 +173,34 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
     public void onNavigated(@NonNull NavController controller, @NonNull NavDestination destination) {
         String title = "";
         switch (destination.getId()) {
+            case R.id.daily_view_frag:
+                title = getString(R.string.daily_view);
+                break;
+            case R.id.edit_liquid:
+                title = getString(R.string.edit_liquid);
+                break;
+            case R.id.profile_frag:
+                title = getString(R.string.profil);
+                break;
+            case R.id.reg_weight_frag:
+                title = getString(R.string.registration_weight);
+                break;
+            case R.id.registration_custom_frag:
+                title = getString(R.string.registration_custom);
+                break;
+            case R.id.registration_standard_frag:
+                title = getString(R.string.registration_standard);
+                break;
+            case R.id.settings_frag:
+                title = getString(R.string.settings);
+                break;
+            case R.id.weekly_view_frag:
+                title = getString(R.string.weekly_view);
+                break;
+            default:
+                title = getString(R.string.dashboard);
+                break;
         }
-
+        setActionBarTitle(title);
     }
 }

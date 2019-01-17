@@ -80,7 +80,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
         vaegt_knap.setOnClickListener(this);
 
-        ((MainActivity) getActivity()).setActionBarTitle("MeasureLet");
 
 
         SparkView sparkView = (SparkView) dashboard.findViewById(R.id.sparkview);
