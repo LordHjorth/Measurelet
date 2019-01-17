@@ -28,6 +28,8 @@ import com.measurelet.Model.Intake;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -88,8 +90,8 @@ public class edit_liquid extends android.support.v4.app.DialogFragment implement
         timePicker = view.findViewById(R.id.timepicker);
         timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(this);
-        timePicker.setHour(App.currentUser.getRegistrations().get(position).getTimestamp().getHours());
-        timePicker.setMinute(App.currentUser.getRegistrations().get(position).getTimestamp().getMinutes());
+        timePicker.setHour(App.currentUser.getRegistrations().get(position).getDateTime().getHour());
+        timePicker.setMinute(App.currentUser.getRegistrations().get(position).getDateTime().getMinute());
 
         spinner = view.findViewById(R.id.scrollvalg1);
         timer = view.findViewById(R.id.timefield);
@@ -117,9 +119,8 @@ public class edit_liquid extends android.support.v4.app.DialogFragment implement
     public void onClick(View vv) {
 
         if (vv == gemReg) {
-            Date date = new Date();
-            date.setHours(timePicker.getHour());
-            date.setMinutes(timePicker.getMinute());
+            LocalDateTime date = LocalDate.now().atTime(timePicker.getHour(),timePicker.getMinute());
+
             if (other){
                 if(selftyped.getText().toString().equals("")){
                     type="Andet";
@@ -129,7 +130,7 @@ public class edit_liquid extends android.support.v4.app.DialogFragment implement
                 }
 
             }
-            Intake intake = new Intake(type, Integer.parseInt(amount_input.getText().toString()) , App.currentUser.getRegistrations().get(position).getUuid(), date);
+            Intake intake = new Intake(type, Integer.parseInt(amount_input.getText().toString()) , App.currentUser.getRegistrations().get(position).getUuid(), date.toString());
             App.currentUser.getRegistrations().remove(position);
             App.currentUser.getRegistrations().add(position, intake);
 

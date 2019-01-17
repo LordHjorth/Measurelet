@@ -51,6 +51,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         View dailyView = inflater.inflate(R.layout.daily_view_frag, container, false);
         list = dailyView.findViewById(R.id.listDaily);
         barGraph = dailyView.findViewById(R.id.graph);
+        //list.setDivider(getResources().getDrawable(R.drawable.divider));
 
         Bundle b = getArguments();
         LocalDate date = null;
