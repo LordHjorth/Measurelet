@@ -30,17 +30,14 @@ public class App extends Application {
     //Child references.
     public static DatabaseReference patientRef, intakeRef, weightRef;
 
-    private static Boolean loggedIn = false;
+    public static Boolean loggedIn = false;
     public static Patient currentUser;
     private static String key;
-    private static Semaphore sem = new Semaphore(0, true);
-
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
     @Override
     public void onCreate() {
-        super.onCreate();
         // Required initialization logic here!
         FirebaseApp.initializeApp(this);
         preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
@@ -51,70 +48,24 @@ public class App extends Application {
         // We have a key in storage. Lets try to fetch the current user
         if (key.length() > 0) {
             setupRef(getAppDatabase(), key);
-            //TODO: fix this. Add spinner while loading
-            new AsyncTask() {
-                @Override
-                protected void onPreExecute() {
-
-                }
-
-                @Override
-                protected void onPostExecute(Object o) {
-
-                }
-
-                @Override
-                protected Object doInBackground(Object[] objects) {
-                    referenceStartUp();
-                    return null;
-                }
-            }.execute();
-
             loggedIn = true;
         }
+
+        super.onCreate();
     }
 
     public static void setupRef(DatabaseReference rootRef, String key_string) {
         key = key_string;
-        patientRef = rootRef.child("patients").child(key);
+        patientRef = rootRef.child("patients_test").child(key);
+        patientRef.keepSynced(true);
         intakeRef = patientRef.child("registrations");
         weightRef = patientRef.child("weights");
-    }
-
-    public static void referenceStartUp() {
-
-        sem = new Semaphore(0);
-
-        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getValue());
-
-                currentUser = dataSnapshot.getValue(Patient.class);
-
-                System.out.println("Succeeded \n" + currentUser.getName());
-                sem.release();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Cancelled");
-                sem.release();
-            }
-        });
-
-        try {
-            sem.acquire();
-        } catch (InterruptedException e) {
-            Log.w("APP", "Interrupted");
-        }
-
     }
 
     public static boolean isLoggedIn() {
         return loggedIn;
     }
+
 
     public static DatabaseReference getAppDatabase() {
 

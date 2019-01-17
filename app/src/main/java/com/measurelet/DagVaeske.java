@@ -1,13 +1,13 @@
 package com.measurelet;
 
-public class DagVæske {
+public class DagVaeske {
 
     //TODO: Use intake instead -> then delete. Rename
 
     String date;
     int mængde;
 
-    public DagVæske(String date,int mængde){
+    public DagVaeske(String date,int mængde){
         this.date=date;
         this.mængde=mængde;
 

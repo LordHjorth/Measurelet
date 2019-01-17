@@ -15,30 +15,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="60dp"
         android:ems="10"
+        android:hint="Navn"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="80dp"
-        android:text="Navn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="32dp"
-        android:text="Seng"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_name_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <EditText
         android:id="@+id/signup_bed_txt"
@@ -48,20 +29,37 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="60dp"
         android:ems="10"
+        android:hint="Seng nr."
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_name_txt" />
 
     <Button
         android:id="@+id/signup_btn"
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
+        android:layout_width="291dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="8dp"
-        android:text="Tilmeld"
+        android:background="@drawable/roundedcorners"
+        android:text="Registrer"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_bed_txt" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_measureletlogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

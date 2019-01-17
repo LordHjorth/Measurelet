@@ -10,21 +10,26 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.hjorth.measurelet.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.measurelet.Model.Patient;
 
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 
-public class MainActivity extends AppCompatActivity implements NavController.OnNavigatedListener {
+public class MainActivity extends AppCompatActivity {
 
     private NavController navC;
     private DrawerLayout drawer;
     private View nvH;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +41,17 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
         drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        this.getSupportActionBar().setTitle("Dashboardeladen");
 
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
-        navC.addOnNavigatedListener(this);
         nvH = findViewById(R.id.nav_host);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         NavigationUI.setupWithNavController(navigationView, navC);
 
 
@@ -54,17 +60,41 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             return;
         }
 
-        /*
-        TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-        TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+        setupListeners();
 
-        bed.setText(App.currentUser.getBedNum() + "");
-        name.setText(App.currentUser.getName());
-        */
+    }
+
+    public void setupListeners(){
+
+        App.patientRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue());
+
+                App.currentUser = dataSnapshot.getValue(Patient.class);
+
+                System.out.println("Succeeded \n" + App.currentUser.getName());
+
+                TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+                TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+                bed.setText(App.currentUser.getBedNum() + "");
+                name.setText(App.currentUser.getName());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Cancelled");
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
+        if (navC.getCurrentDestination().getId() == R.id.introSlidePager) {
+            finish();
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -111,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
                 nvH.animate().alpha(1f);
 
             }
+
             @Override
             public void onAnimationRepeat(Animator animation) {
             }
@@ -126,11 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         this.navC = navC;
     }
 
-    @Override
-    public void onNavigated(@NonNull NavController controller, @NonNull NavDestination destination) {
-        if (destination.getId() == navC.getGraph().getStartDestination()) {
-            navC.popBackStack(navC.getGraph().getStartDestination(), false);
+    public void setActionBarTitle(String title) { getSupportActionBar().setTitle(title);  }
 
-        }
-    }
 }

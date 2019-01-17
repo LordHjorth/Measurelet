@@ -1,6 +1,7 @@
 package com.measurelet.registration;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -9,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.MainActivity;
@@ -47,8 +49,19 @@ public class IntroSlidePager extends Fragment {
         mPagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         mPager.setAdapter(mPagerAdapter);
 
+
         // Tilføj dots
         // https://stackoverflow.com/questions/20586619/android-viewpager-with-bottom-dots
+
+        TabLayout tabLayout = (TabLayout) fragment.findViewById(R.id.tabDots);
+        tabLayout.setupWithViewPager(mPager, true);
+
+        Button btn = fragment.findViewById(R.id.sign_up_btn);
+        btn.setOnClickListener((view) -> {
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_termsFragment);
+
+        });
+
 
         return fragment;
     }

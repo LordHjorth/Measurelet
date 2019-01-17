@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +25,11 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.Weight;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
@@ -41,55 +41,69 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
 
+    private final DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("HH");
 
-
-    private final SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-    private final SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
-
-    private Calendar calendar = Calendar.getInstance();
-
-    private Date date;
+    private HashMap<String, Integer> hourMap = new HashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View dailyView = inflater.inflate(R.layout.daily_view_frag, container, false);
-
         list = dailyView.findViewById(R.id.listDaily);
         barGraph = dailyView.findViewById(R.id.graph);
 
-        createGraph();
-        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getRegistrations());
+        Bundle b = getArguments();
+        LocalDate date = null;
+        if (b != null) {
+            String temp = b.getString("date");
+            if (temp != null) {
+                date = LocalDate.parse(temp);
+            }
+        }
+        if (date == null) {
+            date = LocalDate.now();
+        }
+
+        createGraph(App.currentUser.getIntakesForDate(date));
+        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
         list.setAdapter(adapter);
+
+        ((MainActivity) getActivity()).setActionBarTitle("Dagligt overblik");
 
         return dailyView;
     }
 
-
     private IAxisValueFormatter getformatter() {
-
-
         IAxisValueFormatter formatter = (value, axis) -> dates.toArray(new String[dates.size()])[(int) value];
         return formatter;
     }
 
-    private void createGraph() {
-        int i=0;
-        for (Intake intake :App.currentUser.getRegistrations() ){
-            System.out.println(format2.format(calendar.getTime()) + "  "+format2.format(intake.getTimestamp()) );
+    private void createGraph(ArrayList<Intake> dailyIntake) {
 
-            if (format2.format(calendar.getTime()).equals(format2.format(intake.getTimestamp()))){
-                datapoints.add(new BarEntry(i, intake.getSize()));
-                dates.add(format.format(intake.getTimestamp()));
-                i++;
-                System.out.println(i +" ");
-
+        //samler mængder efter time
+        int mængde = 0;
+        for (Intake intake : dailyIntake) {
+            String hour = intake.getDateTime().format(formatHour);
+            if (hourMap.containsKey(hour)) {
+                mængde = mængde + intake.getSize();
+            } else {
+                mængde = intake.getSize();
             }
+
+            hourMap.put(hour, mængde);
+        }
+
+        int i = 0;
+        for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            datapoints.add(new BarEntry(i, value));
+            dates.add(key);
+            System.out.println(dates.toString());
+            i++;
         }
 
         BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
-
 
         barData = new BarData(data);
         barData.setBarWidth(0.7f);
@@ -152,13 +166,11 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
                 //((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
 
             });
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
 
-            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
-            tid.setText(format.format(dataSet.get(position).getTimestamp()));
+            tid.setText(dataSet.get(position).getDateTime().format(format));
             type.setText(dataSet.get(position).getType());
-            mængde.setText(String.valueOf(dataSet.get(position).getSize())+" ml");
-
+            mængde.setText(String.valueOf(dataSet.get(position).getSize()) + " ml");
 
             return rowView;
         }
