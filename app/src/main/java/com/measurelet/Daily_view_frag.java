@@ -3,11 +3,13 @@ package com.measurelet;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.measurelet.Model.Intake;
+import com.measurelet.Model.Weight;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -48,6 +51,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         View dailyView = inflater.inflate(R.layout.daily_view_frag, container, false);
         list = dailyView.findViewById(R.id.listDaily);
         barGraph = dailyView.findViewById(R.id.graph);
+        //list.setDivider(getResources().getDrawable(R.drawable.divider));
 
         Bundle b = getArguments();
         LocalDate date = null;
@@ -149,6 +153,20 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             TextView mængde = rowView.findViewById(R.id.ml_daily);
             TextView type = rowView.findViewById(R.id.type_daily);
 
+            ImageButton edit_button = rowView.findViewById(R.id.edit_daily);
+
+            edit_button.setOnClickListener(v -> {
+
+                Bundle b = new Bundle();
+                b.putInt("position", position);
+                DialogFragment dialog = new edit_liquid();
+                dialog.setArguments(b);
+                dialog.show(getFragmentManager(),"dialog");
+
+
+                //((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
+
+            });
             DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
 
             tid.setText(dataSet.get(position).getDateTime().format(format));

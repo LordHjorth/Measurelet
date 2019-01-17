@@ -93,6 +93,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.179"
+        android:divider="#4D0C0C0C"
+        android:dividerHeight="0.5dp"/>
 
 </android.support.constraint.ConstraintLayout>

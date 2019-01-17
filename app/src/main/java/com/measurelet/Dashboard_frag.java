@@ -201,6 +201,9 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         Intake intake = new Intake(Registration_standard_frag.knapper.get(position).getType(), Registration_standard_frag.knapper.get(position).getMængde());
         IntakeFactory.InsertNewIntake(intake);
 
+
+        App.currentUser.getRegistrations().add(0, intake);
+
         overall.setText(ml + " ml");
         App.currentUser.getIntakesForDate(LocalDate.now());
     }

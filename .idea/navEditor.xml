@@ -18,11 +18,24 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="action_global_dashboard_frag">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="action_global_edit_liquid">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+<<<<<<< HEAD
                   <entry key="action_global_introSlidePager">
                     <value>
                       <LayoutPositions />
                     </value>
                   </entry>
+=======
+>>>>>>> master
                   <entry key="action_global_signupFragment">
                     <value>
                       <LayoutPositions />
@@ -52,6 +65,18 @@
                           <Point>
                             <option name="x" value="12" />
                             <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="edit_liquid">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="836" />
+                            <option name="y" value="278" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -113,6 +138,15 @@
                             <option name="x" value="502" />
                             <option name="y" value="309" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_registration_standard_frag_to_registration_custom_frag">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                         <option name="myPositions">
                           <map>

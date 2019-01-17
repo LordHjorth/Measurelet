@@ -72,7 +72,9 @@
         <ListView
             android:id="@+id/listDaily"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:divider="#4D0C0C0C"
+            android:dividerHeight="0.5dp">
 
         </ListView>
 
