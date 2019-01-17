@@ -1,35 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?><!--  recycler view for items -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--  recycler view for items -->
-
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/imageButton"
-        android:layout_width="104dp"
-        android:layout_height="42dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/ripple"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:drawableLeft="@drawable/ic_more_horiz_black_24dp"
-        android:text="Andet"
-        android:textAllCaps="false"
-        android:textColor="@color/black" />
+        style="@style/Widget.PrayerTimes.FABlikeButton"
+        android:layout_width="164dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="8dp"
+        android:text="ANDET"
+        android:textSize="20dp"
+        app:cornerRadius="32dp"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/standrecycle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

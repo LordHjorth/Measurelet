@@ -21,7 +21,7 @@ public class PatientFactory {
             success = task.isSuccessful();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

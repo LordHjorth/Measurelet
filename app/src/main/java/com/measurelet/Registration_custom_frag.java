@@ -36,8 +36,6 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
 
         TextView druk = customfrag.findViewById(R.id.drink);
         druk.setText(R.string.drink);
-        TextView m = customfrag.findViewById(R.id.amounttitle);
-        m.setText(R.string.amount);
         input_ml = customfrag.findViewById(R.id.amountofliquid);
         input_type_other = customfrag.findViewById(R.id.selftyped);
 

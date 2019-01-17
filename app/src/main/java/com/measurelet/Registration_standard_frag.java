@@ -1,30 +1,27 @@
 package com.measurelet;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.google.android.material.button.MaterialButton;
 import com.measurelet.Factories.IntakeFactory;
 import com.measurelet.Model.Intake;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Registration_standard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
-    private Button soda, juice, coffee, water, pitcher, other;
-    private TextView tv;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+public class Registration_standard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
     MyRecyclerViewAdapter adapter;
     public static ArrayList<VaeskeKnap> knapper = new ArrayList<>();
 
-    Button knap;
+    MaterialButton knap;
     Calendar calendar = Calendar.getInstance();
 
 

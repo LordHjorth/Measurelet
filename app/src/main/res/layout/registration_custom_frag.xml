@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO Emil-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,46 +7,98 @@
     tools:context="com.measurelet.Registration_custom_frag">
 
     <LinearLayout
-        android:id="@+id/setsynligt"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/roundedcorners"
         android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelowermid"
         app:layout_constraintEnd_toStartOf="@+id/guideright"
         app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guide45">
+        app:layout_constraintTop_toTopOf="@+id/guidetop">
 
-        <EditText
-            android:id="@+id/selftyped"
+        <TextView
+            android:id="@+id/drink"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autoSizeTextType="uniform"
-            android:focusedByDefault="true"
-            android:inputType="text"
-            android:maxLength="10"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            tools:layout_editor_absoluteX="167dp"
-            tools:layout_editor_absoluteY="403dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/roundedcorners"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/scrollvalg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/setsynligt"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Væsketype"
+            android:visibility="invisible">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/selftyped"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mængde">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amountofliquid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
+
+
+
+
+    <Button
+        android:id="@+id/plusbut"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/roundedcorners"
+        android:text="Tilføj"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toStartOf="@+id/guideright"
+        app:layout_constraintStart_toStartOf="@+id/guideleft"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidetop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.10" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide45"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelowermid"
@@ -55,6 +106,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideleft"
@@ -69,128 +128,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.9" />
-
-    <TextView
-        android:id="@+id/drink"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/guideline35"
-        app:layout_constraintEnd_toStartOf="@+id/guideright"
-        app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guidetop" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guide55"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <TextView
-        android:id="@+id/amounttitle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/guide55"
-        app:layout_constraintEnd_toStartOf="@+id/guideright"
-        app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guideline8"
-        tools:text="@string/amount" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/roundedcorners"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guide45"
-        app:layout_constraintEnd_toStartOf="@+id/guideright"
-        app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guideline35">
-
-        <Spinner
-            android:id="@+id/scrollvalg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/roundedcorners"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/guidelowermid"
-        app:layout_constraintEnd_toStartOf="@+id/guideright"
-        app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guide55">
-
-        <EditText
-            android:id="@+id/amountofliquid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autoSizeTextType="uniform"
-            android:digits="0123456789"
-            android:hint="Væske i ml"
-            android:imeOptions="actionDone"
-            android:inputType="number"
-            android:maxLength="4"
-            tools:layout_editor_absoluteX="167dp"
-            tools:layout_editor_absoluteY="403dp" />
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
-
-    <Button
-        android:id="@+id/plusbut"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="8dp"
-        android:text="Tilføj"
-        android:background="@drawable/roundedcorners"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
-        app:layout_constraintEnd_toStartOf="@+id/guideright"
-        app:layout_constraintStart_toStartOf="@+id/guideleft"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.90" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

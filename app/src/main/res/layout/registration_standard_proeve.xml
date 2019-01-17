@@ -9,7 +9,7 @@
     android:layout_marginRight="4dp"
     android:layout_marginTop="10dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@android:color/transparent"
+    app:cardBackgroundColor="@color/material_card_view_color"
     app:cardCornerRadius="4dp"
     app:contentPadding="5dp"
     app:cardMaxElevation="2dp"

@@ -47,129 +47,147 @@
             android:layout_weight="1"
             android:text="2000 ml "
             android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="36sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/vaegt"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:elevation="10dp"
-        android:visibility="visible"
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/mtrl_card_spacing"
+        android:layout_marginTop="@dimen/mtrl_card_spacing"
+        android:layout_marginRight="@dimen/mtrl_card_spacing"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/vaegt"
-            app:layout_constraintGuide_percent="0.5"
-            app:layout_constraintTop_toBottomOf="@id/vaegt" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vaegt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            android:visibility="visible">
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Du mangler at registrere vægt i dag"
-            android:textAlignment="center"
-            android:textSize="18dp"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/vaegt"
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintTop_toBottomOf="@id/vaegt" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Du mangler at registrere vægt i dag"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/vaegt_edit"
+                android:layout_width="100dp"
+                android:layout_height="55dp"
+                android:ems="10"
+                android:hint="Vægt"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toBottomOf="@id/textView16" />
+
+            <Button
+                android:id="@+id/vagt_knap"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:autoSizeMaxTextSize="13dp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/roundedcorners"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:elevation="4dp"
+                android:text="Registrer"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toBottomOf="@id/textView16" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/vaegt_registreret"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/vaegt_edit"
-            android:layout_width="100dp"
-            android:layout_height="55dp"
-            android:ems="10"
-            android:hint="Vægt"
-            android:inputType="numberDecimal"
-            android:maxLength="5"
-            android:textAlignment="textStart"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/textView16" />
-
-        <Button
-            android:id="@+id/vagt_knap"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:autoSizeMaxTextSize="13dp"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/roundedcorners"
-            android:elevation="4dp"
-            android:text="Registrer"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/textView16" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/vaegt_registreret"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="Du har registreret vægt i dag"
-            android:textAlignment="center"
-            android:textSize="18dp"
-            android:textStyle="italic"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="@+id/guideline">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="50dp"
-        android:gravity="center"
-        android:orientation="vertical"
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="Du har registreret vægt i dag"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:textStyle="italic"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_btn"
+        style="@style/Widget.PrayerTimes.FABlikeButton"
+        android:layout_width="164dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="ANDET"
+        android:textSize="20dp"
+        app:cornerRadius="32dp"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline3">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/add_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rippleplusb" />
-
-        <TextView
-            android:id="@+id/add_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tilføj andet" />
-    </LinearLayout>
+    <!-- <com.google.android.material.card.MaterialCardView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:cardElevation="3dp"
+         android:layout_marginLeft="@dimen/mtrl_card_spacing"
+         android:layout_marginTop="@dimen/mtrl_card_spacing"
+         android:layout_marginRight="@dimen/mtrl_card_spacing"
+         app:cardBackgroundColor="@android:color/transparent"
+         app:layout_constraintBottom_toTopOf="@+id/guideline3"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/guideline2">!-->
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,15 +198,16 @@
             android:id="@+id/quick_add_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autoSizeMaxTextSize="30dp"
-            android:autoSizeTextType="uniform"
             android:text="@string/quick_add_text"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashboardrecycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
             android:scrollbars="none" />
