@@ -18,15 +18,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.measurelet.Factories.IntakeFactory;
 import com.measurelet.Factories.WeightFactory;
 import com.measurelet.Model.Intake;
+import com.measurelet.Model.Patient;
 import com.measurelet.Model.Weight;
+import com.robinhood.spark.SparkAdapter;
+import com.robinhood.spark.SparkView;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
     private ImageButton add_btn;
@@ -69,10 +76,55 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         vaegt = dashboard.findViewById(R.id.vaegt_edit);
         vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
         vaegt_knap.setOnClickListener(this);
-        overall = dashboard.findViewById(R.id.registrated_amount);
-        overall.setText(ml + " ml");
 
         ((MainActivity) getActivity()).setActionBarTitle("MeasureLet");
+
+        App.patientRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue());
+
+                Patient patient = dataSnapshot.getValue(Patient.class);
+
+                ArrayList<Intake> intakes = patient.getIntakesForDate(LocalDate.now());
+                overall = dashboard.findViewById(R.id.registrated_amount);
+
+                int m = 0;
+
+                ArrayList<Float> values = new ArrayList<Float>();
+                for(Intake i : intakes){
+                    m += i.getSize();
+                    values.add((float) i.getSize());
+                }
+
+                overall.setText(m + " ml");
+
+                HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
+
+
+                ArrayList<Integer> list = new ArrayList<>();
+                int amount = 0;
+                for (int i = 0; i < 24 ; i++) {
+                    String key=  String.format("%02d", i);
+                    if(v.containsKey(key)){
+                        amount += v.get(key);
+                    }
+                        list.add(amount);
+                }
+
+
+                // Lets draw some stuff
+                SparkView sparkView = (SparkView) dashboard.findViewById(R.id.sparkview);
+                sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Cancelled");
+            }
+        });
+
 
         adapter = new MyRecyclerViewAdapter(getActivity(), new ArrayList<>(Registration_standard_frag.knapper.subList(0, 4)));
         recyclerView.setAdapter(adapter);
@@ -149,5 +201,28 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
         overall.setText(ml + " ml");
         App.currentUser.getIntakesForDate(LocalDate.now());
+    }
+}
+
+class MyAdapter extends SparkAdapter {
+    private Integer[] yData;
+
+    public MyAdapter(Integer[] yData) {
+        this.yData = yData;
+    }
+
+    @Override
+    public int getCount() {
+        return yData.length;
+    }
+
+    @Override
+    public Object getItem(int index) {
+        return yData[index];
+    }
+
+    @Override
+    public float getY(int index) {
+        return yData[index];
     }
 }
