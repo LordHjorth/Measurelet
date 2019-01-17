@@ -3,6 +3,7 @@ package com.measurelet;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -143,8 +144,12 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
                 Bundle b = new Bundle();
                 b.putInt("position", position);
+                DialogFragment dialog = new edit_liquid();
+                dialog.setArguments(b);
+                dialog.show(getFragmentManager(),"dialog");
 
-                ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
+
+                //((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
 
             });
 

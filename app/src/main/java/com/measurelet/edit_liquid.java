@@ -2,7 +2,9 @@ package com.measurelet;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.DialogFragment;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,13 +31,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class edit_liquid extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimePicker.OnTimeChangedListener {
+public class edit_liquid extends android.support.v4.app.DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimePicker.OnTimeChangedListener {
 
     private EditText indtag, selftyped, amount_input;
     private TextView timer;
     private TimePicker timePicker;
     private Button  gemReg;
-    private ImageButton sletReg;
+    private ImageButton sletReg,close;
     private ScrollView scrollView;
     private Spinner spinner;
 
@@ -53,18 +55,28 @@ public class edit_liquid extends Fragment implements View.OnClickListener, Adapt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
         View view = inflater.inflate(R.layout.edit_liquid, container, false);
 
 
 
         Bundle bundle = getArguments();
+        if (bundle==null){
+            dismiss();
+            return null;
+        }
+
+
         position = bundle.getInt("position");
 
         type = App.currentUser.getRegistrations().get(position).getType();
 
         sletReg = view.findViewById(R.id.deleteReg);
+        sletReg.setOnClickListener(this);
         gemReg = view.findViewById(R.id.saveChanges);
         gemReg.setOnClickListener(this);
+        close =view.findViewById(R.id.close_button);
+        close.setOnClickListener(this);
 
         selftyped = view.findViewById(R.id.selftyped1);
         amount_input = view.findViewById(R.id.amount_input);
@@ -108,12 +120,60 @@ public class edit_liquid extends Fragment implements View.OnClickListener, Adapt
             Date date = new Date();
             date.setHours(timePicker.getHour());
             date.setMinutes(timePicker.getMinute());
-            Intake intake = new Intake(selftyped.getText().toString(), Integer.parseInt(amount_input.getText().toString()) , App.currentUser.getRegistrations().get(position).getUuid(), date);
+            if (other){
+                if(selftyped.getText().toString().equals("")){
+                    type="Andet";
+                }
+                else {
+                    type = selftyped.getText().toString();
+                }
+
+            }
+            Intake intake = new Intake(type, Integer.parseInt(amount_input.getText().toString()) , App.currentUser.getRegistrations().get(position).getUuid(), date);
             App.currentUser.getRegistrations().remove(position);
             App.currentUser.getRegistrations().add(position, intake);
+
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
+            dismiss();
         }
         if (vv == sletReg) {
-            App.currentUser.getRegistrations().remove(position);
+            Context context = getActivity();
+            String title = "Slet";
+            String message = "Er du sikker på du vil slette denne registrering?";
+            String button1String = "Slet";
+            String button2String = "Fortryd";
+
+            AlertDialog.Builder ad = new AlertDialog.Builder(context);
+            ad.setTitle(title);
+            ad.setMessage(message);
+
+            ad.setPositiveButton(
+                    button1String,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            App.currentUser.getRegistrations().remove(position);
+                            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
+                            dismiss();                        }
+                    }
+            );
+
+            ad.setNegativeButton(
+                    button2String,
+                    new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int arg1) {
+                            // do nothing
+                        }
+                    }
+            );
+
+            //
+            ad.show();
+
+
+        }
+        if (vv== close){
+            dismiss();
+
         }
     }
 
