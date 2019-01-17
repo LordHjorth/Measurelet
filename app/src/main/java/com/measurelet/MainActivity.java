@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navC);
 
 
-        if (App.isLoggedIn()) {
+        if (!App.isLoggedIn()) {
             navC.navigate(R.id.action_global_introSlidePager);
             return;
         }

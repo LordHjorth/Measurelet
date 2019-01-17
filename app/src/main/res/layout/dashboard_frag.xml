@@ -14,13 +14,24 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
+    <com.robinhood.spark.SparkView
+        android:id="@+id/sparkview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/vaegt_registreret"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/mllayout"
         android:layout_width="344dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +55,7 @@
             android:layout_weight="1"
             android:text="2000 ml "
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -190,19 +201,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.78" />
-
-    <com.robinhood.spark.SparkView
-        android:id="@+id/sparkview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/vaegt_registreret"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

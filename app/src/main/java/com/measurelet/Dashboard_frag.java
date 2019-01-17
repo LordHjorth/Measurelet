@@ -115,6 +115,8 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
                 // Lets draw some stuff
                 SparkView sparkView = (SparkView) dashboard.findViewById(R.id.sparkview);
+                sparkView.setLineColor(getActivity().getColor(R.color.colorPrimary));
+                sparkView.setLineWidth(6F);
                 sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
 
             }
