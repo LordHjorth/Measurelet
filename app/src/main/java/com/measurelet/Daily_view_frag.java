@@ -3,6 +3,7 @@ package com.measurelet;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
@@ -42,7 +45,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
     private final DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("HH");
 
-    private HashMap<String, Integer> hourMap = new HashMap<>();
+    private SortedMap<String, Integer> hourMap = new TreeMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,6 +95,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             hourMap.put(hour, mængde);
         }
 
+
         int i = 0;
         for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
             String key = entry.getKey();
@@ -119,7 +123,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         barGraph.getDescription().setEnabled(false);
         barGraph.getAxisLeft().setDrawGridLines(false);
         data.setValueTextSize(10);
-        data.setColor(ColorTemplate.rgb("7cb5e4"));
+        data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
 
         xAxisDato.setDrawGridLines(false);
 

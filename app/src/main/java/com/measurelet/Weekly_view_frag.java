@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +91,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         barGraph.getDescription().setEnabled(false);
         xAxisDato.setDrawGridLines(false);
 
-        data.setColor(ColorTemplate.rgb("7cb5e4"));
+        data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
         data.setValueTextSize(10);
         barGraph.invalidate();
     }

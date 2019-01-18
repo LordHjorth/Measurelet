@@ -3,6 +3,7 @@ package com.measurelet;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.measurelet.Model.Weight;
 
@@ -86,9 +88,9 @@ public class Reg_weight_frag extends Fragment {
 
     private void createGraph() {
 
-        for (int i = 0; i < App.currentUser.getWeights().size(); i++) {
-            datapoints.add(new Entry(i, (float) App.currentUser.getWeights().get(i).getWeightKG()));
-            dates.add(App.currentUser.getWeights().get(i).getDatetime().format(format));
+        for (int i = 0; i < App.currentUser.getSortedWeights().size(); i++) {
+            datapoints.add(new Entry(i, (float) App.currentUser.getSortedWeights().get(i).getWeightKG()));
+            dates.add(App.currentUser.getSortedWeights().get(i).getDatetime().format(format));
         }
 
         LineDataSet data = new LineDataSet(datapoints, "Væskeindtag ml");
@@ -100,19 +102,24 @@ public class Reg_weight_frag extends Fragment {
         xAxisDato = lineChart.getXAxis();
         xAxisDato.setValueFormatter(getformatter());
         data.setCircleRadius(5f);
-        data.setCircleColor(ColorTemplate.rgb("7cb5e4"));
         lineChart.setVisibleXRangeMaximum(7);
         lineChart.setVisibleXRangeMinimum(7);
         xAxisDato.setGranularity(1f);
-        lineChart.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
-        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.centerViewTo(30.5f, 1f, YAxis.AxisDependency.LEFT);
+        lineChart.getAxisRight().setDrawLabels(false);
         lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getAxisLeft().setSpaceBottom(20);
-        lineChart.getAxisRight().setSpaceTop(20);
+        lineChart.getAxisLeft().setDrawGridLines(false);
         lineChart.getDescription().setEnabled(false);
+        lineChart.getAxisLeft().setAxisMinimum(data.getYMin() - 30);
+        lineChart.getAxisLeft().setAxisMaximum(data.getYMax() + 30);
+        xAxisDato.setSpaceMax(0.4f);
+        xAxisDato.setSpaceMin(0.4f);
         xAxisDato.setDrawGridLines(false);
         data.setValueTextSize(10);
-        data.setColor(ColorTemplate.rgb("7cb5e4"));
+
+        data.setCircleColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+        data.setCircleHoleColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+        data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
 
 
         lineChart.invalidate();

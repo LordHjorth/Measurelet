@@ -49,7 +49,7 @@ public class App extends Application {
 
     public static void setupRef(DatabaseReference rootRef, String key_string) {
         key = key_string;
-        patientRef = rootRef.child("patients_test").child(key);
+        patientRef = rootRef.child("patients").child(key);
         patientRef.keepSynced(true);
         intakeRef = patientRef.child("registrations");
         weightRef = patientRef.child("weights");

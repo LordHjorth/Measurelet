@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -19,7 +21,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Dato"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/mængde"
@@ -27,7 +29,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Antal ml"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
 
     </LinearLayout>

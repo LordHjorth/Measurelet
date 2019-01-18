@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.UUID;
@@ -73,7 +74,7 @@ public class Patient {
 
     @Exclude
     public ArrayList<Intake> getIntakesForDate(LocalDate date) {
-
+        registrations.removeIf(Objects::isNull);
         ArrayList<Intake> intakesCurrentDate = new ArrayList<>();
         for (Intake i : registrations) {
             if (i.getDateTime().getDayOfMonth() == date.getDayOfMonth() && i.getDateTime().getMonthValue() == date.getMonthValue()) {
@@ -93,9 +94,12 @@ public class Patient {
 
     @Exclude
     public SortedMap<String, Integer> getIntakesForWeeks() {
+        registrations.removeIf(Objects::isNull);
         ArrayList<Intake> intakesCurrentDate = registrations;
         SortedMap<String, Integer> intakesPerDay = new TreeMap<>();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+
 
         //SORT
         Collections.sort(intakesCurrentDate, (o1, o2) -> {
@@ -115,5 +119,20 @@ public class Patient {
         }
 
         return intakesPerDay;
+    }
+
+    @Exclude
+    public ArrayList<Weight> getSortedWeights() {
+        weights.removeIf(Objects::isNull);
+
+        //SORT
+        Collections.sort(weights, (o1, o2) -> {
+            if (o1.getDatetime().isEqual(o2.getDatetime())) {
+                return 0;
+            }
+            return o1.getDatetime().isAfter(o2.getDatetime()) ? -1 : 1;
+        });
+
+        return weights;
     }
 }

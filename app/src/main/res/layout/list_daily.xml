@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
         android:orientation="horizontal"
         >
 
@@ -35,7 +37,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="15dp"
             android:paddingTop="10dp"
             android:text="Væsketype"
             android:textAlignment="textStart"
