@@ -2,17 +2,18 @@ package com.measurelet;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -25,15 +26,12 @@ import com.robinhood.spark.SparkAdapter;
 import com.robinhood.spark.SparkView;
 import com.robinhood.spark.animation.MorphSparkAnimator;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,13 +43,10 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     public static int ml = 0;
     private EditText vaegt;
     private Button vaegt_knap;
-    private ConstraintLayout vaegtLayout;
-    private ConstraintLayout vaegtRegistreret;
+    private MaterialCardView vaegt_input_box;
+    private TextView vaegt_Registreret_tekst;
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
-    private Calendar calendar = Calendar.getInstance();
-
-    private final SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
 
     //TODO: make it possible to add goals (overallml)
 
@@ -72,19 +67,20 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         updateKnapper();
 
         //vægt
-        vaegtLayout = dashboard.findViewById(R.id.vaegt);
-        vaegtRegistreret = dashboard.findViewById(R.id.vaegt_registreret);
+        vaegt_input_box = dashboard.findViewById(R.id.card_view_weight_dashboard);
+        vaegt_Registreret_tekst = dashboard.findViewById(R.id.vaegt_registreret);
 
+
+        Log.d("Test", "hej");
 
         vaegt = dashboard.findViewById(R.id.vaegt_edit);
         vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
         vaegt_knap.setOnClickListener(this);
 
 
-
-        SparkView sparkView = (SparkView) dashboard.findViewById(R.id.sparkview);
+        SparkView sparkView = dashboard.findViewById(R.id.sparkview);
         sparkView.setLineColor(getActivity().getColor(R.color.colorPrimary));
-        ((View) sparkView).setAlpha(0.3F);
+        (sparkView).setAlpha(0.3F);
         sparkView.setLineWidth(6F);
         sparkView.setSparkAnimator(new MorphSparkAnimator());
 
@@ -100,8 +96,8 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
                 int m = 0;
 
-                ArrayList<Float> values = new ArrayList<Float>();
-                for(Intake i : intakes){
+                ArrayList<Float> values = new ArrayList<>();
+                for (Intake i : intakes) {
                     m += i.getSize();
                     values.add((float) i.getSize());
                 }
@@ -113,18 +109,41 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
                 ArrayList<Integer> list = new ArrayList<>();
                 int amount = 0;
-                for (int i = 0; i < 24 ; i++) {
-                    String key=  String.format("%02d", i);
-                    if(v.containsKey(key)){
+                for (int i = 0; i < 24; i++) {
+                    String key = String.format("%02d", i);
+                    if (v.containsKey(key)) {
                         amount += v.get(key);
                     }
-                        list.add(amount);
+                    list.add(amount);
                 }
-
-
                 // Lets draw some stuff
                 sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Cancelled");
+            }
+        });
+
+        App.weightRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Weight> weights = new ArrayList<>();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    weights.add(child.getValue(Weight.class));
+                }
+
+                for (Weight w : weights) {
+                    if (w.getDatetime().getDayOfYear() == LocalDate.now().getDayOfYear() && w.getDatetime().getYear() == LocalDate.now().getYear()) {
+                        dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.INVISIBLE);
+                        dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.VISIBLE);
+                        break;
+                    }
+                    dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.VISIBLE);
+                    dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -139,18 +158,9 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         adapter.setClickListener(this);
 
 
-
         ((MainActivity) getActivity()).getSupportActionBar().show();
 
-        /*for (Weight weight : App.currentUser.getWeights()) {
 
-            if (format2.format(calendar.getTime()).equals(format2.format(weight.getTimestamp()))){
-                vaegtRegistreret.setVisibility(View.VISIBLE);
-                vaegtLayout.setVisibility(View.INVISIBLE);
-
-            System.out.println("hej");
-        }
-}*/
         return dashboard;
     }
 
@@ -180,11 +190,10 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             Weight weight = new Weight(Double.parseDouble(weightkg));
             WeightFactory.InsertNewWeight(weight);
 
-            vaegtLayout.setVisibility(View.INVISIBLE);
+            vaegt_input_box.setVisibility(View.INVISIBLE);
             ((MainActivity) getActivity()).getAddAnimation(1);
 
-            vaegtRegistreret.setVisibility(View.VISIBLE);
-            System.out.println(App.currentUser.getWeights().toString());
+            vaegt_Registreret_tekst.setVisibility(View.VISIBLE);
         }
 
         if (view == add_btn) {

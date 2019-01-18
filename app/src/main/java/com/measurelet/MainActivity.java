@@ -197,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             case R.id.weekly_view_frag:
                 title = getString(R.string.weekly_view);
                 break;
+            case R.id.dashboard_frag:
+                title = getString(R.string.dashboard);
+                break;
             default:
                 title = getString(R.string.dashboard);
                 break;

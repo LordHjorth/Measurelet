@@ -54,6 +54,7 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view_weight_dashboard"
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,9 +73,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/vaegt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="10dp"
-            android:visibility="visible">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline5"
@@ -126,33 +125,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/vaegt_registreret"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline">
-
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:text="Du har registreret vægt i dag"
-                android:textAlignment="center"
-                android:textSize="18dp"
-                android:textStyle="italic"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/vaegt_registreret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vægt registreret!"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/card_view_weight_dashboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/card_view_weight_dashboard" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_btn"
@@ -170,19 +158,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- <com.google.android.material.card.MaterialCardView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         app:cardElevation="3dp"
-         android:layout_marginLeft="@dimen/mtrl_card_spacing"
-         android:layout_marginTop="@dimen/mtrl_card_spacing"
-         android:layout_marginRight="@dimen/mtrl_card_spacing"
-         app:cardBackgroundColor="@android:color/transparent"
-         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toTopOf="@+id/guideline2">!-->
 
     <LinearLayout
         android:id="@+id/linearLayout"

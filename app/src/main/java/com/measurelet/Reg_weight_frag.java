@@ -2,9 +2,11 @@ package com.measurelet;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +45,11 @@ public class Reg_weight_frag extends Fragment {
     final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM");
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View regweight = inflater.inflate(R.layout.reg_weight_frag, container, false);
 
-        lineChart =regweight.findViewById(R.id.graphvaegt);
+        lineChart = regweight.findViewById(R.id.graphvaegt);
         lsView = regweight.findViewById(R.id.listviewVaegt);
 
         arrayAdapter = new MyAdapter(getActivity(), App.currentUser.getWeights());
@@ -59,9 +60,6 @@ public class Reg_weight_frag extends Fragment {
 
         return regweight;
     }
-
-
-
 
 
     private IAxisValueFormatter getformatter() {
@@ -79,12 +77,6 @@ public class Reg_weight_frag extends Fragment {
         };
         return formatter;
     }
-/*
-    private IAxisValueFormatter getformatter() {
-        IAxisValueFormatter formatter = (value, axis) -> dates.toArray(new String[dates.size()])[(int) value];
-        return formatter;
-    }
- */
 
     private void createGraph() {
 
