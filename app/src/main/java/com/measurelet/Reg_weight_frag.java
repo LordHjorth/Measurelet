@@ -85,7 +85,7 @@ public class Reg_weight_frag extends Fragment {
             dates.add(App.currentUser.getSortedWeights().get(i).getDatetime().format(format));
         }
 
-        LineDataSet data = new LineDataSet(datapoints, "Væskeindtag ml");
+        LineDataSet data = new LineDataSet(datapoints, "Vægt kg");
         lineData = new LineData(data);
 
 
