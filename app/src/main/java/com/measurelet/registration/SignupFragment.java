@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.hjorth.measurelet.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.measurelet.App;
 import com.measurelet.Factories.PatientFactory;
 import com.measurelet.MainActivity;
@@ -20,8 +22,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
 
     private View fragment;
-    int bed;
-    String name;
+    private TextInputEditText name, bed;
+
     Patient patient;
 
     public SignupFragment() {
@@ -41,38 +43,36 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        EditText bView = fragment.findViewById(R.id.signup_bed_txt);
-        String b = bView.getText().toString();
-        EditText nView = fragment.findViewById(R.id.signup_name_txt);
-        String n = nView.getText().toString();
+
+
+        bed = fragment.findViewById(R.id.signup_bed_txt);
+        TextInputLayout bed_l = fragment.findViewById(R.id.signup_bed_txt_layout);
+
+        name = fragment.findViewById(R.id.signup_name_txt);
+        TextInputLayout name_l = fragment.findViewById(R.id.signup_name_txt_layout);
 
         // Validate input fields
         boolean error = false;
 
-        // Name
-        // Empty
-        if(n.equalsIgnoreCase("")){
-            nView.setError("Du skal indtaste dit navn.");
+        if(name.getText().toString().equalsIgnoreCase("")){
+            name_l.setError("Du skal indtaste dit navn.");
             error = true;
+        } else {
+            name_l.setErrorEnabled(false);
         }
 
         // Bed
         // Empty
-        if(b.equalsIgnoreCase("")){
-            bView.setError("Du skal indtaste dit senge nummer. Ved problemer spørg personalet");
+        if(bed.getText().toString().equalsIgnoreCase("")){
+            bed_l.setError("Du skal indtaste dit senge nummer. Ved problemer spørg personalet");
             error = true;
+        } else {
+            bed_l.setErrorEnabled(false);
         }
-
 
         if(error){
-           return;
+            return;
         }
-
-        name = n;
-        bed = !b.equals("") ? Integer.parseInt(b) : 0;
-
-
-
 
          ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
          new AsyncThread().execute();
@@ -93,7 +93,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPreExecute() {
-            patient = new Patient(name, bed);
+            patient = new Patient(name.getText().toString(), Integer.parseInt(bed.getText().toString()));
             App.preferenceManager.edit().putString("KEY", patient.uuid).commit();
             App.setupRef(App.getAppDatabase(), patient.uuid);
         }
