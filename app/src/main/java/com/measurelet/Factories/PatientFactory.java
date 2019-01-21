@@ -4,9 +4,12 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.database.DatabaseReference;
 import com.measurelet.App;
 import com.measurelet.Model.Patient;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class PatientFactory {
@@ -30,8 +33,15 @@ public class PatientFactory {
 
     }
 
-    public static void UpdatePatient() {
+    public static void UpdatePatient(String name, int bed) {
 
+        DatabaseReference patientRef = App.patientRef;
+        Map<String, Object> updates = new HashMap<>();
+
+        updates.put("name", name);
+        updates.put("bedNum", bed);
+
+        patientRef.updateChildren(updates);
     }
 
 
