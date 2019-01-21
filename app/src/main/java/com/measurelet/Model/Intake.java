@@ -4,6 +4,7 @@ import com.example.hjorth.measurelet.R;
 import com.google.firebase.database.Exclude;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class Intake {
@@ -40,6 +41,20 @@ public class Intake {
     @Exclude
     public int getThumbnail(){
         if(thumbnail == 0){
+
+            if(Arrays.asList("sodavand", "cola", "fanta", "danskvand").contains(getType().toLowerCase())){
+                return R.drawable.ic_soda;
+            }
+
+            if(Arrays.asList("kaffe", "caffe latte", "latte").contains(getType().toLowerCase())){
+                return R.drawable.ic_coffee_cup;
+            }
+
+
+            if(Arrays.asList("saftevand", "saft", "juice", "æblejuice", "appelsinjuice").contains(getType().toLowerCase())){
+                return R.drawable.ic_orange_juice;
+            }
+
             return  R.drawable.ic_glass_of_water;
         }
 
