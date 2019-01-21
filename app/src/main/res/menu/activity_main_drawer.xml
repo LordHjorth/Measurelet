@@ -22,11 +22,12 @@
             android:icon="@drawable/profil"
             android:title="Vægt overblik" />
 
-        <!--
+
         <item
             android:id="@+id/profile_frag"
             android:icon="@drawable/profil"
             android:title="Profil" />
+        <!--
         <item
             android:id="@+id/settings_frag"
             android:icon="@drawable/ic_menu_manage"

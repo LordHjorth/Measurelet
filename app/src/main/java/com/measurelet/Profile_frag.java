@@ -7,33 +7,35 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.measurelet.Factories.PatientFactory;
+import com.measurelet.Model.Patient;
 
 public class Profile_frag extends Fragment implements View.OnClickListener {
 
-    Button search;
-    TextView labelName, labelHeight;
-    EditText inputName, inputWeight;
+
+    private View profil;
+    private TextInputEditText name, bed;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View profil = inflater.inflate(R.layout.profile_frag, container, false);
+         profil = inflater.inflate(R.layout.profile_frag, container, false);
 
-        search = profil.findViewById(R.id.save_changes);
-        search.setOnClickListener(this);
+        Patient user = App.currentUser;
 
-        labelName = profil.findViewById(R.id.profile_name_label);
-        inputName = profil.findViewById(R.id.profile_name_input);
+        // Name
+         name = profil.findViewById(R.id.profile_name_input);
+         
+         name.setText(user.getName());
+         bed = profil.findViewById(R.id.profile_bed_input);
 
-        labelHeight = profil.findViewById(R.id.profile_height_input);
-        inputWeight = profil.findViewById(R.id.profile_height_label);
-
-        inputName.setText(App.currentUser.getName());
+         bed.setText(user.getBedNum()+ "");
+        (profil.findViewById(R.id.profile_btn)).setOnClickListener(this);
 
         return profil;
 
@@ -41,6 +43,38 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+
+        // Name
+        TextInputLayout name_l = profil.findViewById(R.id.profile_name_input_layout);
+
+        // bed
+        TextInputLayout bed_l = profil.findViewById(R.id.profile_bed_input_layout);
+
+        // Validate input fields
+        boolean error = false;
+
+        // Name
+        // Empty
+        if(name.getText().toString().equalsIgnoreCase("")){
+            name_l.setError("Du skal indtaste dit navn.");
+            error = true;
+        }
+
+        // Bed
+        // Empty
+        if(bed.getText().toString().equalsIgnoreCase("")){
+            bed_l.setError("Du skal indtaste dit senge nummer. Ved problemer spørg personalet");
+            error = true;
+        }
+
+        if(error){
+            return;
+        }
+
+        // Opdater bruger
+        PatientFactory.UpdatePatient(name.getText().toString(),Integer.parseInt(bed.getText().toString()));
+
 
     }
 }

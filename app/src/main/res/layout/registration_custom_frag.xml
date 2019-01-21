@@ -73,18 +73,15 @@
     </LinearLayout>
 
 
-
-
     <Button
         android:id="@+id/plusbut"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginStart="60dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="60dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedcorners"
         android:text="Tilføj"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toStartOf="@+id/guideright"
         app:layout_constraintStart_toStartOf="@+id/guideleft"

@@ -1,8 +1,11 @@
 package com.measurelet;
 
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,63 +87,14 @@ public class Registration_custom_frag extends Fragment implements AdapterView.On
             input_type_other.setVisibility(View.INVISIBLE);
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
-            updateButtons(Registration_standard_frag.knapper, size);
-
-
-            Dashboard_frag.ml += size;
-
             //inserts to DB
             Intake intake = new Intake(liqtyp, size);
             IntakeFactory.InsertNewIntake(intake);
 
+
             //navigates back to dashboard
             ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
             ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
-        }
-
-    }
-
-    private int getBillede() {
-        int billede;
-        if (liqtyp == "Sodavand") {
-            billede = R.drawable.ic_soda;
-        } else if (liqtyp == "Vand") {
-            billede = R.drawable.ic_glass_of_water;
-        } else if (liqtyp == "Kaffe") {
-            billede = R.drawable.ic_coffee_cup;
-        } else if (liqtyp == "Saftevand") {
-            billede = R.drawable.ic_orange_juice;
-        } else if (liqtyp == "Andet") {
-            billede = R.drawable.ic_glass_of_water;
-            liqtyp = input_type_other.getText().toString();
-        } else {
-            billede = R.drawable.ic_glass_of_water;
-        }
-        return billede;
-    }
-
-
-    private void updateButtons(ArrayList<VaeskeKnap> knapper, int size) {
-
-        VaeskeKnap knap2 = new VaeskeKnap();
-
-        int billede = getBillede();
-        boolean tilføj = false;
-
-        for (VaeskeKnap knap : knapper) {
-            if (knap.getMængde() == size && knap.getType() == liqtyp) {
-                tilføj = true;
-                knap2 = knap;
-            }
-        }
-
-        if (tilføj == false) {
-            knapper.add(0, new VaeskeKnap(liqtyp, size, billede));
-            System.out.println(" 1: " + liqtyp + "  " + size);
-        } else if (tilføj = true) {
-            knapper.remove(knap2);
-            knapper.add(0, knap2);
-            System.out.println(" 2: " + knap2.getType() + knap2.getMængde());
         }
 
     }

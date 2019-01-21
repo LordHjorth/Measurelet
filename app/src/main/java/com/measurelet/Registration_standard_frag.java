@@ -1,5 +1,6 @@
 package com.measurelet;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.google.android.material.button.MaterialButton;
 import com.measurelet.Factories.IntakeFactory;
 import com.measurelet.Model.Intake;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -19,13 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Registration_standard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
     MyRecyclerViewAdapter adapter;
-    public static ArrayList<VaeskeKnap> knapper = new ArrayList<>();
 
     MaterialButton knap;
     Calendar calendar = Calendar.getInstance();
 
 
     boolean hej = false;
+    private ArrayList<Intake> knapper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class Registration_standard_frag extends Fragment implements MyRecyclerVi
         int numberOfColumns = 2;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
 
+        knapper = IntakeFactory.getIntakesListWithDefaults(App.currentUser.getRegistrations());
+
         adapter = new MyRecyclerViewAdapter(getActivity(), knapper);
         recyclerView.setAdapter(adapter);
         adapter.setClickListener(this);
@@ -53,15 +57,10 @@ public class Registration_standard_frag extends Fragment implements MyRecyclerVi
     @Override
     public void onItemClick(View view, int position) {
 
-        Dashboard_frag.ml = Dashboard_frag.ml + knapper.get(position).getMængde();
+        Intake intake = new Intake(knapper.get(position).getType(), knapper.get(position).getSize());
 
-        Intake intake = new Intake(knapper.get(position).getType(), knapper.get(position).getMængde());
+
         IntakeFactory.InsertNewIntake(intake);
-
-        VaeskeKnap temp = knapper.get(position);
-        knapper.remove(position);
-        knapper.add(0, temp);
-
 
         ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
         ((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_dashboard_frag);
