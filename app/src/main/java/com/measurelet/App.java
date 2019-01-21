@@ -44,6 +44,7 @@ public class App extends Application {
             loggedIn = true;
         }
 
+        System.out.println("App is running");
         super.onCreate();
     }
 

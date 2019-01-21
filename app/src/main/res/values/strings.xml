@@ -42,6 +42,8 @@
     <string name="registration_standard">Registrering</string>
     <string name="settings">Indstillinger</string>
     <string name="profile_frag">Profil</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>
