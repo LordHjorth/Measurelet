@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.measurelet.Model.Intake;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context mContext;
-    private List<VaeskeKnap> mdata;
+    private List<Intake> mdata;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, ArrayList<VaeskeKnap> mdata) {
+    MyRecyclerViewAdapter(Context context, List<Intake> mdata) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mdata = mdata;
@@ -40,7 +41,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.myTextView.setText(mdata.get(position).getType());
         holder.myPicture_thumbnail.setImageResource(mdata.get(position).getThumbnail());
-        holder.myMaengde.setText(mdata.get(position).getMængde() + " ml");
+        holder.myMaengde.setText(mdata.get(position).getSize()+ " ml");
     }
 
     // total number of cells

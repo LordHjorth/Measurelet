@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ import com.robinhood.spark.animation.MorphSparkAnimator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.FutureTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,13 +50,17 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     private TextView vaegt_Registreret_tekst;
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
+    private List<Intake> knapper;
+    private ValueEventListener listener;
+    private View dashboard;
+    private SparkView sparkView;
 
     //TODO: make it possible to add goals (overallml)
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View dashboard = inflater.inflate(R.layout.dashboard_frag, container, false);
+         dashboard = inflater.inflate(R.layout.dashboard_frag, container, false);
 
         add_btn = dashboard.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
@@ -64,61 +71,48 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         int numberOfColumns = 4;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
 
-        updateKnapper();
-
         //vægt
         vaegt_input_box = dashboard.findViewById(R.id.card_view_weight_dashboard);
         vaegt_Registreret_tekst = dashboard.findViewById(R.id.vaegt_registreret);
-
-
-        Log.d("Test", "hej");
 
         vaegt = dashboard.findViewById(R.id.vaegt_edit);
         vaegt_knap = dashboard.findViewById(R.id.vagt_knap);
         vaegt_knap.setOnClickListener(this);
 
-
-        SparkView sparkView = dashboard.findViewById(R.id.sparkview);
+        sparkView = dashboard.findViewById(R.id.sparkview);
         sparkView.setLineColor(getActivity().getColor(R.color.colorPrimary));
-        (sparkView).setAlpha(0.3F);
+        sparkView.setAlpha(0.3F);
         sparkView.setLineWidth(6F);
         sparkView.setSparkAnimator(new MorphSparkAnimator());
 
-        App.patientRef.addValueEventListener(new ValueEventListener() {
+
+        new AsyncTask(){
+
+            @Override
+            protected Object doInBackground(Object[] objects) {
+
+                while(App.currentUser == null){
+                    try {
+                        Thread.sleep( 30 );
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                buildView();
+            }
+        }.execute();
+
+
+       listener = App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getValue());
-
-                Patient patient = dataSnapshot.getValue(Patient.class);
-
-                ArrayList<Intake> intakes = patient.getIntakesForDate(LocalDate.now());
-                overall = dashboard.findViewById(R.id.registrated_amount);
-
-                int m = 0;
-
-                ArrayList<Float> values = new ArrayList<>();
-                for (Intake i : intakes) {
-                    m += i.getSize();
-                    values.add((float) i.getSize());
-                }
-
-                overall.setText(m + " ml");
-
-                HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
-
-
-                ArrayList<Integer> list = new ArrayList<>();
-                int amount = 0;
-                for (int i = 0; i < 24; i++) {
-                    String key = String.format("%02d", i);
-                    if (v.containsKey(key)) {
-                        amount += v.get(key);
-                    }
-                    list.add(amount);
-                }
-                // Lets draw some stuff
-                sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
-
+                    buildView();
             }
 
             @Override
@@ -127,35 +121,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             }
         });
 
-        App.weightRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<Weight> weights = new ArrayList<>();
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    weights.add(child.getValue(Weight.class));
-                }
-
-                for (Weight w : weights) {
-                    if (w.getDatetime().getDayOfYear() == LocalDate.now().getDayOfYear() && w.getDatetime().getYear() == LocalDate.now().getYear()) {
-                        dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.INVISIBLE);
-                        dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.VISIBLE);
-                        break;
-                    }
-                    dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.VISIBLE);
-                    dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.INVISIBLE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Cancelled");
-            }
-        });
-
-
-        adapter = new MyRecyclerViewAdapter(getActivity(), new ArrayList<>(Registration_standard_frag.knapper.subList(0, 4)));
-        recyclerView.setAdapter(adapter);
-        adapter.setClickListener(this);
 
 
         ((MainActivity) getActivity()).getSupportActionBar().show();
@@ -164,14 +129,87 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         return dashboard;
     }
 
-    private void updateKnapper() {
-        if (Registration_standard_frag.knapper.size() < 5) {
-            Registration_standard_frag.knapper.add(0, new VaeskeKnap("Juice", 125, R.drawable.ic_orange_juice));
-            Registration_standard_frag.knapper.add(1, new VaeskeKnap("Vand", 250, R.drawable.ic_glass_of_water));
-            Registration_standard_frag.knapper.add(2, new VaeskeKnap("Kaffe", 250, R.drawable.ic_coffee_cup));
-            Registration_standard_frag.knapper.add(3, new VaeskeKnap("Sodavand", 500, R.drawable.ic_soda));
-            Registration_standard_frag.knapper.add(4, new VaeskeKnap("Vand", 500, R.drawable.ic_glass_of_water));
+    public void buildView(){
+
+        Patient patient = App.currentUser;
+
+        ArrayList<Intake> intakes = patient.getIntakesForDate(LocalDate.now());
+        overall = dashboard.findViewById(R.id.registrated_amount);
+
+        int m = 0;
+
+        ArrayList<Float> values = new ArrayList<>();
+        for (Intake i : intakes) {
+            m += i.getSize();
+            values.add((float) i.getSize());
         }
+
+        overall.setText(m + " ml");
+
+        HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
+
+
+        ArrayList<Integer> list = new ArrayList<>();
+        int amount = 0;
+        for (int i = 0; i < 24; i++) {
+            String key = String.format("%02d", i);
+            if (v.containsKey(key)) {
+                amount += v.get(key);
+            }
+            list.add(amount);
+        }
+        // Lets draw some stuff
+        sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
+
+        UpdateButtons(patient.getRegistrations());
+
+
+        // vægt
+        ArrayList<Weight> weights = App.currentUser.getWeights();
+
+        boolean show = true;
+
+        for (Weight w : weights) {
+            if (w.getDatetime().getDayOfYear() == LocalDate.now().getDayOfYear() && w.getDatetime().getYear() == LocalDate.now().getYear()) {
+               show = false;
+                break;
+            }
+        }
+
+        if(show){
+            dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.VISIBLE);
+            dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.INVISIBLE);
+        } else {
+            dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.INVISIBLE);
+            dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.VISIBLE);
+        }
+
+    }
+
+
+    //REMOVE VALUE EVENTLISTNER...
+    @Override
+    public void onDestroy()
+    {
+
+        if (listener != null) {
+            App.patientRef.removeEventListener(listener);
+        }
+        super.onDestroy();
+    }
+
+    private void UpdateButtons(ArrayList<Intake> registrations) {
+
+        ArrayList<Intake> result = IntakeFactory.getIntakesListWithDefaults(registrations);
+
+        List<Intake> k = result.subList(0, 4);
+
+         adapter = new MyRecyclerViewAdapter(getActivity(),k);
+         adapter.setClickListener(this);
+         recyclerView.setAdapter(adapter);
+
+         knapper = k;
+
     }
 
     @Override
@@ -211,17 +249,11 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
     public void onItemClick(View view, int position) {
         ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
 
-        ml = ml + Registration_standard_frag.knapper.get(position).getMængde();
+        Intake intake = new Intake(knapper.get(position).getType(), knapper.get(position).getSize());
 
-        Intake intake = new Intake(Registration_standard_frag.knapper.get(position).getType(), Registration_standard_frag.knapper.get(position).getMængde());
         IntakeFactory.InsertNewIntake(intake);
-
-
-        App.currentUser.getRegistrations().add(0, intake);
-
-        overall.setText(ml + " ml");
-        App.currentUser.getIntakesForDate(LocalDate.now());
     }
+
 }
 
 class MyAdapter extends SparkAdapter {

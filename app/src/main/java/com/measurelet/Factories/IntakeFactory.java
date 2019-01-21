@@ -1,12 +1,18 @@
 package com.measurelet.Factories;
 
+import com.example.hjorth.measurelet.R;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.measurelet.App;
 import com.measurelet.Model.Intake;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class IntakeFactory {
 
@@ -16,6 +22,7 @@ public class IntakeFactory {
         intakes.add(intake);
 
         App.intakeRef.setValue(intakes);
+
     }
 
     public static void UpdateNewIntake(Intake intake) {
@@ -45,6 +52,47 @@ public class IntakeFactory {
         return hourMap;
     }
 
+    public static ArrayList<Intake> getIntakesListWithDefaults(List<Intake> in){
+
+        HashMap<String,Intake> d = new HashMap<>();
+        d.put("Juice:125",new Intake().setType("Juice").setSize(125).setThumbnail(R.drawable.ic_orange_juice));
+        d.put("Vand:125",new Intake().setType("Vand").setSize(125).setThumbnail(R.drawable.ic_glass_of_water));
+        d.put("Kaffe:125",new Intake().setType("Kaffe").setSize(125).setThumbnail(R.drawable.ic_coffee_cup));
+        d.put("Sodavand:125",new Intake().setType("Sodavand").setSize(125).setThumbnail(R.drawable.ic_soda));
+        d.put("Vand:500",new Intake().setType("Vand").setSize(500).setThumbnail(R.drawable.ic_glass_of_water));
+
+
+        List<String> unique = new ArrayList<>();
+
+        ArrayList<Intake> result = new ArrayList<>();
+
+        List<Intake> intakes = new ArrayList<Intake>(in);
+        
+         Collections.reverse(intakes);
+        
+        for( Intake i : intakes){
+            String key = i.getType()+":"+i.getSize();
+           if(d.containsKey(key)){
+               i.setThumbnail(d.get(key).getThumbnail());
+               d.remove(key);
+           }
+
+           if(!unique.contains(key)){
+               result.add(i);
+               unique.add(key);
+           }
+
+        }
+
+        for(Intake i : d.values()){
+            result.add(i);
+        }
+
+        return result;
+    }
+
+    
+    
 
     //TODO: delete intakes
 }
