@@ -138,8 +138,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
             App.intakeRef.child(position+"").setValue(intake);
 
             dismiss();
-        }
-        if (vv == sletReg) {
+        } else if (vv == sletReg) {
             Context context = getActivity();
             String title = "Slet";
             String message = "Er du sikker på du vil slette denne registrering?";
@@ -155,8 +154,9 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
                             App.currentUser.getRegistrations().remove(position);
-                          //  ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
-                            dismiss();                        }
+                            App.intakeRef.child(position+"").removeValue();
+                            dismiss();
+                        }
                     }
             );
 
