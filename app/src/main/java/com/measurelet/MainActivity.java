@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        this.getSupportActionBar().setTitle("Dashboardeladen");
-
         NavigationUI.setupActionBarWithNavController(this, navC, drawer);
         nvH = findViewById(R.id.nav_host);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
         App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getValue());
 
                 App.currentUser = dataSnapshot.getValue(Patient.class);
 
