@@ -59,8 +59,9 @@ public class QuickAddWidget extends AppWidgetProvider {
         PendingIntent pendingonClickGetPosition = PendingIntent.getBroadcast(context, 1, onClickGetPosition, 0);
         views.setPendingIntentTemplate(R.id.widget_selection_listview, pendingonClickGetPosition);
 
-        //retrieves the intakes for the widget
-        new WidgetButtonAsyncTask().execute();
+        if(App.isOnline()){
+            new WidgetButtonAsyncTask().execute();
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -92,7 +93,9 @@ public class QuickAddWidget extends AppWidgetProvider {
         }
         if (ACTION_REFRESH.equals(intent.getAction())) {
             System.out.println("The refresh button was clicked!");
-            new WidgetButtonAsyncTask().execute();
+            if(App.isOnline()){
+                new WidgetButtonAsyncTask().execute();
+            }
         }
 
         super.onReceive(context, intent);
