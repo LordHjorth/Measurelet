@@ -109,8 +109,6 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
                 listener = App.patientRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        System.out.println("IN HERE?");
                         buildView();
                     }
 

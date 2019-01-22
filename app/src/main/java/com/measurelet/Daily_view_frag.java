@@ -30,7 +30,9 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.measurelet.Model.Intake;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,8 +96,6 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
             next.setVisibility(View.INVISIBLE);
         }
 
-        render();
-
 
         shownDate.setText(LocalDate.parse(date.toString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
@@ -110,8 +110,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
 
         }
 
-        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
-        list.setAdapter(adapter);
+        render();
 
 
         return dailyView;
@@ -141,6 +140,11 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
             hourMap.put(hour, mængde);
         }
 
+        for (int i = 0; i < LocalDateTime.now().getHour(); i++) {
+            if(!hourMap.containsKey( String.format("%02d", i))){
+                hourMap.put( String.format("%02d", i),0);
+            }
+        }
 
         int i = 0;
         for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
@@ -156,7 +160,14 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
 
         barData = new BarData(data);
         barData.setBarWidth(0.7f);
+        barData.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> {
 
+            if(value > 0){
+                return  new DecimalFormat().format(value);
+            }
+
+            return "";
+        });
         barGraph.setData(barData);
 
         xAxisDato = barGraph.getXAxis();
