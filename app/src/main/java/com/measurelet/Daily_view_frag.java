@@ -140,7 +140,12 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
             hourMap.put(hour, mængde);
         }
 
-        for (int i = 0; i < LocalDateTime.now().getHour(); i++) {
+        int hours = 24;
+        if(date.isEqual(LocalDate.now())){
+            hours = LocalDateTime.now().getHour();
+        }
+
+        for (int i = 0; i < hours; i++) {
             if(!hourMap.containsKey( String.format("%02d", i))){
                 hourMap.put( String.format("%02d", i),0);
             }
