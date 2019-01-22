@@ -54,15 +54,13 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.edit_liquid, container, false);
-
-
-
         Bundle bundle = getArguments();
         if (bundle==null){
             dismiss();
             return null;
         }
+        View view = inflater.inflate(R.layout.edit_liquid, container, false);
+
 
 
         position = bundle.getInt("position");
@@ -77,7 +75,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
         close.setOnClickListener(this);
 
         selftyped = view.findViewById(R.id.selftyped1);
-        amount_input = view.findViewById(R.id.amount_input);
+        amount_input = view.findViewById(R.id.value_weight);
         System.out.println(amount_input.getText() + ": Amount_input tekst - før");
         amount_input.setText(Integer.toString(App.currentUser.getRegistrations().get(position).getSize()));
         System.out.println(amount_input.getText() + ": Amount_input tekst - efter");

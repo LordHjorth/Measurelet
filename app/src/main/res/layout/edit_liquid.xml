@@ -22,7 +22,7 @@
         <LinearLayout
             android:id="@+id/linearLayout7"
             android:layout_width="325dp"
-            android:layout_height="58dp"
+            android:layout_height="51dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
@@ -34,11 +34,11 @@
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="1.7"
                 android:background="@color/cardview_shadow_end_color"
                 android:backgroundTint="@color/background_color"
                 android:backgroundTintMode="@color/background_color"
-                app:srcCompat="@android:drawable/btn_dialog" />
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
             <TextView
                 android:id="@+id/textView"
@@ -69,12 +69,11 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:layout_weight="1.5"
+                android:layout_weight="1.7"
                 android:background="@drawable/ripple"
                 android:backgroundTint="@color/background_color"
-                android:src="@android:drawable/ic_menu_delete"
+                android:src="@drawable/ic_delete_black_24dp"
                 android:text="Slet"
-                android:tint="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/guidetop"
                 app:layout_constraintEnd_toStartOf="@+id/guideright"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -142,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@+id/amount_input"
+            app:layout_constraintEnd_toStartOf="@+id/value_weight"
             app:layout_constraintGuide_percent="0.85"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -220,7 +219,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/amount_input"
+            android:id="@+id/value_weight"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"

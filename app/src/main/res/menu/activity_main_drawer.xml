@@ -11,15 +11,15 @@
             android:title="@string/registrer" />
         <item
             android:id="@+id/weekly_view_frag"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_equalizer_black_24dp"
             android:title="Ugentligt overblik" />
         <item
             android:id="@+id/daily_view_frag"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_equalizer_black_24dp"
             android:title="Dagligt overblik" />
         <item
             android:id="@+id/reg_weight_frag"
-            android:icon="@drawable/profil"
+            android:icon="@drawable/ic_cake_black_24dp"
             android:title="Vægt overblik" />
 
 
