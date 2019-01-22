@@ -1,13 +1,15 @@
 package com.measurelet.registration;
 
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -16,6 +18,10 @@ import com.measurelet.App;
 import com.measurelet.Factories.PatientFactory;
 import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
+
+import java.io.IOException;
+
+import androidx.fragment.app.Fragment;
 
 
 public class SignupFragment extends Fragment implements View.OnClickListener {
@@ -54,6 +60,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         // Validate input fields
         boolean error = false;
 
+
+
         if(name.getText().toString().equalsIgnoreCase("")){
             name_l.setError("Du skal indtaste dit navn.");
             error = true;
@@ -70,9 +78,21 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
             bed_l.setErrorEnabled(false);
         }
 
+
         if(error){
             return;
         }
+
+        if(!App.isOnline()){
+            Toast toast = Toast.makeText(this.getContext(), "Ingen internet forbindelse.\nLog på internettet, og forsøg igen", Toast.LENGTH_LONG);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) {
+                v.setGravity(Gravity.CENTER);
+            }
+            toast.show();
+            return;
+        }
+
 
          ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
          new AsyncThread().execute();

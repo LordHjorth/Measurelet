@@ -65,7 +65,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
         for (int i = 0; i < App.currentUser.getRegistrations().size(); i++) {
             Intake t = App.currentUser.getRegistrations().get(i);
-            if(t.getUuid() == uuid){
+            if(t.getUuid().equals(uuid)){
                 position = i;
                 intake = t;
                 break;
