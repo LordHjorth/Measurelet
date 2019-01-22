@@ -3,21 +3,18 @@ package com.measurelet.registration;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.measurelet.App;
 import com.measurelet.MainActivity;
 
 import androidx.fragment.app.DialogFragment;
@@ -56,7 +53,7 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
         dateWeight=view.findViewById(R.id.dateWeight);
 
         amount_input = view.findViewById(R.id.weight_input);
-        weightLayout = view.findViewById(R.id.weight_layout);
+        weightLayout = view.findViewById(R.id.amount);
 
 
 
@@ -80,7 +77,6 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
             AlertDialog.Builder ad = new AlertDialog.Builder(context);
             ad.setTitle(title);
             ad.setMessage(message);
-            AlertDialog alertDialog = ad.create();
 
             ad.setPositiveButton(
                     button1String,
@@ -99,7 +95,7 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
                         }
                     }
             );
-            alertDialog.show();
+            ad.show();
 
         }
         if (v== close){

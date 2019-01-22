@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -29,7 +30,9 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.measurelet.Model.Intake;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +40,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class Daily_view_frag extends Fragment implements View.OnClickListener {
+public class Daily_view_frag extends Fragment implements View.OnClickListener, DialogInterface.OnDismissListener {
 
 
     private ListView list;
@@ -52,7 +55,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
     private TextView shownDate;
     Bundle b;
-    LocalDate date ;
+    private LocalDate date ;
 
     private final DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("HH");
 
@@ -66,6 +69,8 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         barGraph = dailyView.findViewById(R.id.graph);
         //list.setDivider(getResources().getDrawable(R.drawable.divider));
 
+        Bundle b = getArguments();
+         date = null;
         //hej = dailyView.findViewById(R.id.card_view_graph_table);
 
         shownDate = dailyView.findViewById(R.id.dato_daglig);
@@ -91,6 +96,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             next.setVisibility(View.INVISIBLE);
         }
 
+
         shownDate.setText(LocalDate.parse(date.toString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
 
@@ -104,8 +110,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
         }
 
-        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
-        list.setAdapter(adapter);
+        render();
 
 
         return dailyView;
@@ -117,6 +122,10 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     }
 
     private void createGraph(ArrayList<Intake> dailyIntake) {
+
+        datapoints.clear();
+        dates.clear();
+        hourMap.clear();
 
         //samler mængder efter time
         int mængde = 0;
@@ -131,6 +140,11 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             hourMap.put(hour, mængde);
         }
 
+        for (int i = 0; i < LocalDateTime.now().getHour(); i++) {
+            if(!hourMap.containsKey( String.format("%02d", i))){
+                hourMap.put( String.format("%02d", i),0);
+            }
+        }
 
         int i = 0;
         for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
@@ -146,7 +160,14 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
         barData = new BarData(data);
         barData.setBarWidth(0.7f);
+        barData.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> {
 
+            if(value > 0){
+                return  new DecimalFormat().format(value);
+            }
+
+            return "";
+        });
         barGraph.setData(barData);
 
         xAxisDato = barGraph.getXAxis();
@@ -175,6 +196,12 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
 
     }
 
+    public void render(){
+        createGraph(App.currentUser.getIntakesForDate(date));
+        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
+        list.setAdapter(adapter);
+    }
+
     @Override
     public void onClick(View v) {
         if (v==back || v==forward){
@@ -196,6 +223,11 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, hej);
         }
 
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        render();
     }
 
     private class MyAdapter extends ArrayAdapter<Intake> {
@@ -223,13 +255,10 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             edit_button.setOnClickListener(v -> {
 
                 Bundle b = new Bundle();
-                b.putInt("position", position);
+                b.putString("uuid",dataSet.get(position).getUuid());
                 DialogFragment dialog = new edit_liquid();
                 dialog.setArguments(b);
-                dialog.show(getFragmentManager(),"dialog");
-
-
-                //((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
+                dialog.show(getChildFragmentManager(),"dialog");
 
             });
             DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");

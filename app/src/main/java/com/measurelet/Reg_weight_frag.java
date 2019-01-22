@@ -138,7 +138,7 @@ public class Reg_weight_frag extends Fragment {
             View rowView = inflater.inflate(R.layout.list_weight, parent, false);
 
             TextView date = rowView.findViewById(R.id.date_weight);
-            TextView weight = rowView.findViewById(R.id.weight_layout);
+            TextView weight = rowView.findViewById(R.id.amount);
             ImageButton edit = rowView.findViewById(R.id.edit_weight);
             edit.setOnClickListener(v -> {
                 Bundle b = new Bundle();

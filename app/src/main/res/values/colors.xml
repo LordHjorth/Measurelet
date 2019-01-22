@@ -6,10 +6,6 @@
     <color name="black">#000000</color>
     <color name="background_color">#ffffff</color>
     <color name="shadow_color">#BFE0FA</color>
+    <color name="widget_background">#95F7F3F3</color>
     <color name="material_card_view_color">#3390CAF9</color>
-    <color name="transparent">#0090CAF9</color>
-
-    <!--<color name="background_color">#a8dae6</color>
-    <color name="background_darker">#83d1e4</color>
-    !-->
 </resources>
