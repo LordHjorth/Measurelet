@@ -2,7 +2,8 @@ package com.measurelet.Model;
 
 import com.google.firebase.database.Exclude;
 
-import java.time.LocalDateTime;
+import org.threeten.bp.LocalDateTime;
+
 import java.util.UUID;
 
 public class Weight {

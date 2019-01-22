@@ -2,8 +2,9 @@ package com.measurelet.Model;
 
 import com.google.firebase.database.Exclude;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;

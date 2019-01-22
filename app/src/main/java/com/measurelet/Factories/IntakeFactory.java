@@ -1,18 +1,15 @@
 package com.measurelet.Factories;
 
 import com.example.hjorth.measurelet.R;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.measurelet.App;
 import com.measurelet.Model.Intake;
 
-import java.time.format.DateTimeFormatter;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class IntakeFactory {
 

@@ -3,7 +3,8 @@ package com.measurelet.Model;
 import com.example.hjorth.measurelet.R;
 import com.google.firebase.database.Exclude;
 
-import java.time.LocalDateTime;
+import org.threeten.bp.LocalDateTime;
+
 import java.util.Arrays;
 import java.util.UUID;
 

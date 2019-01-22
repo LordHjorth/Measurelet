@@ -3,7 +3,6 @@ package com.measurelet;
 import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +26,11 @@ import com.robinhood.spark.SparkAdapter;
 import com.robinhood.spark.SparkView;
 import com.robinhood.spark.animation.MorphSparkAnimator;
 
-import java.time.LocalDate;
+import org.threeten.bp.LocalDate;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.FutureTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -131,7 +130,7 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
 
         Patient patient = App.currentUser;
 
-        ArrayList<Intake> intakes = patient.getIntakesForDate(LocalDate.now());
+        ArrayList<Intake> intakes = patient.getIntakesForDate(org.threeten.bp.LocalDate.now());
         overall = dashboard.findViewById(R.id.registrated_amount);
 
         int m = 0;
@@ -185,7 +184,7 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
         boolean show = true;
 
         for (Weight w : weights) {
-            if (w.getDatetime().getDayOfYear() == LocalDate.now().getDayOfYear() && w.getDatetime().getYear() == LocalDate.now().getYear()) {
+            if (w.getDatetime().getDayOfYear() == org.threeten.bp.LocalDate.now().getDayOfYear() && w.getDatetime().getYear() == LocalDate.now().getYear()) {
                show = false;
                 break;
             }
