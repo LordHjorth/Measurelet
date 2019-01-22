@@ -1,8 +1,10 @@
 package com.measurelet;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -11,11 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -33,7 +38,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class Daily_view_frag extends Fragment implements View.OnClickListener {
+public class Daily_view_frag extends Fragment implements View.OnClickListener, DialogInterface.OnDismissListener {
 
 
     private ListView list;
@@ -42,6 +47,13 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
+    private ImageButton back, forward;
+    LinearLayout next;
+    private CardView hej;
+
+    private TextView shownDate;
+    Bundle b;
+    private LocalDate date ;
 
     private final DateTimeFormatter formatHour = DateTimeFormatter.ofPattern("HH");
 
@@ -56,7 +68,18 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         //list.setDivider(getResources().getDrawable(R.drawable.divider));
 
         Bundle b = getArguments();
-        LocalDate date = null;
+         date = null;
+        //hej = dailyView.findViewById(R.id.card_view_graph_table);
+
+        shownDate = dailyView.findViewById(R.id.dato_daglig);
+        back =dailyView.findViewById(R.id.back_button);
+        forward =dailyView.findViewById(R.id.forward_button);
+        back.setOnClickListener(this);
+        forward.setOnClickListener(this);
+        next = dailyView.findViewById(R.id.next_date);
+
+        b = getArguments();
+        date = null;
         if (b != null) {
             String temp = b.getString("date");
             if (temp != null) {
@@ -65,9 +88,28 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         }
         if (date == null) {
             date = LocalDate.now();
+
+        }
+        if (date.equals(LocalDate.now())){
+            next.setVisibility(View.INVISIBLE);
         }
 
-        createGraph(App.currentUser.getIntakesForDate(date));
+        render();
+
+
+        shownDate.setText(LocalDate.parse(date.toString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+
+        if (!App.currentUser.getIntakesForDate(date).isEmpty()){
+            createGraph(App.currentUser.getIntakesForDate(date));
+//            hej.setVisibility(View.VISIBLE);
+
+        }
+        else{
+            //hej.setVisibility(View.INVISIBLE);
+
+        }
+
         MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
         list.setAdapter(adapter);
 
@@ -81,6 +123,10 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
     }
 
     private void createGraph(ArrayList<Intake> dailyIntake) {
+
+        datapoints.clear();
+        dates.clear();
+        hourMap.clear();
 
         //samler mængder efter time
         int mængde = 0;
@@ -123,16 +169,54 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
         barGraph.getDescription().setEnabled(false);
         barGraph.getAxisLeft().setDrawGridLines(false);
         data.setValueTextSize(10);
+        barGraph.getAxisLeft().setAxisMinimum(0);
+        barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 200);
+
         data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+        barGraph.getAxisRight().setEnabled(false);
+        xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
+        Legend l = barGraph.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
 
         xAxisDato.setDrawGridLines(false);
 
         barGraph.invalidate();
+
+    }
+
+    public void render(){
+        createGraph(App.currentUser.getIntakesForDate(date));
+        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
+        list.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View v) {
+        if (v==back || v==forward){
+            LocalDate next_date=null;
+            String next_date_string ;
+            if (v == back){
+                next_date = date.minusDays(1);
 
+            }
+            if (v == forward){
+                next_date = date.plusDays(1);
+            }
+
+            next_date_string =next_date.toString();
+
+            Bundle hej = new Bundle();
+            hej.putString("date", next_date_string);
+
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, hej);
+        }
+
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        render();
     }
 
     private class MyAdapter extends ArrayAdapter<Intake> {
@@ -160,13 +244,10 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener {
             edit_button.setOnClickListener(v -> {
 
                 Bundle b = new Bundle();
-                b.putInt("position", position);
+                b.putString("uuid",dataSet.get(position).getUuid());
                 DialogFragment dialog = new edit_liquid();
                 dialog.setArguments(b);
-                dialog.show(getFragmentManager(),"dialog");
-
-
-                //((MainActivity) getActivity()).getNavC().navigate(R.id.action_global_edit_liquid, b);
+                dialog.show(getChildFragmentManager(),"dialog");
 
             });
             DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");

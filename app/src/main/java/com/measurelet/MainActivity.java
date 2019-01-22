@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.animation.Animator;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -70,19 +71,40 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
     public void setupListeners() {
 
+        App.currentUser = new Patient();
+
         App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                App.currentUser = dataSnapshot.getValue(Patient.class);
+                if(App.currentUser == null){
+                    App.currentUser = dataSnapshot.getValue(Patient.class);
+                    return;
+                }
 
-                System.out.println("Succeeded \n" + App.currentUser.getName());
 
-                TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-                TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+                new AsyncTask(){
 
-                bed.setText(App.currentUser.getBedNum() + "");
-                name.setText(App.currentUser.getName());
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+
+                        Patient p = dataSnapshot.getValue(Patient.class);
+                        App.currentUser = p;
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        super.onPostExecute(o);
+
+                        TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+                        TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+                        bed.setText(App.currentUser.getBedNum() + "");
+                        name.setText(App.currentUser.getName());
+                    }
+                }.execute();
 
             }
 
@@ -91,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
                 System.out.println("Cancelled");
             }
         });
+
+
     }
 
     @Override

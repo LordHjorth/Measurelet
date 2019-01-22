@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -90,8 +91,15 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         barGraph.getAxisLeft().setDrawGridLines(false);
         barGraph.getDescription().setEnabled(false);
         xAxisDato.setDrawGridLines(false);
-
+        barGraph.getAxisLeft().setAxisMinimum(0);
+        barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 500);
         data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+        barGraph.getAxisRight().setEnabled(false);
+
+        xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
+        Legend l = barGraph.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         data.setValueTextSize(10);
         barGraph.invalidate();
     }

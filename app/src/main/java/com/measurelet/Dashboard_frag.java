@@ -39,7 +39,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
+public class Dashboard_frag extends Fragment implements  View.OnClickListener {
     private MaterialButton add_btn;
     private TextView overall;
     private LinearLayout mllayout;
@@ -105,22 +105,22 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
             @Override
             protected void onPostExecute(Object o) {
                 buildView();
+
+                listener = App.patientRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        System.out.println("IN HERE?");
+                        buildView();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        System.out.println("Cancelled");
+                    }
+                });
             }
         }.execute();
-
-
-       listener = App.patientRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    buildView();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Cancelled");
-            }
-        });
-
 
 
         ((MainActivity) getActivity()).getSupportActionBar().show();
@@ -137,29 +137,46 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         overall = dashboard.findViewById(R.id.registrated_amount);
 
         int m = 0;
-
-        ArrayList<Float> values = new ArrayList<>();
         for (Intake i : intakes) {
             m += i.getSize();
-            values.add((float) i.getSize());
         }
-
         overall.setText(m + " ml");
 
-        HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
+
+        new AsyncTask(){
 
 
-        ArrayList<Integer> list = new ArrayList<>();
-        int amount = 0;
-        for (int i = 0; i < 24; i++) {
-            String key = String.format("%02d", i);
-            if (v.containsKey(key)) {
-                amount += v.get(key);
+            @Override
+            protected Object doInBackground(Object[] objects) {
+
+                HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
+
+                ArrayList<Integer> list = new ArrayList<>();
+                int amount = 0;
+                for (int i = 0; i < 24; i++) {
+                    String key = String.format("%02d", i);
+                    if (v.containsKey(key)) {
+                        amount += v.get(key);
+                    }
+                    list.add(amount);
+                }
+                // Lets draw some stuff
+
+                return list;
             }
-            list.add(amount);
-        }
-        // Lets draw some stuff
-        sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
+
+            @Override
+            protected void onPostExecute(Object o) {
+                List<Integer> list = (List<Integer>) o;
+
+                super.onPostExecute(o);
+
+                sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
+
+            }
+        }.execute();
+
+
 
         UpdateButtons(patient.getRegistrations());
 
@@ -186,7 +203,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
     }
 
-
     //REMOVE VALUE EVENTLISTNER...
     @Override
     public void onDestroy()
@@ -200,15 +216,30 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
 
     private void UpdateButtons(ArrayList<Intake> registrations) {
 
-        ArrayList<Intake> result = IntakeFactory.getIntakesListWithDefaults(registrations);
 
-        List<Intake> k = result.subList(0, 4);
+        new AsyncTask(){
 
-         adapter = new MyRecyclerViewAdapter(getActivity(),k);
-         adapter.setClickListener(this);
-         recyclerView.setAdapter(adapter);
 
-         knapper = k;
+            @Override
+            protected Object doInBackground(Object[] objects) {
+
+                ArrayList<Intake> result = IntakeFactory.getIntakesListWithDefaults(registrations);
+
+                List<Intake> k = result.subList(0, 4);
+                return k;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                List<Intake> k = (List<Intake>) o;
+                adapter = new MyRecyclerViewAdapter(getActivity(),k);
+                adapter.setClickListener((view, position) -> onItemClick(view, position));
+                recyclerView.setAdapter(adapter);
+
+                knapper = k;
+
+            }
+        }.execute();
 
     }
 
@@ -245,7 +276,6 @@ public class Dashboard_frag extends Fragment implements MyRecyclerViewAdapter.It
         }
     }
 
-    @Override
     public void onItemClick(View view, int position) {
         ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
 
