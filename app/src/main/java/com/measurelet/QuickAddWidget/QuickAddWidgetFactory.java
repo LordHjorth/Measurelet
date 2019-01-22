@@ -5,35 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.Registration_standard_frag;
-import com.measurelet.VaeskeKnap;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuickAddWidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
     Context context;
     int appWidgetID;
-    List<VaeskeKnap> options;
 
     public QuickAddWidgetFactory(Context context, Intent intent){
         this.context = context;
         this.appWidgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        //this.options = options;
-
-        options = new ArrayList<>();
-        options.add(0, new VaeskeKnap("Juice", 125, R.drawable.ic_orange_juice));
-        options.add(1, new VaeskeKnap("Vand", 250, R.drawable.ic_glass_of_water));
-        options.add(2, new VaeskeKnap("Kaffe", 250, R.drawable.ic_coffee_cup));
-        options.add(3, new VaeskeKnap("Sodavand", 500, R.drawable.ic_soda));
-
-        for(VaeskeKnap vk : options){
-            System.out.println("Option: " + vk.getType());
-        }
     }
 
     @Override
@@ -45,6 +27,7 @@ public class QuickAddWidgetFactory implements RemoteViewsService.RemoteViewsFact
     @Override
     public void onDataSetChanged() {
 
+        System.out.println("OnDateSetChanged!!!!");
 
     }
 
@@ -55,7 +38,7 @@ public class QuickAddWidgetFactory implements RemoteViewsService.RemoteViewsFact
 
     @Override
     public int getCount() {
-        return options.size();
+        return QuickAddWidget.k.size();
     }
 
     @Override
@@ -65,13 +48,13 @@ public class QuickAddWidgetFactory implements RemoteViewsService.RemoteViewsFact
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_list_item);
 
-        views.setTextViewText(R.id.widget_itemmaengde, options.get(position).getMængde() + " ml");
-        views.setTextViewText(R.id.widget_item_label, options.get(position).getType());
-        views.setImageViewResource(R.id.widget_item_picture, options.get(position).getThumbnail());
+        views.setTextViewText(R.id.widget_itemmaengde, QuickAddWidget.k.get(position).getSize() + " ml");
+        views.setTextViewText(R.id.widget_item_label, QuickAddWidget.k.get(position).getType());
+        views.setImageViewResource(R.id.widget_item_picture, QuickAddWidget.k.get(position).getThumbnail());
 
-        Intent fillIntent = new Intent();
-        fillIntent.putExtra(QuickAddWidget.EXTRA_ITEM_POSITION, position);
-        views.setOnClickFillInIntent(R.id.widget_list_item, fillIntent);
+        Intent posIntent = new Intent();
+        posIntent.putExtra(QuickAddWidget.EXTRA_ITEM_POSITION, position);
+        views.setOnClickFillInIntent(R.id.widget_list_item, posIntent);
 
         return views;
     }
