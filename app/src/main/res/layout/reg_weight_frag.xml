@@ -6,38 +6,32 @@
     android:layout_height="match_parent"
     tools:context="com.measurelet.Reg_weight_frag">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view_graph"
-        style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginBottom="10dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardElevation="3dp"
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/graphvaegt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/graphvaegt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="visible" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view_graph_table"
-        style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardElevation="1dp"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_view_graph">
+        app:layout_constraintTop_toTopOf="@+id/guideline14">
 
         <TextView
             android:id="@+id/textView13"
@@ -46,24 +40,41 @@
             android:layout_marginStart="10dp"
             android:paddingTop="15dp"
             android:paddingBottom="5dp"
-            android:textStyle="bold"
             android:text="@string/seneste"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="22dp"/>
+            android:textSize="22dp"
+            android:textStyle="bold" />
 
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
 
-    <ListView
-        android:id="@+id/listviewVaegt"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:divider="#4D0C0C0C"
-        android:dividerHeight="0.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_view_graph_table" />
+            android:background="@color/colorPrimaryDark"
+            android:text="" />
+
+        <ListView
+            android:id="@+id/listviewVaegt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:divider="#4D0C0C0C"
+            android:dividerHeight="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

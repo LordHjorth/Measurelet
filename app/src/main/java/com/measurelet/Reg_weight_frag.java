@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,9 +25,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.measurelet.Model.Weight;
+import com.measurelet.registration.edit_weight;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -124,7 +125,7 @@ public class Reg_weight_frag extends Fragment {
         Context mContext;
 
         public MyAdapter(@NonNull Context context, ArrayList<Weight> data) {
-            super(context, R.layout.list_weeklyview, data);
+            super(context, R.layout.list_weight, data);
             this.dataSet = data;
             this.mContext = context;
 
@@ -134,10 +135,21 @@ public class Reg_weight_frag extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View rowView = inflater.inflate(R.layout.list_weeklyview, parent, false);
+            View rowView = inflater.inflate(R.layout.list_weight, parent, false);
 
-            TextView date = rowView.findViewById(R.id.dato);
-            TextView weight = rowView.findViewById(R.id.mængde);
+            TextView date = rowView.findViewById(R.id.date_weight);
+            TextView weight = rowView.findViewById(R.id.weight_layout);
+            ImageButton edit = rowView.findViewById(R.id.edit_weight);
+            edit.setOnClickListener(v -> {
+                Bundle b = new Bundle();
+                b.putString("date",dataSet.get(dataSet.size() - position - 1).getDatetime().format(format));
+                b.putDouble("value",dataSet.get(dataSet.size() - position - 1).getWeightKG());
+                System.out.println(dataSet.get(dataSet.size() - position - 1).getWeightKG());
+                DialogFragment dialog = new edit_weight();
+                dialog.setArguments(b);
+                dialog.show(getFragmentManager(),"dialog");
+
+            });
 
             date.setText(dataSet.get(dataSet.size() - position - 1).getDatetime().format(format));
 
@@ -148,5 +160,3 @@ public class Reg_weight_frag extends Fragment {
     }
 
 }
-
-

@@ -75,7 +75,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
         close.setOnClickListener(this);
 
         selftyped = view.findViewById(R.id.selftyped1);
-        amount_input = view.findViewById(R.id.value_weight);
+        amount_input = view.findViewById(R.id.weight_layout);
         System.out.println(amount_input.getText() + ": Amount_input tekst - før");
         amount_input.setText(Integer.toString(App.currentUser.getRegistrations().get(position).getSize()));
         System.out.println(amount_input.getText() + ": Amount_input tekst - efter");
