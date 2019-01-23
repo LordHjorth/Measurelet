@@ -108,6 +108,7 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
                 listener = App.patientRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                         buildView();
                     }
 
@@ -229,12 +230,14 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
             @Override
             protected void onPostExecute(Object o) {
                 List<Intake> k = (List<Intake>) o;
-                adapter = new MyRecyclerViewAdapter(getActivity(),k);
+                if(getContext() != null){
+                adapter = new MyRecyclerViewAdapter(getContext(),k);
+
                 adapter.setClickListener((view, position) -> onItemClick(view, position));
                 recyclerView.setAdapter(adapter);
 
                 knapper = k;
-
+                }
             }
         }.execute();
 
