@@ -55,12 +55,11 @@ public class IntakeFactory {
     public static ArrayList<Intake> getIntakesListWithDefaults(List<Intake> in){
 
         HashMap<String,Intake> d = new HashMap<>();
-        d.put("Juice:125",new Intake().setType("Juice").setSize(125).setThumbnail(R.drawable.ic_orange_juice));
-        d.put("Vand:125",new Intake().setType("Vand").setSize(125).setThumbnail(R.drawable.ic_glass_of_water));
+        d.put("Juice:175",new Intake().setType("Juice").setSize(175).setThumbnail(R.drawable.ic_orange_juice));
+        d.put("Vand:175",new Intake().setType("Vand").setSize(175).setThumbnail(R.drawable.ic_glass_of_water));
         d.put("Kaffe:125",new Intake().setType("Kaffe").setSize(125).setThumbnail(R.drawable.ic_coffee_cup));
-        d.put("Sodavand:125",new Intake().setType("Sodavand").setSize(125).setThumbnail(R.drawable.ic_soda));
+        d.put("Sodavand:175",new Intake().setType("Sodavand").setSize(175).setThumbnail(R.drawable.ic_soda));
         d.put("Vand:500",new Intake().setType("Vand").setSize(500).setThumbnail(R.drawable.ic_glass_of_water));
-
 
         List<String> unique = new ArrayList<>();
 
