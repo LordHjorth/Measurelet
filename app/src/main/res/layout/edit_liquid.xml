@@ -95,7 +95,6 @@
             android:layout_marginBottom="8dp"
             android:autoSizeTextType="uniform"
             android:text="Type"
-            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
@@ -105,25 +104,29 @@
             app:layout_constraintTop_toTopOf="@+id/guideline35"
             app:layout_constraintVertical_bias="0.0" />
 
-
-        <EditText
-            android:id="@+id/selftyped1"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_liquid"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/roundedcorners"
-            android:focusedByDefault="true"
-            android:inputType="text"
-            android:maxLength="20"
-            android:paddingLeft="15dp"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
+
+            android:hint="væsketype"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/guide55"
             app:layout_constraintEnd_toStartOf="@+id/guideright"
             app:layout_constraintStart_toStartOf="@+id/guideleft"
-            app:layout_constraintTop_toTopOf="@+id/guideline8" />
+            app:layout_constraintTop_toTopOf="@+id/guideline8">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/selftyped1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:visibility="visible" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidetop"
@@ -168,7 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.68" />
+            app:layout_constraintGuide_percent="0.70" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline35"
@@ -177,27 +180,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.42" />
 
-
-        <TextView
-            android:id="@+id/amounttitle1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:autoSizeTextType="uniform"
-            android:text="@string/amount"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline21"
-            app:layout_constraintEnd_toStartOf="@+id/guideright"
-            app:layout_constraintHorizontal_bias="0.142"
-            app:layout_constraintStart_toStartOf="@+id/guideleft"
-            app:layout_constraintTop_toTopOf="@+id/guide55"
-            app:layout_constraintVertical_bias="0.031" />
 
         <LinearLayout
             android:id="@+id/linearLayout6"
@@ -221,33 +203,35 @@
                 android:paddingLeft="15dp" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/amount"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="8dp"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/roundedcorners"
-            android:focusedByDefault="true"
-            android:inputType="number"
+            android:hint="Mængde i ml"
             android:maxLength="5"
-            android:paddingLeft="15dp"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
+
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/guideline9"
             app:layout_constraintEnd_toStartOf="@+id/guideright"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideleft"
             app:layout_constraintTop_toTopOf="@+id/guideline21"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="numberDecimal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.57" />
+            app:layout_constraintGuide_percent="0.60" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline9"
@@ -303,7 +287,6 @@
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:text="Klokkeslæt"
-            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline20"
@@ -325,7 +308,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
+            app:layout_constraintGuide_percent="0.73" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

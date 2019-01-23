@@ -44,8 +44,8 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
+    private String d;
 
-    Date d1;
 
     @Nullable
     @Override
@@ -55,6 +55,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         listView = view.findViewById(R.id.listWeek);
         listView.setOnItemClickListener(this);
         barGraph = view.findViewById(R.id.graph);
+
 
         createGraph();
 
@@ -66,42 +67,47 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
 
     private void createGraph() {
+        if (!App.currentUser.getIntakesForWeeks().isEmpty()) {
 
-        int i = 0;
-        for (Map.Entry<String, Integer> entry : App.currentUser.getIntakesForWeeks().entrySet()) {
-            datapoints.add(new BarEntry(i, entry.getValue()));
-            dates.add(LocalDate.parse(entry.getKey()).format(DateTimeFormatter.ofPattern("dd/MM")));
-            i++;
+            int i = 0;
+            for (Map.Entry<String, Integer> entry : App.currentUser.getIntakesForWeeks().entrySet()) {
+                datapoints.add(new BarEntry(i, entry.getValue()));
+                dates.add(LocalDate.parse(entry.getKey()).format(DateTimeFormatter.ofPattern("dd/MM")));
+                i++;
+            }
+
+            BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
+
+            barData = new BarData(data);
+            barData.setBarWidth(0.7f);
+
+            barGraph.setData(barData);
+
+            xAxisDato = barGraph.getXAxis();
+            xAxisDato.setValueFormatter(getformatter());
+            barGraph.setVisibleXRangeMaximum(7);
+            barGraph.setVisibleXRangeMinimum(7);
+            xAxisDato.setGranularity(1f);
+            barGraph.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
+            barGraph.getAxisRight().setDrawGridLines(false);
+            barGraph.getAxisLeft().setDrawGridLines(false);
+            barGraph.getDescription().setEnabled(false);
+            xAxisDato.setDrawGridLines(false);
+            barGraph.getAxisLeft().setAxisMinimum(0);
+            barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 500);
+            data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+            barGraph.getAxisRight().setEnabled(false);
+
+            xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
+            Legend l = barGraph.getLegend();
+            l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+            l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+            data.setValueTextSize(10);
+            barGraph.invalidate();
         }
-
-        BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
-
-        barData = new BarData(data);
-        barData.setBarWidth(0.7f);
-
-        barGraph.setData(barData);
-
-        xAxisDato = barGraph.getXAxis();
-        xAxisDato.setValueFormatter(getformatter());
-        barGraph.setVisibleXRangeMaximum(7);
-        barGraph.setVisibleXRangeMinimum(7);
-        xAxisDato.setGranularity(1f);
-        barGraph.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
-        barGraph.getAxisRight().setDrawGridLines(false);
-        barGraph.getAxisLeft().setDrawGridLines(false);
-        barGraph.getDescription().setEnabled(false);
-        xAxisDato.setDrawGridLines(false);
-        barGraph.getAxisLeft().setAxisMinimum(0);
-        barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 500);
-        data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
-        barGraph.getAxisRight().setEnabled(false);
-
-        xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
-        Legend l = barGraph.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        data.setValueTextSize(10);
-        barGraph.invalidate();
+        else{
+            barGraph.clear();
+        }
     }
 
     private IAxisValueFormatter getformatter() {
@@ -112,7 +118,9 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        Bundle b = new Bundle();
+        b.putString("date", d);
+        ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
     }
 
     private class MyAdapter extends ArrayAdapter<Intake> {
@@ -137,18 +145,19 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_weeklyview, parent, false);
 
-            String d = registrations.keySet().toArray()[registrations.size() - position - 1].toString();
+             d = registrations.keySet().toArray()[registrations.size() - position - 1].toString();
             int a = (int) registrations.values().toArray()[registrations.size() - position - 1];
 
             TextView dato = rowView.findViewById(R.id.dato);
             TextView mængde = rowView.findViewById(R.id.mængde);
 
-            dato.setOnClickListener(view -> {
+            /*dato.setOnClickListener(view -> {
                 Bundle b = new Bundle();
                 b.putString("date", d);
 
                 ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
             });
+            */
 
             dato.setText(LocalDate.parse(d).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 

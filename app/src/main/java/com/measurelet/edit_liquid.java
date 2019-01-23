@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import android.widget.TimePicker;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
 
@@ -36,6 +38,7 @@ import java.util.Calendar;
 public class edit_liquid extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimePicker.OnTimeChangedListener {
 
     private EditText selftyped, amount_input;
+    private TextInputLayout seltypedLayout;
     private TimePicker timePicker;
     private Button  gemReg;
     private ImageButton sletReg,close;
@@ -85,6 +88,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
         close.setOnClickListener(this);
 
         selftyped = view.findViewById(R.id.selftyped1);
+        seltypedLayout = view.findViewById(R.id.layout_liquid);
         amount_input = view.findViewById(R.id.amount);
         amount_input.setText(intake.getSize()+ "");
 
@@ -106,6 +110,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
         if(other == true){
             selftyped.setVisibility(View.VISIBLE);
+            seltypedLayout.setVisibility(View.VISIBLE);
         }
 
         return view;
@@ -213,9 +218,13 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
         if (intake.getType().equals("Andet")) {
             other = true;
             selftyped.setVisibility(View.VISIBLE);
+            seltypedLayout.setVisibility(View.VISIBLE);
+
         } else {
             other = false;
             selftyped.setVisibility(View.INVISIBLE);
+            seltypedLayout.setVisibility(View.INVISIBLE);
+
         }
     }
 

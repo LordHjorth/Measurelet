@@ -100,16 +100,6 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
         shownDate.setText(LocalDate.parse(date.toString()).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
 
-        if (!App.currentUser.getIntakesForDate(date).isEmpty()){
-            createGraph(App.currentUser.getIntakesForDate(date));
-//            hej.setVisibility(View.VISIBLE);
-
-        }
-        else{
-            //hej.setVisibility(View.INVISIBLE);
-
-        }
-
         render();
 
 
@@ -127,77 +117,82 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
         dates.clear();
         hourMap.clear();
 
-        //samler mængder efter time
-        int mængde = 0;
-        for (Intake intake : dailyIntake) {
-            String hour = intake.getDateTime().format(formatHour);
-            if (hourMap.containsKey(hour)) {
-                mængde = mængde + intake.getSize();
-            } else {
-                mængde = intake.getSize();
+        if (!dailyIntake.isEmpty()) {
+            //samler mængder efter time
+            int mængde = 0;
+            for (Intake intake : dailyIntake) {
+                String hour = intake.getDateTime().format(formatHour);
+                if (hourMap.containsKey(hour)) {
+                    mængde = mængde + intake.getSize();
+                } else {
+                    mængde = intake.getSize();
+                }
+
+                hourMap.put(hour, mængde);
             }
 
-            hourMap.put(hour, mængde);
-        }
-
-        for (int i = 0; i < LocalDateTime.now().getHour(); i++) {
-            if(!hourMap.containsKey( String.format("%02d", i))){
-                hourMap.put( String.format("%02d", i),0);
-            }
-        }
-
-        int i = 0;
-        for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            datapoints.add(new BarEntry(i, value));
-            dates.add(key);
-            System.out.println(dates.toString());
-            i++;
-        }
-
-        BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
-
-        barData = new BarData(data);
-        barData.setBarWidth(0.7f);
-        barData.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> {
-
-            if(value > 0){
-                return  new DecimalFormat().format(value);
+            for (int i = 0; i < LocalDateTime.now().getHour(); i++) {
+                if (!hourMap.containsKey(String.format("%02d", i))) {
+                    hourMap.put(String.format("%02d", i), 0);
+                }
             }
 
-            return "";
-        });
-        barGraph.setData(barData);
+            int i = 0;
+            for (Map.Entry<String, Integer> entry : hourMap.entrySet()) {
+                String key = entry.getKey();
+                Integer value = entry.getValue();
+                datapoints.add(new BarEntry(i, value));
+                dates.add(key);
+                i++;
+            }
 
-        xAxisDato = barGraph.getXAxis();
-        xAxisDato.setValueFormatter(getformatter());
-        xAxisDato.setGranularity(1f);
-        barGraph.setVisibleXRangeMaximum(7);
-        barGraph.setVisibleXRangeMinimum(7);
-        barGraph.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
-        barGraph.getAxisRight().setDrawGridLines(false);
-        barGraph.getDescription().setEnabled(false);
-        barGraph.getAxisLeft().setDrawGridLines(false);
-        data.setValueTextSize(10);
-        barGraph.getAxisLeft().setAxisMinimum(0);
-        barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 200);
+            BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
 
-        data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
-        barGraph.getAxisRight().setEnabled(false);
-        xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
-        Legend l = barGraph.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+            barData = new BarData(data);
+            barData.setBarWidth(0.7f);
+            barData.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> {
 
-        xAxisDato.setDrawGridLines(false);
+                if (value > 0) {
+                    return new DecimalFormat().format(value);
+                }
 
-        barGraph.invalidate();
+                return "";
+            });
+            barGraph.setData(barData);
+
+            xAxisDato = barGraph.getXAxis();
+            xAxisDato.setValueFormatter(getformatter());
+            xAxisDato.setGranularity(1f);
+            barGraph.setVisibleXRangeMaximum(7);
+            barGraph.setVisibleXRangeMinimum(7);
+            barGraph.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
+            barGraph.getAxisRight().setDrawGridLines(false);
+            barGraph.getDescription().setEnabled(false);
+            barGraph.getAxisLeft().setDrawGridLines(false);
+            data.setValueTextSize(10);
+            barGraph.getAxisLeft().setAxisMinimum(0);
+            barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 200);
+
+            data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+            barGraph.getAxisRight().setEnabled(false);
+            xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
+            Legend l = barGraph.getLegend();
+            l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+            l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+
+            xAxisDato.setDrawGridLines(false);
+
+            barGraph.invalidate();
+        }
+        else {
+            barGraph.clear();
+        }
 
     }
 
     public void render(){
-        createGraph(App.currentUser.getIntakesForDate(date));
+            createGraph(App.currentUser.getIntakesForDate(date));
+
         MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForDate(date));
         list.setAdapter(adapter);
     }
@@ -217,10 +212,12 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
 
             next_date_string =next_date.toString();
 
-            Bundle hej = new Bundle();
-            hej.putString("date", next_date_string);
+            Bundle b = new Bundle();
+            b.putString("date", next_date_string);
 
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, hej);
+            ((MainActivity) getActivity()).getNavC().popBackStack();
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
+
         }
 
     }

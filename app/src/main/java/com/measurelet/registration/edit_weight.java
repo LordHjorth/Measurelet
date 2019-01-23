@@ -15,9 +15,16 @@ import android.widget.TextView;
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.measurelet.App;
 import com.measurelet.MainActivity;
+import com.measurelet.Model.Intake;
+import com.measurelet.Model.Weight;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 public class edit_weight extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -27,6 +34,9 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
     private TextView dateWeight;
     private TextInputEditText amount_input;
     private TextInputLayout weightLayout;
+    private int position;
+    private Weight weight;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,11 +47,23 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
         String date = bundle.getString("date");
         Double value = bundle.getDouble("value");
 
-        if (bundle==null){
-            //dismiss();
-            return null;
+        String uuid = bundle.getString("uuid");
+
+        position = 0;
+
+        for (int i = 0; i < App.currentUser.getWeights().size(); i++) {
+            Weight t = App.currentUser.getWeights().get(i);
+            if(t.getUuid().equals(uuid)){
+                position = i;
+                weight = t;
+                break;
+            }
         }
 
+        if(weight == null){
+            dismiss();
+            return view;
+        }
 
         sletReg = view.findViewById(R.id.deleteRegWeight);
         sletReg.setOnClickListener(this);
@@ -67,7 +89,16 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        if (v == sletReg) {
+
+        if (v==gemReg){
+
+
+            weight.setWeightKG(Double.parseDouble(amount_input.getText().toString()));
+            App.weightRef.child(position+"").setValue(weight);
+
+            dismiss();
+        }
+        else if (v == sletReg) {
             Context context = getActivity();
             String title = "Slet";
             String message = "Er du sikker på du vil slette denne registrering?";
@@ -82,9 +113,10 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
                     button1String,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int arg1) {
-                           // App.currentUser.getRegistrations().remove(position);
-                            ((MainActivity) getActivity()).getNavC().navigate(R.id.reg_weight_frag);
-                            dismiss();                        }
+                            App.currentUser.getWeights().remove(position);
+                            App.weightRef.child(position+"").removeValue();
+                            dismiss();
+                        }
                     }
             );
             ad.setNegativeButton(
@@ -112,5 +144,16 @@ public class edit_weight extends DialogFragment implements View.OnClickListener,
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        // https://stackoverflow.com/questions/23786033/dialogfragment-and-ondismiss
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
+        }
     }
 }

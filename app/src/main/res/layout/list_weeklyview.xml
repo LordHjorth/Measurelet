@@ -20,10 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Dato"
+
 
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:text="Dato"
             android:textSize="18sp" />
 
         <TextView
@@ -32,6 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Antal ml"
+
 
             android:paddingTop="10dp"
             android:paddingBottom="10dp"

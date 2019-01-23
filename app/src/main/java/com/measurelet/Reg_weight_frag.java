@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,15 +33,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
-public class Reg_weight_frag extends Fragment {
+public class Reg_weight_frag extends Fragment implements DialogInterface.OnDismissListener{
 
     private ListView lsView;
     private MyAdapter arrayAdapter;
-
     private LineChart lineChart;
     private LineData lineData;
     private XAxis xAxisDato;
-
     private ArrayList<String> dates = new ArrayList<>();
     private ArrayList<Entry> datapoints = new ArrayList<>();
     final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM");
@@ -53,11 +52,7 @@ public class Reg_weight_frag extends Fragment {
         lineChart = regweight.findViewById(R.id.graphvaegt);
         lsView = regweight.findViewById(R.id.listviewVaegt);
 
-        arrayAdapter = new MyAdapter(getActivity(), App.currentUser.getWeights());
-        lsView.setAdapter(arrayAdapter);
-
-        createGraph();
-
+        render();
 
         return regweight;
     }
@@ -81,44 +76,64 @@ public class Reg_weight_frag extends Fragment {
 
     private void createGraph() {
 
-        for (int i = 0; i < App.currentUser.getSortedWeights().size(); i++) {
-            datapoints.add(new Entry(i, (float) App.currentUser.getSortedWeights().get(i).getWeightKG()));
-            dates.add(App.currentUser.getSortedWeights().get(i).getDatetime().format(format));
+        datapoints.clear();
+        dates.clear();
+
+        if (!App.currentUser.getWeights().isEmpty()) {
+
+            for (int i = 0; i < App.currentUser.getSortedWeights().size(); i++) {
+                datapoints.add(new Entry(i, (float) App.currentUser.getSortedWeights().get(i).getWeightKG()));
+                dates.add(App.currentUser.getSortedWeights().get(i).getDatetime().format(format));
+            }
+
+            LineDataSet data = new LineDataSet(datapoints, "Vægt kg");
+            lineData = new LineData(data);
+
+            lineChart.setData(lineData);
+
+            xAxisDato = lineChart.getXAxis();
+            xAxisDato.setValueFormatter(getformatter());
+            data.setCircleRadius(5f);
+            lineChart.setVisibleXRangeMaximum(7);
+            lineChart.setVisibleXRangeMinimum(7);
+            xAxisDato.setGranularity(1f);
+            lineChart.centerViewTo(30.5f, 1f, YAxis.AxisDependency.LEFT);
+            lineChart.getAxisRight().setDrawLabels(false);
+            lineChart.getAxisRight().setDrawGridLines(false);
+            lineChart.getAxisLeft().setDrawGridLines(false);
+            lineChart.getDescription().setEnabled(false);
+            lineChart.getAxisLeft().setAxisMinimum(data.getYMin() - 30);
+            lineChart.getAxisLeft().setAxisMaximum(data.getYMax() + 30);
+            xAxisDato.setSpaceMax(0.4f);
+            xAxisDato.setSpaceMin(0.4f);
+            xAxisDato.setDrawGridLines(false);
+            data.setValueTextSize(10);
+
+            data.setCircleColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+            data.setCircleHoleColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+            data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
+
+
+            lineChart.invalidate();
+        }
+        else {
+            lineChart.clear();
         }
 
-        LineDataSet data = new LineDataSet(datapoints, "Vægt kg");
-        lineData = new LineData(data);
 
-
-        lineChart.setData(lineData);
-
-        xAxisDato = lineChart.getXAxis();
-        xAxisDato.setValueFormatter(getformatter());
-        data.setCircleRadius(5f);
-        lineChart.setVisibleXRangeMaximum(7);
-        lineChart.setVisibleXRangeMinimum(7);
-        xAxisDato.setGranularity(1f);
-        lineChart.centerViewTo(30.5f, 1f, YAxis.AxisDependency.LEFT);
-        lineChart.getAxisRight().setDrawLabels(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.getAxisLeft().setAxisMinimum(data.getYMin() - 30);
-        lineChart.getAxisLeft().setAxisMaximum(data.getYMax() + 30);
-        xAxisDato.setSpaceMax(0.4f);
-        xAxisDato.setSpaceMin(0.4f);
-        xAxisDato.setDrawGridLines(false);
-        data.setValueTextSize(10);
-
-        data.setCircleColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
-        data.setCircleHoleColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
-        data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
-
-
-        lineChart.invalidate();
+    }
+    public void render(){
+        createGraph();
+        arrayAdapter = new MyAdapter(getActivity(), App.currentUser.getWeights());
+        lsView.setAdapter(arrayAdapter);
 
     }
 
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        render();
+    }
 
     private class MyAdapter extends ArrayAdapter<Weight> {
         private ArrayList<Weight> dataSet;
@@ -144,10 +159,11 @@ public class Reg_weight_frag extends Fragment {
                 Bundle b = new Bundle();
                 b.putString("date",dataSet.get(dataSet.size() - position - 1).getDatetime().format(format));
                 b.putDouble("value",dataSet.get(dataSet.size() - position - 1).getWeightKG());
-                System.out.println(dataSet.get(dataSet.size() - position - 1).getWeightKG());
+                b.putString("uuid",dataSet.get(position).getUuid());
+
                 DialogFragment dialog = new edit_weight();
                 dialog.setArguments(b);
-                dialog.show(getFragmentManager(),"dialog");
+                dialog.show(getChildFragmentManager(),"dialog");
 
             });
 
