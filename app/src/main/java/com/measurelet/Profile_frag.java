@@ -4,10 +4,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -72,9 +75,13 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
             return;
         }
 
+
         // Opdater bruger
         PatientFactory.UpdatePatient(name.getText().toString(),Integer.parseInt(bed.getText().toString()));
 
+        Toast toast = Toast.makeText(getContext(), "Profil opdateret!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0 ,0);
+        toast.show();
 
     }
 }
