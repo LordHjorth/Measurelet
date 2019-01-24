@@ -1,6 +1,5 @@
 package com.measurelet.registration;
 
-import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,12 +14,10 @@ import com.example.hjorth.measurelet.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.measurelet.App;
-import com.measurelet.Factories.PatientFactory;
+import com.measurelet.factories.PatientFactory;
 import com.measurelet.InternetConnectivityCheck;
 import com.measurelet.MainActivity;
-import com.measurelet.Model.Patient;
-
-import java.io.IOException;
+import com.measurelet.model.Patient;
 
 import androidx.fragment.app.Fragment;
 

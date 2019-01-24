@@ -9,23 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.Model.Intake;
+import com.measurelet.model.Intake;
 
 import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
-    private Context mContext;
     private List<Intake> mdata;
 
     // data is passed into the constructor
     MyRecyclerViewAdapter(Context context, List<Intake> mdata) {
-        this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mdata = mdata;
+    }
+
+
+    public Intake getItem(int position){
+        return mdata.get(position);
     }
 
     // inflates the cell layout from xml when needed

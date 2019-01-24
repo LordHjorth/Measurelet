@@ -1,24 +1,27 @@
-package com.measurelet;
+package com.measurelet.profile;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.measurelet.Factories.PatientFactory;
-import com.measurelet.Model.Patient;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.measurelet.App;
+import com.measurelet.BaseFragment;
+import com.measurelet.factories.PatientFactory;
+import com.measurelet.model.Patient;
 
-public class Profile_frag extends Fragment implements View.OnClickListener {
+public class ProfileFrag extends BaseFragment implements View.OnClickListener {
 
 
     private View profil;
@@ -29,16 +32,31 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          profil = inflater.inflate(R.layout.profile_frag, container, false);
 
-        Patient user = App.currentUser;
-
         // Name
          name = profil.findViewById(R.id.profile_name_input);
          
-         name.setText(user.getName());
          bed = profil.findViewById(R.id.profile_bed_input);
 
-         bed.setText(user.getBedNum()+ "");
-        (profil.findViewById(R.id.profile_btn)).setOnClickListener(this);
+        profil.findViewById(R.id.profile_btn).setOnClickListener(this);
+
+        addListener(App.patientRef, new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Patient user = dataSnapshot.getValue(Patient.class);
+                name.setText(user.getName());
+                bed.setText(user.getBedNum()+ "");
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         return profil;
 
@@ -75,10 +93,8 @@ public class Profile_frag extends Fragment implements View.OnClickListener {
             return;
         }
 
-
         // Opdater bruger
         PatientFactory.UpdatePatient(name.getText().toString(),Integer.parseInt(bed.getText().toString()));
-
         Toast toast = Toast.makeText(getContext(), "Profil opdateret!", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0 ,0);
         toast.show();

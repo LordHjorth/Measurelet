@@ -1,4 +1,4 @@
-package com.measurelet.Factories;
+package com.measurelet.factories;
 
 import android.util.Log;
 
@@ -6,7 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DatabaseReference;
 import com.measurelet.App;
-import com.measurelet.Model.Patient;
+import com.measurelet.model.Patient;
 
 import java.util.HashMap;
 import java.util.Map;

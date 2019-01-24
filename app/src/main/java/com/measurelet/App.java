@@ -9,13 +9,12 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-import com.measurelet.Model.Patient;
-
-import java.io.IOException;
+import com.measurelet.model.Patient;
 
 public class App extends Application {
 
     public static SharedPreferences preferenceManager;
+    public static Patient currentUser = new Patient();
 
     //Database instance
     private static FirebaseDatabase DB_INSTANCE;
@@ -27,7 +26,6 @@ public class App extends Application {
     public static DatabaseReference patientRef, intakeRef, weightRef;
 
     public static Boolean loggedIn = false;
-    public static Patient currentUser;
     private static String key;
 
     // Called when the application is starting, before any other application objects have been created.
@@ -49,7 +47,6 @@ public class App extends Application {
             loggedIn = true;
         }
 
-        System.out.println("App is running");
         super.onCreate();
     }
 

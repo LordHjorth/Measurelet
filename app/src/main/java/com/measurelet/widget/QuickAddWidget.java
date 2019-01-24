@@ -1,4 +1,4 @@
-package com.measurelet.QuickAddWidget;
+package com.measurelet.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -7,16 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.view.Gravity;
 import android.widget.RemoteViews;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.App;
-import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.factories.IntakeFactory;
 import com.measurelet.InternetConnectivityCheck;
-import com.measurelet.Model.Intake;
+import com.measurelet.model.Intake;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +90,7 @@ public class QuickAddWidget extends AppWidgetProvider {
             k.remove(pos);
             k.add(0, temp);
 
-            IntakeFactory.InsertNewIntake(temp);
+          //  IntakeFactory.InsertNewIntake(temp);
         }
         if (ACTION_REFRESH.equals(intent.getAction())) {
             System.out.println("The refresh button was clicked!");
@@ -119,6 +115,8 @@ public class QuickAddWidget extends AppWidgetProvider {
         @Override
         protected Object doInBackground(Object[] objects) {
 
+
+            /*
             while (App.currentUser == null) {
                 try {
                     Thread.sleep(1000);
@@ -127,7 +125,7 @@ public class QuickAddWidget extends AppWidgetProvider {
                 }
 
                 System.out.println("Waiting for current user");
-            }
+            } */
 
             return null;
         }
@@ -135,7 +133,7 @@ public class QuickAddWidget extends AppWidgetProvider {
         @Override
         protected void onPostExecute(Object o) {
 
-            QuickAddWidget.UpdateButtons(App.currentUser.getRegistrations());
+            //QuickAddWidget.UpdateButtons(App.currentUser.getRegistrations());
 
             System.out.println(k.size() + " - Buttons created!");
         }

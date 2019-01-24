@@ -21,7 +21,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.measurelet.Model.Intake;
+import com.measurelet.model.Intake;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;

@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.measurelet.QuickAddWidget.QuickAddWidget">
+        <receiver android:name="com.measurelet.widget.QuickAddWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -34,7 +34,7 @@
                 android:resource="@xml/quick_add_widget_info" />
         </receiver>
 
-        <service android:name="com.measurelet.QuickAddWidget.QuickAddWidgetService"
+        <service android:name="com.measurelet.widget.QuickAddWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS">
 
         </service>

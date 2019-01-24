@@ -1,7 +1,6 @@
 package com.measurelet;
 
 import android.animation.Animator;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.measurelet.Model.Patient;
+import com.measurelet.model.Patient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -70,14 +69,13 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
 
     public void setupListeners() {
 
-        App.currentUser = new Patient();
+     //   App.currentUser = new Patient();
 
         App.patientRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Patient p = dataSnapshot.getValue(Patient.class);
-                System.out.println(p);
 
                 if (p == null) {
                     App.preferenceManager.edit().remove("KEY").commit();
@@ -194,9 +192,6 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
                 break;
             case R.id.registration_standard_frag:
                 title = getString(R.string.registration_standard);
-                break;
-            case R.id.settings_frag:
-                title = getString(R.string.settings);
                 break;
             case R.id.weekly_view_frag:
                 title = getString(R.string.weekly_view);

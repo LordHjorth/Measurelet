@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile_frag"
-        android:name="com.measurelet.Profile_frag"
+        android:name="com.measurelet.profile.ProfileFrag"
         android:label="profile_frag"
         tools:layout="@layout/profile_frag" />
     <fragment
@@ -46,11 +46,6 @@
         android:name="com.measurelet.Weekly_view_frag"
         android:label="weekly_view_frag"
         tools:layout="@layout/weekly_view_frag" />
-    <fragment
-        android:id="@+id/settings_frag"
-        android:name="com.measurelet.Settings_frag"
-        android:label="settings_frag"
-        tools:layout="@layout/settings_frag" />
 
 
     <action
@@ -81,7 +76,7 @@
 
     <fragment
         android:id="@+id/reg_weight_frag"
-        android:name="com.measurelet.Reg_weight_frag"
+        android:name="com.measurelet.weight.WeightFrag"
         android:label="reg_weight_frag"
         tools:layout="@layout/reg_weight_frag" />
 

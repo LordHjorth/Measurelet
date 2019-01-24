@@ -1,8 +1,8 @@
-package com.measurelet.Factories;
+package com.measurelet.factories;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.App;
-import com.measurelet.Model.Intake;
+import com.measurelet.model.Intake;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -13,19 +13,9 @@ import java.util.List;
 
 public class IntakeFactory {
 
-    public static void InsertNewIntake(Intake intake) {
-
-        List<Intake> intakes = App.currentUser == null ? new ArrayList<>() : App.currentUser.getRegistrations();
-        intakes.add(intake);
-
-        App.intakeRef.setValue(intakes);
-
+    public static void InsertNewIntake(List<Intake> allIntakes, Intake intake) {
+        App.intakeRef.child(allIntakes.size()+ "").setValue(intake);
     }
-
-    public static void UpdateNewIntake(Intake intake) {
-        App.intakeRef.child(intake.uuid).setValue(intake);
-    }
-
 
     public static HashMap<String, Integer> getIntakePrHour(ArrayList<Intake> dailyIntake){
 
@@ -44,7 +34,6 @@ public class IntakeFactory {
 
             hourMap.put(hour, mængde);
         }
-
 
         return hourMap;
     }

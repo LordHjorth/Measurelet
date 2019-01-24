@@ -1,4 +1,4 @@
-package com.measurelet.QuickAddWidget;
+package com.measurelet.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;

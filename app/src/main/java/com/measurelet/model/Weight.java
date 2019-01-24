@@ -1,4 +1,4 @@
-package com.measurelet.Model;
+package com.measurelet.model;
 
 import com.google.firebase.database.Exclude;
 
@@ -26,8 +26,9 @@ public class Weight {
         return weightKG;
     }
 
-    public void setWeightKG(double weightKG) {
+    public Weight setWeightKG(double weightKG) {
         this.weightKG = weightKG;
+        return this;
     }
 
     @Exclude
@@ -39,8 +40,9 @@ public class Weight {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public Weight setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
     public String getUuid() {

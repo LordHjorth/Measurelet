@@ -38,6 +38,7 @@ public class BaseFragment extends Fragment {
 
     public void addAsyncTask(AsyncTask t) {
         tasks.add(t);
+        t.execute();
     }
 
     public void addListener(DatabaseReference db, ValueEventListener l) {
@@ -55,10 +56,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        for (AsyncTask t : tasks ) {
-            t.execute();
-        }
 
         for (ValueEventListenerContainer v : valueEventListeners ) {
             v.db.addValueEventListener(v.listener);

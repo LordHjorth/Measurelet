@@ -1,4 +1,4 @@
-package com.measurelet.QuickAddWidget;
+package com.measurelet.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

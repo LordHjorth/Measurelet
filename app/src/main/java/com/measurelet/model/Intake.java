@@ -1,4 +1,4 @@
-package com.measurelet.Model;
+package com.measurelet.model;
 
 import com.example.hjorth.measurelet.R;
 import com.google.firebase.database.Exclude;

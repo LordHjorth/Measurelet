@@ -1,10 +1,9 @@
 package com.measurelet.dashboard;
 
 import android.app.AlertDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.NonNull;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,45 +17,72 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
-import com.measurelet.Factories.IntakeFactory;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.measurelet.App;
+import com.measurelet.BaseFragment;
+import com.measurelet.factories.IntakeFactory;
 import com.measurelet.MainActivity;
-import com.measurelet.Model.Intake;
+import com.measurelet.model.Intake;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 
-public class RegistrationCustomFrag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class RegistrationCustomFrag extends BaseFragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private String liqtyp;
-    private EditText input_ml, input_type_other;
+    private EditText inputML, inputType;
     private Button add;
     private boolean other;
 
-    private Calendar calendar = Calendar.getInstance();
+    private List<Intake> intakes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View customfrag = inflater.inflate(R.layout.registration_custom_frag, container, false);
 
-        TextView druk = customfrag.findViewById(R.id.drink);
-        druk.setText(R.string.drink);
-        input_ml = customfrag.findViewById(R.id.amountofliquid);
-        input_type_other = customfrag.findViewById(R.id.selftyped);
 
-        customfrag.findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
+        View fragment = inflater.inflate(R.layout.registration_custom_frag, container, false);
 
-        add = customfrag.findViewById(R.id.plusbut);
+        TextView title = fragment.findViewById(R.id.drink);
+        title.setText(R.string.drink);
+
+        inputML = fragment.findViewById(R.id.amountofliquid);
+        inputType = fragment.findViewById(R.id.selftyped);
+
+        fragment.findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
+
+        add = fragment.findViewById(R.id.plusbut);
         add.setOnClickListener(this);
+
         other = false;
 
-        Spinner spin = customfrag.findViewById(R.id.scrollvalg);
+        Spinner spin = fragment.findViewById(R.id.scrollvalg);
+
         String[] items = new String[]{"Sodavand", "Vand", "Kaffe", "Saftevand", "Andet"};
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
         spin.setAdapter(adapter);
         spin.setOnItemSelectedListener(this);
 
+        addListener(App.intakeRef, new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                intakes = new ArrayList();
 
-        return customfrag;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    intakes.add(snapshot.getValue(Intake.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return fragment;
     }
 
     @Override
@@ -65,8 +91,8 @@ public class RegistrationCustomFrag extends Fragment implements AdapterView.OnIt
         if (view == add) {
 
             //handles size
-            String size_string = input_ml.getText().toString();
-            String type = input_type_other.getText().toString();
+            String size_string = inputML.getText().toString();
+            String type = inputType.getText().toString();
 
             if (size_string.equals("")) {
 
@@ -85,13 +111,12 @@ public class RegistrationCustomFrag extends Fragment implements AdapterView.OnIt
             int size = Integer.parseInt(size_string);
 
 
-            input_type_other.setVisibility(View.INVISIBLE);
+            inputType.setVisibility(View.INVISIBLE);
             getView().findViewById(R.id.setsynligt).setVisibility(View.INVISIBLE);
 
             //inserts to DB
             Intake intake = new Intake(liqtyp, size);
-            IntakeFactory.InsertNewIntake(intake);
-
+            IntakeFactory.InsertNewIntake(intakes, intake);
 
             //navigates back to dashboard
             ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();

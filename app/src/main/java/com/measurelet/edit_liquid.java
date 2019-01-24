@@ -3,13 +3,11 @@ package com.measurelet;
 import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,22 +16,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 
 import com.example.hjorth.measurelet.R;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.measurelet.Model.Intake;
-import com.measurelet.Model.Patient;
+import com.measurelet.model.Intake;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 
 public class edit_liquid extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimePicker.OnTimeChangedListener {
 
@@ -88,7 +80,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
         close.setOnClickListener(this);
 
         selftyped = view.findViewById(R.id.selftyped1);
-        seltypedLayout = view.findViewById(R.id.layout_liquid);
+       // seltypedLayout = view.findViewById(R.id.layout_liquid);
         amount_input = view.findViewById(R.id.amount);
         amount_input.setText(intake.getSize()+ "");
 

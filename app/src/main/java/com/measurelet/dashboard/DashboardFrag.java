@@ -19,12 +19,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.measurelet.App;
 import com.measurelet.BaseFragment;
-import com.measurelet.Factories.IntakeFactory;
-import com.measurelet.Factories.WeightFactory;
+import com.measurelet.factories.IntakeFactory;
+import com.measurelet.factories.WeightFactory;
 import com.measurelet.MainActivity;
-import com.measurelet.Model.Intake;
-import com.measurelet.Model.Patient;
-import com.measurelet.Model.Weight;
+import com.measurelet.model.Intake;
+import com.measurelet.model.Patient;
+import com.measurelet.model.Weight;
 import com.robinhood.spark.SparkAdapter;
 import com.robinhood.spark.SparkView;
 import com.robinhood.spark.animation.MorphSparkAnimator;
@@ -34,6 +34,7 @@ import org.threeten.bp.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,19 +45,22 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
 
 
     private MaterialButton add_btn;
-    private TextView overall;
     private LinearLayout mllayout;
     public static int ml = 0;
     private EditText vaegt;
     private Button vaegt_knap;
     private MaterialCardView vaegt_input_box;
     private TextView vaegt_Registreret_tekst;
-    private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private List<Intake> knapper;
     private ValueEventListener listener;
     private View dashboard;
-    private SparkView sparkView;
+
+    private ArrayList<Weight> weights;
+
+    private static SparkView sparkView;
+    private static ArrayList<Intake> intakes;
+
 
     //TODO: make it possible to add goals (overallml)
 
@@ -98,8 +102,7 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
                 Patient p = dataSnapshot.getValue(Patient.class);
 
                 // No patient exists. It might have been deleted
-                System.out.println(p);
-                if(p == null){
+                if (p == null) {
                     return;
                 }
 
@@ -115,10 +118,10 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
         return dashboard;
     }
 
-    public void buildView(Patient patient) {
+    void buildView(Patient patient) {
 
-        ArrayList<Intake> intakes = patient.getIntakesForDate(org.threeten.bp.LocalDate.now());
-        overall = dashboard.findViewById(R.id.registrated_amount);
+        intakes = patient.getIntakesForDate(org.threeten.bp.LocalDate.now());
+        TextView overall = dashboard.findViewById(R.id.registrated_amount);
 
         int m = 0;
         for (Intake i : intakes) {
@@ -127,44 +130,13 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
         overall.setText(m + " ml");
 
 
-        new AsyncTask() {
-
-            @Override
-            protected Object doInBackground(Object[] objects) {
-
-                HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
-
-                ArrayList<Integer> list = new ArrayList<>();
-                int amount = 0;
-                for (int i = 0; i < 24; i++) {
-                    String key = String.format("%02d", i);
-                    if (v.containsKey(key)) {
-                        amount += v.get(key);
-                    }
-                    list.add(amount);
-                }
-                // Lets draw some stuff
-
-                return list;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                List<Integer> list = (List<Integer>) o;
-
-                super.onPostExecute(o);
-
-                sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
-
-            }
-        }.execute();
-
+        addAsyncTask(new createSparkTask());
 
         UpdateButtons(patient.getRegistrations());
 
 
         // vægt
-        ArrayList<Weight> weights = App.currentUser.getWeights();
+       weights = patient.getWeights();
 
         boolean show = true;
 
@@ -185,34 +157,52 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
 
     }
 
+    static class createSparkTask extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+
+            HashMap<String, Integer> v = IntakeFactory.getIntakePrHour(intakes);
+
+            ArrayList<Integer> list = new ArrayList<>();
+            int amount = 0;
+            for (int i = 0; i < 24; i++) {
+                String key = String.format(Locale.getDefault(), "%02d", i);
+                if (v.containsKey(key)) {
+                    amount += v.get(key);
+                }
+                list.add(amount);
+            }
+            // Lets draw some stuff
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            List<Integer> list = (List<Integer>) o;
+            sparkView.setAdapter(new MyAdapter(list.toArray(new Integer[0])));
+
+        }
+    }
+
+
     private void UpdateButtons(ArrayList<Intake> registrations) {
 
+        ArrayList<Intake> result = IntakeFactory.getIntakesListWithDefaults(registrations);
+        List<Intake> k = result.subList(0, 4);
+        if (getContext() != null) {
+            MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(getContext(), k);
+            adapter.setClickListener((view, position) -> {
+                ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
 
-        new AsyncTask() {
+                Intake intake = new Intake(knapper.get(position).getType(), knapper.get(position).getSize());
 
+                IntakeFactory.InsertNewIntake(registrations, intake);
 
-            @Override
-            protected Object doInBackground(Object[] objects) {
-
-                ArrayList<Intake> result = IntakeFactory.getIntakesListWithDefaults(registrations);
-
-                List<Intake> k = result.subList(0, 4);
-                return k;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                List<Intake> k = (List<Intake>) o;
-                if (getContext() != null) {
-                    adapter = new MyRecyclerViewAdapter(getContext(), k);
-
-                    adapter.setClickListener((view, position) -> onItemClick(view, position));
-                    recyclerView.setAdapter(adapter);
-
-                    knapper = k;
-                }
-            }
-        }.execute();
+            });
+            recyclerView.setAdapter(adapter);
+            knapper = k;
+        }
 
     }
 
@@ -230,7 +220,8 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
             }
 
             Weight weight = new Weight(Double.parseDouble(weightkg));
-            WeightFactory.InsertNewWeight(weight);
+
+            WeightFactory.InsertNewWeight(weights,weight);
 
             vaegt_input_box.setVisibility(View.INVISIBLE);
             ((MainActivity) getActivity()).getAddAnimation(1);
@@ -248,21 +239,12 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
 
         }
     }
-
-    public void onItemClick(View view, int position) {
-        ((MainActivity) getActivity()).getAddAnimation(1).playAnimation();
-
-        Intake intake = new Intake(knapper.get(position).getType(), knapper.get(position).getSize());
-
-        IntakeFactory.InsertNewIntake(intake);
-    }
-
 }
 
 class MyAdapter extends SparkAdapter {
     private Integer[] yData;
 
-    public MyAdapter(Integer[] yData) {
+    MyAdapter(Integer[] yData) {
         this.yData = yData;
     }
 

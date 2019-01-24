@@ -1,4 +1,4 @@
-package com.measurelet.Model;
+package com.measurelet.model;
 
 import com.google.firebase.database.Exclude;
 
@@ -56,7 +56,7 @@ public class Patient {
         this.bedNum = bedNum;
     }
 
-    public ArrayList<Weight> getWeights() {
+    public ArrayList<com.measurelet.model.Weight> getWeights() {
         return weights;
     }
 
@@ -64,7 +64,7 @@ public class Patient {
         this.weights = weights;
     }
 
-    public ArrayList<Intake> getRegistrations() {
+    public ArrayList<com.measurelet.model.Intake> getRegistrations() {
         return registrations;
     }
 
@@ -74,7 +74,7 @@ public class Patient {
 
 
     @Exclude
-    public ArrayList<Intake> getIntakesForDate(LocalDate date) {
+    public ArrayList<com.measurelet.model.Intake> getIntakesForDate(LocalDate date) {
         registrations.removeIf(Objects::isNull);
         ArrayList<Intake> intakesCurrentDate = new ArrayList<>();
         for (Intake i : registrations) {
@@ -120,20 +120,5 @@ public class Patient {
         }
 
         return intakesPerDay;
-    }
-
-    @Exclude
-    public ArrayList<Weight> getSortedWeights() {
-        weights.removeIf(Objects::isNull);
-
-        //SORT
-        Collections.sort(weights, (o1, o2) -> {
-            if (o1.getDatetime().isEqual(o2.getDatetime())) {
-                return 0;
-            }
-            return o1.getDatetime().isAfter(o2.getDatetime()) ? -1 : 1;
-        });
-
-        return weights;
     }
 }
