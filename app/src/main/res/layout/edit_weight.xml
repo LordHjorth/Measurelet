@@ -75,7 +75,7 @@
                 android:background="@drawable/ripple"
                 android:backgroundTint="@color/background_color"
                 android:src="@drawable/ic_delete_black_24dp"
-                android:text="Slet"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintBottom_toTopOf="@+id/guidetop"
                 app:layout_constraintEnd_toStartOf="@+id/guideright"
                 app:layout_constraintHorizontal_bias="0.0"

@@ -60,7 +60,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/selftyped"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,14 +71,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="Mængde i ml">
+            android:hint="Mængde i ml"
+            android:inputType="numberDecimal"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amountofliquid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
-
+                android:inputType="numberDecimal"
+                android:nextFocusDown="@id/amountofliquid"
+                android:imeOptions="actionDone"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

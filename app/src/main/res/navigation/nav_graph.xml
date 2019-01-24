@@ -16,6 +16,7 @@
         android:id="@+id/daily_view_frag"
         android:name="com.measurelet.daily.DailyViewFrag"
         android:label="Daily_view_frag" />
+
     <fragment
         android:id="@+id/registration_standard_frag"
         android:name="com.measurelet.dashboard.RegistrationStandardFrag"
@@ -61,17 +62,23 @@
 
     <action android:id="@+id/action_weekly_to_daily"
         app:destination="@id/daily_view_frag"
-        app:enterAnim="@anim/enter_from_right"
-        app:exitAnim="@anim/exit_to_left"
-        app:popUpTo="@+id/weekly_view_frag"
-        app:popUpToInclusive="false"/>
-
-    <action android:id="@+id/action_daily_navigation"
-        app:enterAnim="@anim/nav_default_enter_anim"
+        app:enterAnim="@anim/slide_in_up"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@+id/weekly_view_frag"
+        app:popUpToInclusive="false"/>
+
+
+    <action android:id="@+id/action_daily_navigation"
         app:destination="@id/daily_view_frag"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:popUpTo="@+id/daily_view_frag"
+
+        app:popUpToInclusive="true"
        />
 
     <fragment
