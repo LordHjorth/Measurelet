@@ -234,7 +234,7 @@ public class DashboardFrag extends BaseFragment implements View.OnClickListener 
         }
         if (view == mllayout) {
 
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_daily_navigation);
 
 
         }
