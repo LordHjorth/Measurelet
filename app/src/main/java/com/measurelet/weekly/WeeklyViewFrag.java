@@ -57,8 +57,7 @@ public class WeeklyViewFrag extends BaseFragment{
 
         barGraph = fragment.findViewById(R.id.graph);
 
-
-        App.patientRef.addValueEventListener(new ValueEventListener() {
+        addListener(App.patientRef, new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
