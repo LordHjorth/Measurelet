@@ -1,13 +1,8 @@
-package com.measurelet;
+package com.measurelet.daily;
 
-import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,34 +14,64 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-
 import com.example.hjorth.measurelet.R;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.measurelet.App;
 import com.measurelet.model.Intake;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
-public class edit_liquid extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimePicker.OnTimeChangedListener {
+import java.util.ArrayList;
 
-    private EditText selftyped, amount_input;
-    private TextInputLayout seltypedLayout;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+
+public class EditLiquidDialog extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+
+    private EditText typed, amount_input;
     private TimePicker timePicker;
     private Button  gemReg;
     private ImageButton sletReg,close;
     private Spinner spinner;
 
-    int hour, minute;
     private boolean other;
 
     private Intake intake;
     private int position;
+    private View seltypedLayout;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_liquid, container, false);
+
+
+        sletReg = view.findViewById(R.id.deleteReg);
+        sletReg.setOnClickListener(this);
+        gemReg = view.findViewById(R.id.saveChanges);
+        gemReg.setOnClickListener(this);
+        close =view.findViewById(R.id.close_button);
+        close.setOnClickListener(this);
+        typed = view.findViewById(R.id.selftyped1);
+        seltypedLayout = view.findViewById(R.id.layout_liquid);
+        amount_input = view.findViewById(R.id.amount);
+
+        timePicker = view.findViewById(R.id.timepicker);
+        timePicker.setIs24HourView(true);
+        spinner = view.findViewById(R.id.scrollvalg1);
+
+        //timer = view.findViewById(R.id.timefield);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.fluidtypes, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         Bundle bundle = getArguments();
         if (bundle==null){
@@ -56,61 +81,52 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
         String uuid = bundle.getString("uuid");
 
-        position = 0;
+        App.intakeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        for (int i = 0; i < App.currentUser.getRegistrations().size(); i++) {
-            Intake t = App.currentUser.getRegistrations().get(i);
-            if(t.getUuid().equals(uuid)){
-                position = i;
-                intake = t;
-                break;
+                intake = null;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Intake i = snapshot.getValue(Intake.class);
+                    position = Integer.parseInt(snapshot.getKey());
+
+                    if(i.uuid.equals(uuid)){
+                        intake = i;
+                        position = Integer.parseInt(snapshot.getKey());
+                        break;
+                    }
+                }
+
+                if(intake == null){
+                    dismiss();
+                    return;
+                }
+
+                amount_input.setText(intake.getSize()+ "");
+                timePicker.setHour(intake.getDateTime().getHour());
+                timePicker.setMinute(intake.getDateTime().getMinute());
+
+                initScrollValues(adapter);
+
+                if(other){
+                    typed.setVisibility(View.VISIBLE);
+                    seltypedLayout.setVisibility(View.VISIBLE);
+                }
+
+
             }
-        }
 
-        if(intake == null){
-            dismiss();
-            return view;
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        sletReg = view.findViewById(R.id.deleteReg);
-        sletReg.setOnClickListener(this);
-        gemReg = view.findViewById(R.id.saveChanges);
-        gemReg.setOnClickListener(this);
-        close =view.findViewById(R.id.close_button);
-        close.setOnClickListener(this);
+            }
+        });
 
-        selftyped = view.findViewById(R.id.selftyped1);
-       // seltypedLayout = view.findViewById(R.id.layout_liquid);
-        amount_input = view.findViewById(R.id.amount);
-        amount_input.setText(intake.getSize()+ "");
-
-        timePicker = view.findViewById(R.id.timepicker);
-        timePicker.setIs24HourView(true);
-        timePicker.setOnTimeChangedListener(this);
-        timePicker.setHour(intake.getDateTime().getHour());
-        timePicker.setMinute(intake.getDateTime().getMinute());
-
-        spinner = view.findViewById(R.id.scrollvalg1);
-
-        //timer = view.findViewById(R.id.timefield);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.fluidtypes, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-        initScrollValues(adapter);
-
-        if(other == true){
-            selftyped.setVisibility(View.VISIBLE);
-            seltypedLayout.setVisibility(View.VISIBLE);
-        }
 
         return view;
     }
-
-
-
-
 
 
     @Override
@@ -120,11 +136,11 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
             LocalDateTime date = LocalDate.now().atTime(timePicker.getHour(),timePicker.getMinute());
 
             if (other){
-                if(selftyped.getText().toString().equals("")){
+                if(typed.getText().toString().equals("")){
                     intake.setType("Andet");
                 }
                 else {
-                    intake.setType(selftyped.getText().toString());
+                    intake.setType(typed.getText().toString());
                 }
 
             }
@@ -136,6 +152,7 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
             dismiss();
         } else if (vv == sletReg) {
+
             Context context = getActivity();
             String title = "Slet";
             String message = "Er du sikker på du vil slette denne registrering?";
@@ -148,41 +165,46 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
             ad.setPositiveButton(
                     button1String,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int arg1) {
-                            App.currentUser.getRegistrations().remove(position);
-                            App.intakeRef.child(position+"").removeValue();
-                            dismiss();
-                        }
+                    (dialog, arg1) -> {
+                        App.intakeRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                ArrayList<Intake> i = new ArrayList();
+
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    i.add(snapshot.getValue(Intake.class));
+                                }
+
+                                i.remove(position);
+                                App.intakeRef.setValue(i);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        dismiss();
                     }
             );
 
             ad.setNegativeButton(
                     button2String,
-                    new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int arg1) {
-                            // do nothing
-                        }
+                    (dialog, arg1) -> {
+                        // do nothing
                     }
             );
 
             //
             ad.show();
 
-
         }
         if (vv== close){
             dismiss();
 
         }
-    }
-
-    private void getTypeReg() {
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.fluidtypes, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
     }
 
 
@@ -209,12 +231,12 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
         if (intake.getType().equals("Andet")) {
             other = true;
-            selftyped.setVisibility(View.VISIBLE);
+            typed.setVisibility(View.VISIBLE);
             seltypedLayout.setVisibility(View.VISIBLE);
 
         } else {
             other = false;
-            selftyped.setVisibility(View.INVISIBLE);
+            typed.setVisibility(View.INVISIBLE);
             seltypedLayout.setVisibility(View.INVISIBLE);
 
         }
@@ -225,13 +247,6 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
     }
 
-    @Override
-    public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-        this.hour = hourOfDay;
-        this.minute = minute;
-
-    }
-
     private void initScrollValues(ArrayAdapter<CharSequence> adapter) {
 
 
@@ -239,21 +254,11 @@ public class edit_liquid extends DialogFragment implements View.OnClickListener,
 
         if (scrollPosition == -1) {
             other = true;
-            selftyped.setText(intake.getType());
+            typed.setText(intake.getType());
             scrollPosition = adapter.getPosition("Andet");
         }
         spinner.setSelection(scrollPosition, true);
 
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-
-        // https://stackoverflow.com/questions/23786033/dialogfragment-and-ondismiss
-        Fragment parentFragment = getParentFragment();
-        if (parentFragment instanceof DialogInterface.OnDismissListener) {
-            ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
-        }
-    }
 }

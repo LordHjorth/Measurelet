@@ -14,7 +14,7 @@
     <fragment
 
         android:id="@+id/daily_view_frag"
-        android:name="com.measurelet.Daily_view_frag"
+        android:name="com.measurelet.daily.DailyViewFrag"
         android:label="Daily_view_frag" />
     <fragment
         android:id="@+id/registration_standard_frag"
@@ -136,7 +136,7 @@
 
     <fragment
         android:id="@+id/edit_liquid"
-        android:name="com.measurelet.edit_liquid"
+        android:name="com.measurelet.daily.EditLiquidDialog"
         android:label="edit_liquid"
         tools:layout="@layout/edit_liquid" />
 

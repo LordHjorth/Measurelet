@@ -17,6 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.measurelet.App;
 import com.measurelet.model.Weight;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
@@ -66,10 +68,10 @@ public class EditWeightDialog extends DialogFragment implements View.OnClickList
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Weight w = snapshot.getValue(Weight.class);
-                    position = Integer.parseInt(snapshot.getKey());
 
                     if(w.uuid.equals(uuid)){
                         weight = w;
+                        position = Integer.parseInt(snapshot.getKey());
                         break;
                     }
                 }
@@ -120,7 +122,27 @@ public class EditWeightDialog extends DialogFragment implements View.OnClickList
             ad.setPositiveButton(
                     button1String,
                     (dialog, arg1) -> {
-                        App.weightRef.child(position+"").removeValue();
+
+                        App.weightRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                ArrayList<Weight> w = new ArrayList();
+
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    w.add(snapshot.getValue(Weight.class));
+                                }
+
+                                w.remove(position);
+                                App.weightRef.setValue(w);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
                         dismiss();
                     }
             );
