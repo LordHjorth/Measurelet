@@ -7,11 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.view.Gravity;
 import android.widget.RemoteViews;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.App;
 import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.InternetConnectivityCheck;
 import com.measurelet.Model.Intake;
 
 import java.util.ArrayList;
@@ -59,9 +63,10 @@ public class QuickAddWidget extends AppWidgetProvider {
         PendingIntent pendingonClickGetPosition = PendingIntent.getBroadcast(context, 1, onClickGetPosition, 0);
         views.setPendingIntentTemplate(R.id.widget_selection_listview, pendingonClickGetPosition);
 
-        if(App.isOnline()){
+
+        new InternetConnectivityCheck(internet -> {
             new WidgetButtonAsyncTask().execute();
-        }
+        });
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -93,9 +98,9 @@ public class QuickAddWidget extends AppWidgetProvider {
         }
         if (ACTION_REFRESH.equals(intent.getAction())) {
             System.out.println("The refresh button was clicked!");
-            if(App.isOnline()){
+            new InternetConnectivityCheck(internet -> {
                 new WidgetButtonAsyncTask().execute();
-            }
+            });
         }
 
         super.onReceive(context, intent);
@@ -107,7 +112,6 @@ public class QuickAddWidget extends AppWidgetProvider {
 
         k = result.subList(0, 4);
     }
-
 
 
     private static class WidgetButtonAsyncTask extends AsyncTask {

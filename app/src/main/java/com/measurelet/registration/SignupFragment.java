@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.measurelet.App;
 import com.measurelet.Factories.PatientFactory;
+import com.measurelet.InternetConnectivityCheck;
 import com.measurelet.MainActivity;
 import com.measurelet.Model.Patient;
 
@@ -61,8 +62,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         boolean error = false;
 
 
-
-        if(name.getText().toString().equalsIgnoreCase("")){
+        if (name.getText().toString().equalsIgnoreCase("")) {
             name_l.setError("Du skal indtaste dit navn.");
             error = true;
         } else {
@@ -71,7 +71,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         // Bed
         // Empty
-        if(bed.getText().toString().equalsIgnoreCase("")){
+        if (bed.getText().toString().equalsIgnoreCase("")) {
             bed_l.setError("Du skal indtaste dit senge nummer. Ved problemer spørg personalet");
             error = true;
         } else {
@@ -79,23 +79,29 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         }
 
 
-        if(error){
+        if (error) {
             return;
         }
 
-        if(!App.isOnline()){
-            Toast toast = Toast.makeText(this.getContext(), "Ingen internet forbindelse.\nLog på internettet, og forsøg igen", Toast.LENGTH_LONG);
-            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-            if( v != null) {
-                v.setGravity(Gravity.CENTER);
+
+        ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
+
+        new InternetConnectivityCheck(internet -> {
+            if(!internet){
+                Toast toast = Toast.makeText(this.getContext(), "Ingen internet forbindelse.\nLog på internettet, og forsøg igen", Toast.LENGTH_LONG);
+                TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                if (v != null) {
+                    v.setGravity(Gravity.CENTER);
+                }
+                toast.show();
+                return;
             }
-            toast.show();
-            return;
-        }
+            else{
+                new AsyncThread().execute();
+            }
+        });
 
-
-         ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
-         new AsyncThread().execute();
+        System.out.println("Intenet check succeeded");
 
     }
 
@@ -105,6 +111,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         protected Void doInBackground(Void... voids) {
 
 
+            System.out.println("Async task in background");
             PatientFactory.InsertPatient(patient);
 
             //App.referenceStartUp();
@@ -113,6 +120,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPreExecute() {
+            System.out.println("Async task begun");
             patient = new Patient(name.getText().toString(), Integer.parseInt(bed.getText().toString()));
             App.preferenceManager.edit().putString("KEY", patient.uuid).commit();
             App.setupRef(App.getAppDatabase(), patient.uuid);
@@ -120,6 +128,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+
+            System.out.println("Async task finnished");
             App.loggedIn = true;
             MainActivity activity = ((MainActivity) getActivity());
             activity.getAddAnimation(2).cancelAnimation();
