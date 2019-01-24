@@ -100,6 +100,7 @@ public class WeeklyViewFrag extends BaseFragment{
             }
 
             BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
+            data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
 
             BarData barData = new BarData(data);
             barData.setBarWidth(0.7f);
@@ -118,7 +119,6 @@ public class WeeklyViewFrag extends BaseFragment{
             xAxisDate.setDrawGridLines(false);
             barGraph.getAxisLeft().setAxisMinimum(0);
             barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 500);
-            data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
             barGraph.getAxisRight().setEnabled(false);
 
             xAxisDate.setPosition(XAxis.XAxisPosition.BOTTOM);

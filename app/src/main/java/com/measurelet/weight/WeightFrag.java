@@ -84,6 +84,11 @@ public class WeightFrag extends BaseFragment{
                     LineDataSet data = new LineDataSet(datapoints, "Vægt kg");
                     LineData lineData = new LineData(data);
 
+                    data.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+                    data.setCircleHoleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+                    data.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
+
                     lineChart.setData(lineData);
 
                     XAxis xAxisDato = lineChart.getXAxis();
@@ -103,10 +108,6 @@ public class WeightFrag extends BaseFragment{
                     xAxisDato.setSpaceMin(0.4f);
                     xAxisDato.setDrawGridLines(false);
                     data.setValueTextSize(10);
-
-                    data.setCircleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-                    data.setCircleHoleColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-                    data.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
 
                     lineChart.invalidate();
 

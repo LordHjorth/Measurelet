@@ -170,6 +170,8 @@ public class DailyViewFrag extends BaseFragment implements View.OnClickListener 
             BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
 
             BarData barData = new BarData(data);
+            data.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+
             barData.setBarWidth(0.7f);
             barData.setValueFormatter((value, entry, dataSetIndex, viewPortHandler) -> {
 
@@ -194,7 +196,6 @@ public class DailyViewFrag extends BaseFragment implements View.OnClickListener 
             barGraph.getAxisLeft().setAxisMinimum(0);
             barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 200);
 
-            data.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
             barGraph.getAxisRight().setEnabled(false);
             xAxisDate.setPosition(XAxis.XAxisPosition.BOTTOM);
             Legend l = barGraph.getLegend();
