@@ -1,6 +1,5 @@
-package com.measurelet;
+package com.measurelet.dashboard;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +7,11 @@ import android.view.ViewGroup;
 
 import com.example.hjorth.measurelet.R;
 import com.google.android.material.button.MaterialButton;
+import com.measurelet.App;
 import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.MainActivity;
 import com.measurelet.Model.Intake;
 
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Registration_standard_frag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
+public class RegistrationStandardFrag extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, View.OnClickListener {
     MyRecyclerViewAdapter adapter;
 
     MaterialButton knap;
@@ -32,9 +32,6 @@ public class Registration_standard_frag extends Fragment implements MyRecyclerVi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View standardfrag = inflater.inflate(R.layout.registration_standard_prove2, container, false);
-
-        // data to populate the RecyclerView with
-
 
         // set up the RecyclerView
 

@@ -1,4 +1,4 @@
-package com.measurelet;
+package com.measurelet.dashboard;
 
 import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.hjorth.measurelet.R;
 import com.measurelet.Model.Intake;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {

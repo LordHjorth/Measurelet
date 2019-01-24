@@ -1,4 +1,4 @@
-package com.measurelet;
+package com.measurelet.dashboard;
 
 import android.app.AlertDialog;
 import android.os.AsyncTask;
@@ -19,13 +19,14 @@ import android.widget.Toast;
 
 import com.example.hjorth.measurelet.R;
 import com.measurelet.Factories.IntakeFactory;
+import com.measurelet.MainActivity;
 import com.measurelet.Model.Intake;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class Registration_custom_frag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class RegistrationCustomFrag extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     private String liqtyp;
     private EditText input_ml, input_type_other;
     private Button add;
