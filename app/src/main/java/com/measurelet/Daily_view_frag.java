@@ -48,9 +48,11 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
     private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
-    private ImageButton back, forward;
-    LinearLayout next;
+    LinearLayout next, previous;
+
     private CardView hej;
+    LocalDate next_date=null;
+    String next_date_string ;
 
     private TextView shownDate;
     Bundle b;
@@ -73,11 +75,10 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
         //hej = dailyView.findViewById(R.id.card_view_graph_table);
 
         shownDate = dailyView.findViewById(R.id.dato_daglig);
-        back =dailyView.findViewById(R.id.back_button);
-        forward =dailyView.findViewById(R.id.forward_button);
-        back.setOnClickListener(this);
-        forward.setOnClickListener(this);
         next = dailyView.findViewById(R.id.next_date);
+        next.setOnClickListener(this);
+        previous=dailyView.findViewById(R.id.previous_date);
+        previous.setOnClickListener(this);
 
         b = getArguments();
         date = null;
@@ -202,14 +203,13 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
 
     @Override
     public void onClick(View v) {
-        if (v==back || v==forward){
-            LocalDate next_date=null;
-            String next_date_string ;
-            if (v == back){
+        if (v==previous || v==next){
+
+            if (v == previous){
                 next_date = date.minusDays(1);
 
             }
-            if (v == forward){
+            if (v == next){
                 next_date = date.plusDays(1);
             }
 
@@ -219,7 +219,7 @@ public class Daily_view_frag extends Fragment implements View.OnClickListener, D
             b.putString("date", next_date_string);
 
             ((MainActivity) getActivity()).getNavC().popBackStack();
-            ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
+            ((MainActivity) getActivity()).getNavC().navigate(R.id.action_daily_navigation, b);
 
         }
 

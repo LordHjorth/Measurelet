@@ -19,34 +19,42 @@
         <TextView
             android:id="@+id/drink"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
+            android:layout_weight="1"
             android:background="@drawable/roundedcorners"
+            android:backgroundTint="@android:color/transparent"
+            android:elevation="1dp"
             android:orientation="vertical">
 
             <Spinner
                 android:id="@+id/scrollvalg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:popupBackground="@color/colorPrimaryLight" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/setsynligt"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:hint="Væsketype"
+            android:elevation="1dp"
             android:visibility="invisible">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -59,7 +67,8 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:hint="Mængde i ml">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -77,7 +86,9 @@
         android:id="@+id/plusbut"
         android:layout_width="0dp"
         android:layout_height="60dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/roundedcorners"
         android:text="Tilføj"

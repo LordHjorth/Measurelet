@@ -8,48 +8,52 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="20dp"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        >
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/tid_daily"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:paddingTop="10dp"
             android:text="Tid"
+            android:textAlignment="center"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/ml_daily"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingTop="10dp"
             android:text="Antal ml"
+            android:textAlignment="center"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/type_daily"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingTop="10dp"
             android:text="Væsketype"
-            android:textAlignment="textStart"
+            android:textAlignment="center"
             android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/edit_daily"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1.2"
             android:backgroundTint="@android:color/transparent"
+            android:clickable="true"
             android:elevation="0dp"
+            android:foreground="?android:attr/selectableItemBackground"
             app:srcCompat="@drawable/edit_btn" />
 
     </LinearLayout>
