@@ -1,4 +1,4 @@
-package com.measurelet;
+package com.measurelet.dashboard;
 
 import android.app.AlertDialog;
 import android.os.AsyncTask;
@@ -17,8 +17,11 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.measurelet.App;
+import com.measurelet.BaseFragment;
 import com.measurelet.Factories.IntakeFactory;
 import com.measurelet.Factories.WeightFactory;
+import com.measurelet.MainActivity;
 import com.measurelet.Model.Intake;
 import com.measurelet.Model.Patient;
 import com.measurelet.Model.Weight;
@@ -34,11 +37,12 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Dashboard_frag extends Fragment implements  View.OnClickListener {
+public class DashboardFrag extends BaseFragment implements View.OnClickListener {
+
+
     private MaterialButton add_btn;
     private TextView overall;
     private LinearLayout mllayout;
@@ -59,10 +63,11 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         dashboard = inflater.inflate(R.layout.dashboard_frag, container, false);
+        dashboard = inflater.inflate(R.layout.dashboard_frag, container, false);
 
         add_btn = dashboard.findViewById(R.id.add_btn);
         add_btn.setOnClickListener(this);
+
         mllayout = dashboard.findViewById(R.id.mllayout);
         mllayout.setOnClickListener(this);
 
@@ -84,52 +89,33 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
         sparkView.setLineWidth(6F);
         sparkView.setSparkAnimator(new MorphSparkAnimator());
 
-
-        new AsyncTask(){
-
-            @Override
-            protected Object doInBackground(Object[] objects) {
-
-                while(App.currentUser == null){
-                    try {
-                        Thread.sleep( 30 );
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Object o) {
-                buildView();
-
-                listener = App.patientRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        buildView();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        System.out.println("Cancelled");
-                    }
-                });
-            }
-        }.execute();
-
-
         ((MainActivity) getActivity()).getSupportActionBar().show();
 
+        addListener(App.patientRef, new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Patient p = dataSnapshot.getValue(Patient.class);
+
+                // No patient exists. It might have been deleted
+                System.out.println(p);
+                if(p == null){
+                    return;
+                }
+
+                buildView(p);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Cancelled");
+            }
+        });
 
         return dashboard;
     }
 
-    public void buildView(){
-
-        Patient patient = App.currentUser;
+    public void buildView(Patient patient) {
 
         ArrayList<Intake> intakes = patient.getIntakesForDate(org.threeten.bp.LocalDate.now());
         overall = dashboard.findViewById(R.id.registrated_amount);
@@ -141,8 +127,7 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
         overall.setText(m + " ml");
 
 
-        new AsyncTask(){
-
+        new AsyncTask() {
 
             @Override
             protected Object doInBackground(Object[] objects) {
@@ -175,7 +160,6 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
         }.execute();
 
 
-
         UpdateButtons(patient.getRegistrations());
 
 
@@ -186,12 +170,12 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
 
         for (Weight w : weights) {
             if (w.getDatetime().getDayOfYear() == org.threeten.bp.LocalDate.now().getDayOfYear() && w.getDatetime().getYear() == LocalDate.now().getYear()) {
-               show = false;
+                show = false;
                 break;
             }
         }
 
-        if(show){
+        if (show) {
             dashboard.findViewById(R.id.card_view_weight_dashboard).setVisibility(View.VISIBLE);
             dashboard.findViewById(R.id.vaegt_registreret).setVisibility(View.INVISIBLE);
         } else {
@@ -201,21 +185,10 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
 
     }
 
-    //REMOVE VALUE EVENTLISTNER...
-    @Override
-    public void onDestroy()
-    {
-
-        if (listener != null) {
-            App.patientRef.removeEventListener(listener);
-        }
-        super.onDestroy();
-    }
-
     private void UpdateButtons(ArrayList<Intake> registrations) {
 
 
-        new AsyncTask(){
+        new AsyncTask() {
 
 
             @Override
@@ -230,13 +203,13 @@ public class Dashboard_frag extends Fragment implements  View.OnClickListener {
             @Override
             protected void onPostExecute(Object o) {
                 List<Intake> k = (List<Intake>) o;
-                if(getContext() != null){
-                adapter = new MyRecyclerViewAdapter(getContext(),k);
+                if (getContext() != null) {
+                    adapter = new MyRecyclerViewAdapter(getContext(), k);
 
-                adapter.setClickListener((view, position) -> onItemClick(view, position));
-                recyclerView.setAdapter(adapter);
+                    adapter.setClickListener((view, position) -> onItemClick(view, position));
+                    recyclerView.setAdapter(adapter);
 
-                knapper = k;
+                    knapper = k;
                 }
             }
         }.execute();

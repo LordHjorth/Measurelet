@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/dashboard_frag"
-        android:name="com.measurelet.Dashboard_frag"
+        android:name="com.measurelet.dashboard.DashboardFrag"
         android:label="dashboard_frag"
         tools:layout="@layout/dashboard_frag"></fragment>
     <fragment
@@ -18,7 +18,7 @@
         android:label="Daily_view_frag" />
     <fragment
         android:id="@+id/registration_standard_frag"
-        android:name="com.measurelet.Registration_standard_frag"
+        android:name="com.measurelet.dashboard.RegistrationStandardFrag"
         android:label="registration_standard_frag">
 
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/registration_custom_frag"
-        android:name="com.measurelet.Registration_custom_frag"
+        android:name="com.measurelet.dashboard.RegistrationCustomFrag"
         android:label="registration_custom_frag"
         tools:layout="@layout/registration_custom_frag">
 

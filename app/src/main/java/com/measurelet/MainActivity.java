@@ -76,35 +76,19 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if(App.currentUser == null){
-                    App.currentUser = dataSnapshot.getValue(Patient.class);
-                    return;
+                Patient p = dataSnapshot.getValue(Patient.class);
+                System.out.println(p);
+
+                if (p == null) {
+                    App.preferenceManager.edit().remove("KEY").commit();
+                    navC.navigate(R.id.action_global_introSlidePager);
+                } else {
+                    TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
+                    TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
+
+                    bed.setText(p.getBedNum() + "");
+                    name.setText(p.getName());
                 }
-
-
-                new AsyncTask(){
-
-                    @Override
-                    protected Object doInBackground(Object[] objects) {
-
-                        Patient p = dataSnapshot.getValue(Patient.class);
-                        App.currentUser = p;
-
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Object o) {
-                        super.onPostExecute(o);
-
-                        TextView bed = navigationView.getHeaderView(0).findViewById(R.id.bednumber);
-                        TextView name = navigationView.getHeaderView(0).findViewById(R.id.patientname);
-
-                        bed.setText(App.currentUser.getBedNum() + "");
-                        name.setText(App.currentUser.getName());
-                    }
-                }.execute();
-
             }
 
             @Override

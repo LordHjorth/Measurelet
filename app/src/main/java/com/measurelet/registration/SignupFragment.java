@@ -82,7 +82,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
         if(error){
             return;
         }
-
+        /*
         if(!App.isOnline()){
             Toast toast = Toast.makeText(this.getContext(), "Ingen internet forbindelse.\nLog på internettet, og forsøg igen", Toast.LENGTH_LONG);
             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
@@ -92,6 +92,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
             toast.show();
             return;
         }
+
+        */
 
 
          ((MainActivity) getActivity()).getAddAnimation(2).playAnimation();
