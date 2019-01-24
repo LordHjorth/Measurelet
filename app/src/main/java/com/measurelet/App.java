@@ -9,12 +9,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-import com.measurelet.model.Patient;
 
 public class App extends Application {
 
     public static SharedPreferences preferenceManager;
-     public static Patient currentUser = new Patient();
 
     //Database instance
     private static FirebaseDatabase DB_INSTANCE;

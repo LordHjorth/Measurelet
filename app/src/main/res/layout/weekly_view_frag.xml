@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.measurelet.Weekly_view_frag">
+    tools:context="com.measurelet.weekly.WeeklyViewFrag">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"

@@ -43,7 +43,7 @@
         tools:layout="@layout/profile_frag" />
     <fragment
         android:id="@+id/weekly_view_frag"
-        android:name="com.measurelet.Weekly_view_frag"
+        android:name="com.measurelet.weekly.WeeklyViewFrag"
         android:label="weekly_view_frag"
         tools:layout="@layout/weekly_view_frag" />
 

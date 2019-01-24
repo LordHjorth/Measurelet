@@ -1,4 +1,4 @@
-package com.measurelet;
+package com.measurelet.weekly;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,14 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.measurelet.App;
+import com.measurelet.BaseFragment;
+import com.measurelet.MainActivity;
 import com.measurelet.model.Intake;
+import com.measurelet.model.Patient;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -30,48 +37,64 @@ import java.util.SortedMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 
-public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClickListener {
+public class WeeklyViewFrag extends BaseFragment{
 
-
-    ListView listView;
-    private View view;
     private BarChart barGraph;
-    private BarData barData;
     private ArrayList<BarEntry> datapoints = new ArrayList<>();
-    private XAxis xAxisDato;
     private ArrayList<String> dates = new ArrayList<>();
-    private String d;
-
+    private SortedMap<String, Integer> intakes;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.weekly_view_frag, container, false);
+        View fragment = inflater.inflate(R.layout.weekly_view_frag, container, false);
 
-        listView = view.findViewById(R.id.listWeek);
-        listView.setOnItemClickListener(this);
-        barGraph = view.findViewById(R.id.graph);
+        ListView listView = fragment.findViewById(R.id.listWeek);
 
 
-        createGraph();
+        barGraph = fragment.findViewById(R.id.graph);
 
-        MyAdapter adapter = new MyAdapter(getActivity(), App.currentUser.getIntakesForWeeks());
-        listView.setAdapter(adapter);
 
-        return view;
+        App.patientRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Patient p = dataSnapshot.getValue(Patient.class);
+
+                if(p == null){
+                    return;
+                }
+
+                intakes = p.getIntakesForWeeks();
+
+                createGraph(intakes);
+
+                MyAdapter adapter = new MyAdapter(getActivity(), intakes);
+
+                listView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        return fragment;
     }
 
 
-    private void createGraph() {
-        if (!App.currentUser.getIntakesForWeeks().isEmpty()) {
+    private void createGraph(SortedMap<String, Integer> intakes) {
+
+        if (!intakes.isEmpty()) {
 
             int i = 0;
-            for (Map.Entry<String, Integer> entry : App.currentUser.getIntakesForWeeks().entrySet()) {
+            for (Map.Entry<String, Integer> entry : intakes.entrySet()) {
                 datapoints.add(new BarEntry(i, entry.getValue()));
                 dates.add(LocalDate.parse(entry.getKey()).format(DateTimeFormatter.ofPattern("dd/MM")));
                 i++;
@@ -79,27 +102,27 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
 
             BarDataSet data = new BarDataSet(datapoints, "Væskeindtag ml");
 
-            barData = new BarData(data);
+            BarData barData = new BarData(data);
             barData.setBarWidth(0.7f);
 
             barGraph.setData(barData);
 
-            xAxisDato = barGraph.getXAxis();
-            xAxisDato.setValueFormatter(getformatter());
+            XAxis xAxisDate = barGraph.getXAxis();
+            xAxisDate.setValueFormatter(getFormatter());
             barGraph.setVisibleXRangeMaximum(7);
             barGraph.setVisibleXRangeMinimum(7);
-            xAxisDato.setGranularity(1f);
+            xAxisDate.setGranularity(1f);
             barGraph.centerViewTo(30.5f, 1f, YAxis.AxisDependency.RIGHT);
             barGraph.getAxisRight().setDrawGridLines(false);
             barGraph.getAxisLeft().setDrawGridLines(false);
             barGraph.getDescription().setEnabled(false);
-            xAxisDato.setDrawGridLines(false);
+            xAxisDate.setDrawGridLines(false);
             barGraph.getAxisLeft().setAxisMinimum(0);
             barGraph.getAxisLeft().setAxisMaximum(data.getYMax() + 500);
             data.setColor(ContextCompat.getColor(this.getActivity(), R.color.colorPrimaryDark));
             barGraph.getAxisRight().setEnabled(false);
 
-            xAxisDato.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxisDate.setPosition(XAxis.XAxisPosition.BOTTOM);
             Legend l = barGraph.getLegend();
             l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
             l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -111,18 +134,11 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
         }
     }
 
-    private IAxisValueFormatter getformatter() {
+    private IAxisValueFormatter getFormatter() {
 
-        IAxisValueFormatter formatter = (value, axis) -> dates.toArray(new String[dates.size()])[(int) value];
-        return formatter;
+        return (value, axis) -> dates.toArray(new String[dates.size()])[(int) value];
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Bundle b = new Bundle();
-        b.putString("date", d);
-        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_weekly_to_daily, b);
-    }
 
     private class MyAdapter extends ArrayAdapter<Intake> {
         Context mContext;
@@ -133,36 +149,40 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
             return registrations.size();
         }
 
-        public MyAdapter(@NonNull Context context, SortedMap<String, Integer> registrations) {
+        MyAdapter(@NonNull Context context, SortedMap<String, Integer> registrations) {
             super(context, R.layout.list_weeklyview);
             this.registrations = registrations;
             this.mContext = context;
 
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_weeklyview, parent, false);
 
-             d = registrations.keySet().toArray()[registrations.size() - position - 1].toString();
+
+            String date = registrations.keySet().toArray()[registrations.size() - position - 1].toString();
+
+
             int a = (int) registrations.values().toArray()[registrations.size() - position - 1];
 
             TextView dato = rowView.findViewById(R.id.dato);
-            TextView mængde = rowView.findViewById(R.id.mængde);
+            TextView size = rowView.findViewById(R.id.mængde);
 
-            /*dato.setOnClickListener(view -> {
+            rowView.setOnClickListener(view -> {
                 Bundle b = new Bundle();
-                b.putString("date", d);
+                b.putString("date", date);
 
-                ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
+                ((MainActivity) getActivity()).getNavC().navigate(R.id.action_weekly_to_daily, b);
             });
-            */
 
-            dato.setText(LocalDate.parse(d).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-            mængde.setText(a + " ml");
+            dato.setText(LocalDate.parse(date).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+            size.setText(a + " ml");
 
             return rowView;
         }
