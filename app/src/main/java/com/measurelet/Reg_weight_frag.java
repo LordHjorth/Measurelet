@@ -27,15 +27,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.measurelet.Model.Weight;
-import com.measurelet.registration.edit_weight;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 
 public class Reg_weight_frag extends Fragment implements DialogInterface.OnDismissListener{
