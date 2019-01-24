@@ -64,6 +64,21 @@
         app:popUpToInclusive="false" />
 
 
+    <action android:id="@+id/action_weekly_to_daily"
+        app:destination="@id/daily_view_frag"
+        app:enterAnim="@anim/enter_from_right"
+        app:exitAnim="@anim/exit_to_left"
+        app:popUpTo="@+id/weekly_view_frag"
+        app:popUpToInclusive="false"/>
+
+    <action android:id="@+id/action_daily_navigation"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:destination="@id/daily_view_frag"
+       />
+
     <fragment
         android:id="@+id/reg_weight_frag"
         android:name="com.measurelet.Reg_weight_frag"

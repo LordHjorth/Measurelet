@@ -31,6 +31,7 @@ import java.util.SortedMap;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -121,7 +122,7 @@ public class Weekly_view_frag extends Fragment implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Bundle b = new Bundle();
         b.putString("date", d);
-        ((MainActivity) getActivity()).getNavC().navigate(R.id.daily_view_frag, b);
+        ((MainActivity) getActivity()).getNavC().navigate(R.id.action_weekly_to_daily, b);
     }
 
     private class MyAdapter extends ArrayAdapter<Intake> {
