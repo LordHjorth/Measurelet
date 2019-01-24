@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="Du mangler at registrere vægt i dag"
                 android:textAlignment="center"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:text="Vægt registreret!"
         android:textAlignment="center"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="italic"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/card_view_weight_dashboard"
@@ -175,7 +175,7 @@
             android:text="@string/quick_add_text"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashboardrecycle"

@@ -70,7 +70,7 @@
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
                 android:layout_weight="1"
                 android:text="Mængde"
                 android:textAlignment="textStart"
@@ -102,8 +102,7 @@
             android:dividerHeight="0.5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_view_graph_table" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </LinearLayout>
 

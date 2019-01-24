@@ -1,6 +1,7 @@
 package com.measurelet;
 
 import android.os.AsyncTask;
+import android.os.Build;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -23,10 +24,21 @@ public class InternetConnectivityCheck extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... voids) {
         try {
-            Socket sock = new Socket();
-            sock.connect(new InetSocketAddress("8.8.8.8", 53), 3000);
-            sock.close();
-            return true;
+            // Pingin on emulator doesn't work, so we added a check to keep track on what device the applikacation is running on.
+            // If the device is an Emulator, this method returns true, and therefore we simulate that the device always will have internet access.
+            // This part is added by GruppeQ
+            boolean EMULATOR = Build.PRODUCT.contains("sdk") || Build.MODEL.contains("Emulator");
+            if (!EMULATOR) {
+                Socket sock = new Socket();
+                sock.connect(new InetSocketAddress("8.8.8.8", 53), 3000);
+                sock.close();
+                return true;
+            }
+            else{
+                return true;
+            }
+
+
         } catch (IOException e) {
             return false;
         }

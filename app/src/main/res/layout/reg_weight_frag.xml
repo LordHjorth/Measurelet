@@ -42,7 +42,7 @@
             android:paddingBottom="5dp"
             android:text="@string/seneste"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <TextView

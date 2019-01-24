@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.measurelet.Weekly_view_frag">
 
-   <!-- <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_view_next"
-        style="@style/Widget.MaterialComponents.CardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        !-->
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -83,7 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_arrow_forward_black_24dp" />
 
@@ -98,10 +81,7 @@
         </LinearLayout>
 
     </LinearLayout>
-<!--
-    </com.google.android.material.card.MaterialCardView>
 
-!-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline13"
         android:layout_width="wrap_content"

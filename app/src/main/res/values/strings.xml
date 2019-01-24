@@ -44,6 +44,7 @@
     <string name="profile_frag">Profil</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="author_names">Denne applikation er lavet af:\nEmil Glimø Vinkel,\nSimone Zethof,\nNicolas Vahman,\nMartin Ibsen og\nRasmus Hjorth</string>
 
 
 </resources>

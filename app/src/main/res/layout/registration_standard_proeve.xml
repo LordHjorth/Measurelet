@@ -13,8 +13,7 @@
     app:cardCornerRadius="4dp"
     app:contentPadding="5dp"
     app:cardMaxElevation="2dp"
-    app:cardElevation="2dp"
-    cardUseCompatPadding="true" >
+    app:cardElevation="2dp" >
 
 
 
@@ -30,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:src="@mipmap/ic_launcher"
-            app:srcCompat="@drawable/ic_glass_of_water" />
+            app:srcCompat="@drawable/ic_glass_of_water"
+            android:contentDescription="liquid image" />
 
         <TextView
             android:id="@+id/item_label"

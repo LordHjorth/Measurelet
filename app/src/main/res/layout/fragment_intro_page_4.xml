@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-    android:paddingHorizontal="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:paddingTop="40dp">
 
     <TextView
@@ -44,6 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19"
-        app:srcCompat="@drawable/overview" />
+        app:srcCompat="@drawable/overview"
+        android:contentDescription="Graph example" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

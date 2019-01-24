@@ -41,7 +41,8 @@
                 android:background="@color/cardview_shadow_end_color"
                 android:backgroundTint="@color/background_color"
                 android:backgroundTintMode="@color/background_color"
-                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+                android:contentDescription="go back button" />
 
             <TextView
                 android:id="@+id/textView"
@@ -93,7 +94,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="8dp"
-            android:autoSizeTextType="uniform"
             android:text="Type"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -109,7 +109,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="0dp"
-
             android:hint="væsketype"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/guide55"
@@ -147,7 +146,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@+id/amount"
             app:layout_constraintGuide_percent="0.85"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -200,7 +198,7 @@
                 android:id="@+id/scrollvalg1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="15dp" />
+                android:paddingStart="15dp" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -209,7 +207,6 @@
             android:layout_height="0dp"
             android:hint="Mængde i ml"
             android:maxLength="5"
-
             android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/guideline9"
             app:layout_constraintEnd_toStartOf="@+id/guideright"
@@ -281,7 +278,6 @@
             android:id="@+id/timefield"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="5dp"

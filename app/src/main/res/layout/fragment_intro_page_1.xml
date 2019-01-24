@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:paddingTop="40dp"
     android:background="@color/background_color">
 
@@ -52,7 +53,8 @@
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="197dp"
-            app:srcCompat="@drawable/regnskab" />
+            app:srcCompat="@drawable/regnskab"
+            android:contentDescription="Paper version" />
 
     </com.google.android.material.card.MaterialCardView>
 

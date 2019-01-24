@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:paddingTop="40dp"
     android:background="@color/background_color">
 
@@ -46,6 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:srcCompat="@drawable/liquid_select" />
+        app:srcCompat="@drawable/liquid_select"
+        android:contentDescription="Quick add example" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
