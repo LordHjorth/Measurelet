@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hjorth.measurelet">
 
     <application
@@ -39,6 +38,10 @@
             android:permission="android.permission.BIND_REMOTEVIEWS">
 
         </service>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="08ba8ba3e95a90f3e0645dfbd687797d00a6189b" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

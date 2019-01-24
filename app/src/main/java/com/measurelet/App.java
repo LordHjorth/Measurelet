@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.measurelet.Model.Patient;
 
 import java.io.IOException;
@@ -35,6 +36,8 @@ public class App extends Application {
     public void onCreate() {
         // Required initialization logic here!
         FirebaseApp.initializeApp(this);
+        AndroidThreeTen.init(this);
+
         preferenceManager = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Verify if a user is logged in
