@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavController.OnN
     public void onBackPressed() {
         if (navC.getCurrentDestination().getId() == R.id.introSlidePager) {
             finish();
+            return;
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
