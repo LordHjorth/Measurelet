@@ -133,7 +133,7 @@ public class EditLiquidDialog extends DialogFragment implements View.OnClickList
     public void onClick(View vv) {
 
         if (vv == gemReg) {
-            LocalDateTime date = LocalDate.now().atTime(timePicker.getHour(),timePicker.getMinute());
+            LocalDateTime date = intake.getDateTime().withHour(timePicker.getHour()).withMinute(timePicker.getMinute());
 
             if (other){
                 if(typed.getText().toString().equals("")){
