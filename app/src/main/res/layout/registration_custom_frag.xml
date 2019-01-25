@@ -72,17 +72,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="Mængde i ml"
-            android:inputType="numberDecimal"
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amountofliquid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:nextFocusDown="@id/amountofliquid"
                 android:imeOptions="actionDone"
-                />
+                android:inputType="number"
+                android:nextFocusDown="@id/amountofliquid" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
